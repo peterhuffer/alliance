@@ -71,7 +71,20 @@ public class NitfImageTransformer extends SegmentHandler {
 
         nitfSegmentsFlow.forEachImageSegment(segment -> handleImageSegmentHeader(metacard,
                 segment,
-                polygonList));
+                polygonList))
+                .forEachGraphicSegment(segment -> handleSegmentHeader(metacard,
+                        segment,
+                        GraphicAttribute.values()))
+                .forEachTextSegment(segment -> handleSegmentHeader(metacard,
+                        segment,
+                        TextAttribute.values()))
+                .forEachSymbolSegment(segment -> handleSegmentHeader(metacard,
+                        segment,
+                        SymbolAttribute.values()))
+                .forEachLabelSegment(segment -> handleSegmentHeader(metacard,
+                        segment,
+                        LabelAttribute.values()))
+                .end();
 
         // Set GEOGRAPHY from discovered polygons
         if (polygonList.size() == 1) {
@@ -141,7 +154,7 @@ public class NitfImageTransformer extends SegmentHandler {
                         }
                     });
 
-            LOGGER.debug("Setting the metacard attribute [{}, {}]", Isr.COMMENTS, sb.toString());
+            LOGGER.trace("Setting the metacard attribute [{}, {}]", Isr.COMMENTS, sb.toString());
             metacard.setAttribute(new AttributeImpl(Isr.COMMENTS, sb.toString()));
         }
     }
