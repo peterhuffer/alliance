@@ -25,7 +25,7 @@ public class ExtNitfUtility {
 
     public static AttributeDescriptor createDuplicateDescriptorAndRename(String newName,
             AttributeDescriptor duplicatedDescriptor) {
-        return new AttributeDescriptorImpl(EXT_NITF_PREFIX + newName,
+        return new AttributeDescriptorImpl(newName,
                 duplicatedDescriptor.isIndexed(),
                 duplicatedDescriptor.isStored(),
                 duplicatedDescriptor.isTokenized(),
