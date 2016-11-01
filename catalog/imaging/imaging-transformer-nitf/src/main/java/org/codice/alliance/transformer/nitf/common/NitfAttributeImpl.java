@@ -36,32 +36,32 @@ public class NitfAttributeImpl<T> implements NitfAttribute<T> {
 
     private Set<AttributeDescriptor> attributeDescriptors;
 
-    protected NitfAttributeImpl(String longName, String shortName,
-            Function<T, Serializable> accessorFunction, AttributeType attributeType,
-            String prefix) {
+    protected NitfAttributeImpl(String extNitfName, String shortName,
+            Function<T, Serializable> accessorFunction, AttributeType attributeType) {
         this.shortName = shortName;
-        this.longName = longName;
+        this.longName = extNitfName;
         this.accessorFunction = accessorFunction;
         // retrieving metacard attribute descriptor for this attribute to prevent later lookups
         this.attributeDescriptors = Collections.singleton(new AttributeDescriptorImpl(
-                ExtNitfUtility.EXT_NITF_PREFIX + prefix + longName, true, /* indexed */
+                longName,
+                true, /* indexed */
                 true, /* stored */
                 false, /* tokenized */
                 true, /* multivalued */
                 attributeType));
     }
 
-    protected NitfAttributeImpl(final String longName, final String shortName,
+    protected NitfAttributeImpl(final String attributeName, final String shortName,
             final Function<T, Serializable> accessorFunction,
-            AttributeDescriptor attributeDescriptor, String extNitfName, String prefix) {
+            AttributeDescriptor attributeDescriptor, String extNitfName) {
         this.shortName = shortName;
-        this.longName = longName;
+        this.longName = attributeName;
         this.accessorFunction = accessorFunction;
         this.attributeDescriptors = new HashSet<>();
         this.attributeDescriptors.add(attributeDescriptor);
         if (StringUtils.isNotEmpty(extNitfName)) {
             this.attributeDescriptors.add(ExtNitfUtility.createDuplicateDescriptorAndRename(
-                    prefix + extNitfName, attributeDescriptor));
+                    extNitfName, attributeDescriptor));
         }
     }
 
