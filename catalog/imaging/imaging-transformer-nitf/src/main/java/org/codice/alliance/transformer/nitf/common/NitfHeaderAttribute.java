@@ -46,125 +46,125 @@ public class NitfHeaderAttribute extends NitfAttributeImpl<NitfHeader> {
 
     private static final String PREFIX = ExtNitfUtility.EXT_NITF_PREFIX;
 
-    public static final String FILE_PROFILE_NAME_NAME = PREFIX + "file-profile-name";
+    public static final String FILE_PROFILE_NAME = PREFIX + "file-profile-name";
 
-    public static final String FILE_VERSION_NAME = PREFIX + "file-version";
+    public static final String FILE_VERSION = PREFIX + "file-version";
 
-    public static final String ORIGINATING_STATION_ID_NAME = PREFIX + "originating-station-id";
+    public static final String ORIGINATING_STATION_ID = PREFIX + "originating-station-id";
 
-    public static final String FILE_TITLE_NAME = PREFIX + "file-title";
+    public static final String FILE_TITLE = PREFIX + "file-title";
 
-    public static final String FILE_DATE_AND_TIME_NAME = PREFIX + "file-date-and-time";
+    public static final String FILE_DATE_AND_TIME = PREFIX + "file-date-and-time";
 
-    public static final String FILE_SECURITY_CLASSIFICATION_NAME =
+    public static final String FILE_SECURITY_CLASSIFICATION =
             PREFIX + "file-security-classification";
 
-    public static final String FILE_CLASSIFICATON_SECURITY_SYSTEM_NAME =
+    public static final String FILE_CLASSIFICATON_SECURITY_SYSTEM =
             PREFIX + "file-classification-security-system";
 
-    public static final String FILE_CODEWORDS_NAME = PREFIX + "file-codewords";
+    public static final String FILE_CODEWORDS = PREFIX + "file-codewords";
 
-    public static final String FILE_CONTROL_AND_HANDLING_NAME =
+    public static final String FILE_CONTROL_AND_HANDLING =
             PREFIX + "file-control-and-handling";
 
-    public static final String FILE_RELEASING_INSTRUCTIONS_NAME =
+    public static final String FILE_RELEASING_INSTRUCTIONS =
             PREFIX + "file-releasing-instructions";
 
-    public static final String ORIGINATORS_NAME_NAME = PREFIX + "originators-name";
+    public static final String ORIGINATORS_NAME = PREFIX + "originators-name";
 
-    public static final String ORIGINATORS_PHONE_NUMBER_NAME = PREFIX + "originators-phone-number";
+    public static final String ORIGINATORS_PHONE_NUMBER = PREFIX + "originators-phone-number";
 
-    public static final String COMPLEXITY_LEVEL_NAME = PREFIX + "complexity-level";
+    public static final String COMPLEXITY_LEVEL = PREFIX + "complexity-level";
 
-    public static final String STANDARD_TYPE_NAME = PREFIX + "standard-type";
+    public static final String STANDARD_TYPE = PREFIX + "standard-type";
 
-    public static final String FILE_DECLASSIFICATION_EXEMPTION_NAME =
+    public static final String FILE_DECLASSIFICATION_EXEMPTION =
             PREFIX + "file-declassification-exemption";
 
-    public static final String FILE_DECLASSIFICATION_TYPE_NAME =
+    public static final String FILE_DECLASSIFICATION_TYPE =
             PREFIX + "file-declassification-type";
 
-    public static final String FILE_DECLASSIFICATION_DATE_NAME =
+    public static final String FILE_DECLASSIFICATION_DATE =
             PREFIX + "file-declassification-date";
 
-    public static final String FILE_DOWNGRADE_NAME = PREFIX + "file-downgrade";
+    public static final String FILE_DOWNGRADE = PREFIX + "file-downgrade";
 
-    public static final String FILE_DOWNGRADE_DATE_NAME = PREFIX + "file-downgrade-date";
+    public static final String FILE_DOWNGRADE_DATE = PREFIX + "file-downgrade-date";
 
-    public static final String FILE_CLASSIFICATION_TEXT_NAME = PREFIX + "file-classification-text";
+    public static final String FILE_CLASSIFICATION_TEXT = PREFIX + "file-classification-text";
 
-    public static final String FILE_CLASSIFICATION_AUTHORITY_TYPE_NAME =
+    public static final String FILE_CLASSIFICATION_AUTHORITY_TYPE =
             PREFIX + "file-classification-authority-type";
 
-    public static final String FILE_CLASSIFICATION_AUTHORITY_NAME =
+    public static final String FILE_CLASSIFICATION_AUTHORITY =
             PREFIX + "file-classification-authority";
 
-    public static final String FILE_CLASSIFICATION_REASON_NAME =
+    public static final String FILE_CLASSIFICATION_REASON =
             PREFIX + "file-classification-reason";
 
-    public static final String FILE_SECURITY_SOURCE_DATE_NAME =
+    public static final String FILE_SECURITY_SOURCE_DATE =
             PREFIX + "file-security-source-date";
 
-    public static final String FILE_SECURITY_CONTROL_NUMBER_NAME =
+    public static final String FILE_SECURITY_CONTROL_NUMBER =
             PREFIX + "file-security-control-number";
 
-    public static final String FILE_COPY_NUMBER_NAME = PREFIX + "file-copy-number";
+    public static final String FILE_COPY_NUMBER = PREFIX + "file-copy-number";
 
-    public static final String FILE_NUMBER_OF_COPIES_NAME = PREFIX + "file-number-of-copies";
+    public static final String FILE_NUMBER_OF_COPIES = PREFIX + "file-number-of-copies";
 
-    public static final String FILE_BACKGROUND_COLOR_NAME = PREFIX + "file-background-color";
+    public static final String FILE_BACKGROUND_COLOR = PREFIX + "file-background-color";
 
-    private static final List<NitfAttribute<NitfHeader>> ATTRIBUTES = new LinkedList<>();
+    private static final List<NitfAttribute<NitfHeader>> ATTRIBUTES  = new LinkedList<>();
 
     /*
      * Normalized attributes. These taxonomy terms will be duplicated by `ext.nitf.*` when
      * appropriate
      */
 
-    public static final NitfHeaderAttribute FILE_PROFILE_NAME =
+    public static final NitfHeaderAttribute FILE_PROFILE_NAME_ATTRIBUTE =
             new NitfHeaderAttribute(Media.FORMAT,
                     "FHDR",
                     header -> header.getFileType()
                             .name(),
                     new MediaAttributes().getAttributeDescriptor(Media.FORMAT),
-                    FILE_PROFILE_NAME_NAME);
+                    FILE_PROFILE_NAME);
 
-    public static final NitfHeaderAttribute FILE_VERSION =
+    public static final NitfHeaderAttribute FILE_VERSION_ATTRIBUTE =
             new NitfHeaderAttribute(Media.FORMAT_VERSION,
                     "FVER",
                     header -> header.getFileType()
                             .name(),
                     new MediaAttributes().getAttributeDescriptor(Media.FORMAT),
-                    FILE_VERSION_NAME);
+                    FILE_VERSION);
 
-    public static final NitfHeaderAttribute ORIGINATING_STATION_ID =
+    public static final NitfHeaderAttribute ORIGINATING_STATION_ID_ATTRIBUTE =
             new NitfHeaderAttribute(Isr.ORGANIZATIONAL_UNIT,
                     "OSTAID",
                     NitfHeader::getOriginatingStationId,
                     new IsrAttributes().getAttributeDescriptor(Isr.ORGANIZATIONAL_UNIT),
-                    ORIGINATING_STATION_ID_NAME);
+                    ORIGINATING_STATION_ID);
 
-    public static final NitfHeaderAttribute FILE_TITLE = new NitfHeaderAttribute(Core.TITLE,
+    public static final NitfHeaderAttribute FILE_TITLE_ATTRIBUTE  = new NitfHeaderAttribute(Core.TITLE,
             "FTITLE",
             NitfHeader::getFileTitle,
             new CoreAttributes().getAttributeDescriptor(Core.TITLE),
-            FILE_TITLE_NAME);
+            FILE_TITLE);
 
-    public static final NitfHeaderAttribute FILE_DATE_AND_TIME_CREATED = new NitfHeaderAttribute(
+    public static final NitfHeaderAttribute FILE_DATE_AND_TIME_CREATED_ATTRIBUTE  = new NitfHeaderAttribute(
             Core.CREATED,
             "FDT",
             header -> convertNitfDate(header.getFileDateTime()),
             new CoreAttributes().getAttributeDescriptor(Core.CREATED),
-            FILE_DATE_AND_TIME_NAME);
+            FILE_DATE_AND_TIME);
 
-    public static final NitfHeaderAttribute FILE_DATE_AND_TIME_MODIFIED = new NitfHeaderAttribute(
+    public static final NitfHeaderAttribute FILE_DATE_AND_TIME_MODIFIED_ATTRIBUTE  = new NitfHeaderAttribute(
             Core.MODIFIED,
             "FDT",
             header -> convertNitfDate(header.getFileDateTime()),
             new CoreAttributes().getAttributeDescriptor(Core.MODIFIED),
             "");
 
-    public static final NitfHeaderAttribute FILE_DATE_AND_TIME_EFFECTIVE = new NitfHeaderAttribute(
+    public static final NitfHeaderAttribute FILE_DATE_AND_TIME_EFFECTIVE_ATTRIBUTE  = new NitfHeaderAttribute(
             Metacard.EFFECTIVE,
             "FDT",
             header -> convertNitfDate(header.getFileDateTime()),
@@ -175,176 +175,176 @@ public class NitfHeaderAttribute extends NitfAttributeImpl<NitfHeader> {
                     BasicTypes.DATE_TYPE),
             "");
 
-    public static final NitfHeaderAttribute FILE_SECURITY_CLASSIFICATION = new NitfHeaderAttribute(
+    public static final NitfHeaderAttribute FILE_SECURITY_CLASSIFICATION_ATTRIBUTE  = new NitfHeaderAttribute(
             Security.CLASSIFICATION,
             "FSCLAS",
             header -> header.getFileSecurityMetadata()
                     .getSecurityClassification()
                     .name(),
             new SecurityAttributes().getAttributeDescriptor(Security.CLASSIFICATION),
-            FILE_SECURITY_CLASSIFICATION_NAME);
+            FILE_SECURITY_CLASSIFICATION);
 
-    public static final NitfHeaderAttribute FILE_CLASSIFICATION_SECURITY_SYSTEM =
+    public static final NitfHeaderAttribute FILE_CLASSIFICATION_SECURITY_SYSTEM_ATTRIBUTE =
             new NitfHeaderAttribute(Security.CLASSIFICATION_SYSTEM,
                     "FSCLSY",
                     header -> header.getFileSecurityMetadata()
                             .getSecurityClassificationSystem(),
                     new SecurityAttributes().getAttributeDescriptor(Security.CLASSIFICATION_SYSTEM),
-                    FILE_CLASSIFICATON_SECURITY_SYSTEM_NAME);
+                    FILE_CLASSIFICATON_SECURITY_SYSTEM);
 
-    public static final NitfHeaderAttribute FILE_CODE_WORDS =
+    public static final NitfHeaderAttribute FILE_CODE_WORDS_ATTRIBUTE =
             new NitfHeaderAttribute(Security.CODEWORDS,
                     "FSCODE",
                     header -> header.getFileSecurityMetadata()
                             .getCodewords(),
                     new SecurityAttributes().getAttributeDescriptor(Security.CODEWORDS),
-                    FILE_CODEWORDS_NAME);
+                    FILE_CODEWORDS);
 
-    public static final NitfHeaderAttribute FILE_CONTROL_AND_HANDLING = new NitfHeaderAttribute(
+    public static final NitfHeaderAttribute FILE_CONTROL_AND_HANDLING_ATTRIBUTE  = new NitfHeaderAttribute(
             Security.DISSEMINATION_CONTROLS,
             "FSCTLH",
             header -> header.getFileSecurityMetadata()
                     .getControlAndHandling(),
             new SecurityAttributes().getAttributeDescriptor(Security.DISSEMINATION_CONTROLS),
-            FILE_CONTROL_AND_HANDLING_NAME);
+            FILE_CONTROL_AND_HANDLING);
 
-    public static final NitfHeaderAttribute FILE_RELEASING_INSTRUCTIONS = new NitfHeaderAttribute(
+    public static final NitfHeaderAttribute FILE_RELEASING_INSTRUCTIONS_ATTRIBUTE  = new NitfHeaderAttribute(
             Security.RELEASABILITY,
             "FSREL",
             header -> header.getFileSecurityMetadata()
                     .getReleaseInstructions(),
             new SecurityAttributes().getAttributeDescriptor(Security.RELEASABILITY),
-            FILE_RELEASING_INSTRUCTIONS_NAME);
+            FILE_RELEASING_INSTRUCTIONS);
 
-    public static final NitfHeaderAttribute ORIGINATORS_NAME =
+    public static final NitfHeaderAttribute ORIGINATORS_NAME_ATTRIBUTE =
             new NitfHeaderAttribute(Contact.CREATOR_NAME,
                     "ONAME",
                     NitfHeader::getOriginatorsName,
                     new ContactAttributes().getAttributeDescriptor(Contact.CREATOR_NAME),
-                    ORIGINATORS_NAME_NAME);
+                    ORIGINATORS_NAME);
 
-    public static final NitfHeaderAttribute ORIGINATORS_PHONE_NUMBER = new NitfHeaderAttribute(
+    public static final NitfHeaderAttribute ORIGINATORS_PHONE_NUMBER_ATTRIBUTE  = new NitfHeaderAttribute(
             Contact.CREATOR_PHONE,
             "OPHONE",
             NitfHeader::getOriginatorsPhoneNumber,
             new ContactAttributes().getAttributeDescriptor(Contact.CREATOR_PHONE),
-            ORIGINATORS_PHONE_NUMBER_NAME);
+            ORIGINATORS_PHONE_NUMBER);
 
     /*
      * Non normalized attributes
      */
 
-    public static final NitfHeaderAttribute COMPLEXITY_LEVEL = new NitfHeaderAttribute(
-            COMPLEXITY_LEVEL_NAME,
+    public static final NitfHeaderAttribute COMPLEXITY_LEVEL_ATTRIBUTE  = new NitfHeaderAttribute(
+            COMPLEXITY_LEVEL,
             "CLEVEL",
             NitfHeader::getComplexityLevel,
             BasicTypes.INTEGER_TYPE);
 
-    public static final NitfHeaderAttribute FILE_DATE_AND_TIME = new NitfHeaderAttribute(
-            FILE_DATE_AND_TIME_NAME,
+    public static final NitfHeaderAttribute FILE_DATE_AND_TIME_ATTRIBUTE  = new NitfHeaderAttribute(
+            FILE_DATE_AND_TIME,
             "FDT",
             header -> convertNitfDate(header.getFileDateTime()),
             BasicTypes.DATE_TYPE);
 
-    public static final NitfHeaderAttribute STANDARD_TYPE = new NitfHeaderAttribute(
-            STANDARD_TYPE_NAME,
+    public static final NitfHeaderAttribute STANDARD_TYPE_ATTRIBUTE  = new NitfHeaderAttribute(
+            STANDARD_TYPE,
             "STYPE",
             NitfHeader::getStandardType,
             BasicTypes.STRING_TYPE);
 
-    public static final NitfHeaderAttribute FILE_DECLASSIFICATION_EXEMPTION =
-            new NitfHeaderAttribute(FILE_DECLASSIFICATION_EXEMPTION_NAME,
+    public static final NitfHeaderAttribute FILE_DECLASSIFICATION_EXEMPTION_ATTRIBUTE =
+            new NitfHeaderAttribute(FILE_DECLASSIFICATION_EXEMPTION,
                     "FSDCXM",
                     header -> header.getFileSecurityMetadata()
                             .getDeclassificationExemption(),
                     BasicTypes.STRING_TYPE);
 
-    public static final NitfHeaderAttribute FILE_DECLASSIFICATION_TYPE = new NitfHeaderAttribute(
-            FILE_DECLASSIFICATION_TYPE_NAME,
+    public static final NitfHeaderAttribute FILE_DECLASSIFICATION_TYPE_ATTRIBUTE  = new NitfHeaderAttribute(
+            FILE_DECLASSIFICATION_TYPE,
             "FSDCTP",
             header -> header.getFileSecurityMetadata()
                     .getDeclassificationType(),
             BasicTypes.STRING_TYPE);
 
-    public static final NitfHeaderAttribute FILE_DECLASSIFICATION_DATE = new NitfHeaderAttribute(
-            FILE_DECLASSIFICATION_DATE_NAME,
+    public static final NitfHeaderAttribute FILE_DECLASSIFICATION_DATE_ATTRIBUTE  = new NitfHeaderAttribute(
+            FILE_DECLASSIFICATION_DATE,
             "FSDCDT",
             header -> header.getFileSecurityMetadata()
                     .getDeclassificationDate(),
             BasicTypes.STRING_TYPE);
 
-    public static final NitfHeaderAttribute FILE_DOWNGRADE = new NitfHeaderAttribute(
-            FILE_DOWNGRADE_NAME,
+    public static final NitfHeaderAttribute FILE_DOWNGRADE_ATTRIBUTE  = new NitfHeaderAttribute(
+            FILE_DOWNGRADE,
             "FSDG",
             header -> header.getFileSecurityMetadata()
                     .getDowngrade(),
             BasicTypes.STRING_TYPE);
 
-    public static final NitfHeaderAttribute FILE_DOWNGRADE_DATE = new NitfHeaderAttribute(
-            FILE_DOWNGRADE_DATE_NAME,
+    public static final NitfHeaderAttribute FILE_DOWNGRADE_DATE_ATTRIBUTE  = new NitfHeaderAttribute(
+            FILE_DOWNGRADE_DATE,
             "FSDGDT",
             header -> header.getFileSecurityMetadata()
                     .getDowngradeDate(),
             BasicTypes.STRING_TYPE);
 
-    public static final NitfHeaderAttribute FILE_CLASSIFICATION_TEXT = new NitfHeaderAttribute(
-            FILE_CLASSIFICATION_TEXT_NAME,
+    public static final NitfHeaderAttribute FILE_CLASSIFICATION_TEXT_ATTRIBUTE  = new NitfHeaderAttribute(
+            FILE_CLASSIFICATION_TEXT,
             "FSCLTX",
             header -> header.getFileSecurityMetadata()
                     .getClassificationText(),
             BasicTypes.STRING_TYPE);
 
-    public static final NitfHeaderAttribute FILE_CLASSIFICATION_AUTHORITY_TYPE =
-            new NitfHeaderAttribute(FILE_CLASSIFICATION_AUTHORITY_TYPE_NAME,
+    public static final NitfHeaderAttribute FILE_CLASSIFICATION_AUTHORITY_TYPE_ATTRIBUTE =
+            new NitfHeaderAttribute(FILE_CLASSIFICATION_AUTHORITY_TYPE,
                     "FSCATP",
                     header -> header.getFileSecurityMetadata()
                             .getClassificationAuthorityType(),
                     BasicTypes.STRING_TYPE);
 
-    public static final NitfHeaderAttribute FILE_CLASSIFICATION_AUTHORITY = new NitfHeaderAttribute(
-            FILE_CLASSIFICATION_AUTHORITY_NAME,
+    public static final NitfHeaderAttribute FILE_CLASSIFICATION_AUTHORITY_ATTRIBUTE  = new NitfHeaderAttribute(
+            FILE_CLASSIFICATION_AUTHORITY,
             "FSCAUT",
             header -> header.getFileSecurityMetadata()
                     .getClassificationAuthority(),
             BasicTypes.STRING_TYPE);
 
-    public static final NitfHeaderAttribute FILE_CLASSIFICATION_REASON = new NitfHeaderAttribute(
-            FILE_CLASSIFICATION_REASON_NAME,
+    public static final NitfHeaderAttribute FILE_CLASSIFICATION_REASON_ATTRIBUTE  = new NitfHeaderAttribute(
+            FILE_CLASSIFICATION_REASON,
             "FSCRSN",
             header -> header.getFileSecurityMetadata()
                     .getClassificationReason(),
             BasicTypes.STRING_TYPE);
 
-    public static final NitfHeaderAttribute FILE_SECURITY_SOURCE_DATE = new NitfHeaderAttribute(
-            FILE_SECURITY_SOURCE_DATE_NAME,
+    public static final NitfHeaderAttribute FILE_SECURITY_SOURCE_DATE_ATTRIBUTE  = new NitfHeaderAttribute(
+            FILE_SECURITY_SOURCE_DATE,
             "FSSRDT",
             header -> header.getFileSecurityMetadata()
                     .getSecuritySourceDate(),
             BasicTypes.STRING_TYPE);
 
-    public static final NitfHeaderAttribute FILE_SECURITY_CONTROL_NUMBER = new NitfHeaderAttribute(
-            FILE_SECURITY_CONTROL_NUMBER_NAME,
+    public static final NitfHeaderAttribute FILE_SECURITY_CONTROL_NUMBER_ATTRIBUTE  = new NitfHeaderAttribute(
+            FILE_SECURITY_CONTROL_NUMBER,
             "FSCTLN",
             header -> header.getFileSecurityMetadata()
                     .getSecurityControlNumber(),
             BasicTypes.STRING_TYPE);
 
-    public static final NitfHeaderAttribute FILE_COPY_NUMBER = new NitfHeaderAttribute(
-            FILE_COPY_NUMBER_NAME,
+    public static final NitfHeaderAttribute FILE_COPY_NUMBER_ATTRIBUTE  = new NitfHeaderAttribute(
+            FILE_COPY_NUMBER,
             "FSCOP",
             header -> header.getFileSecurityMetadata()
                     .getFileCopyNumber(),
             BasicTypes.STRING_TYPE);
 
-    public static final NitfHeaderAttribute FILE_NUMBER_OF_COPIES = new NitfHeaderAttribute(
-            FILE_NUMBER_OF_COPIES_NAME,
+    public static final NitfHeaderAttribute FILE_NUMBER_OF_COPIES_ATTRIBUTE  = new NitfHeaderAttribute(
+            FILE_NUMBER_OF_COPIES,
             "FSCPYS",
             header -> header.getFileSecurityMetadata()
                     .getFileNumberOfCopies(),
             BasicTypes.STRING_TYPE);
 
-    public static final NitfHeaderAttribute FILE_BACKGROUND_COLOR = new NitfHeaderAttribute(
-            FILE_BACKGROUND_COLOR_NAME,
+    public static final NitfHeaderAttribute FILE_BACKGROUND_COLOR_ATTRIBUTE  = new NitfHeaderAttribute(
+            FILE_BACKGROUND_COLOR,
             "FBKGC",
             header -> header.getFileBackgroundColour() != null ?
                     header.getFileBackgroundColour()

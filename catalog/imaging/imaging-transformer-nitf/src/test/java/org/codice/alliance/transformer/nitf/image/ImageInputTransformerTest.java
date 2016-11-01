@@ -484,35 +484,35 @@ public class ImageInputTransformerTest {
     private Map<NitfAttribute, Object> initAttributesToBeAsserted() {
         //key value pair of attributes and expected getAttributes
         Map<NitfAttribute, Object> map = new HashMap<>();
-        map.put(NitfHeaderAttribute.FILE_PROFILE_NAME, "NITF_TWO_ONE");
-        map.put(NitfHeaderAttribute.FILE_VERSION, "NITF_TWO_ONE");
-        map.put(NitfHeaderAttribute.COMPLEXITY_LEVEL, 3);
-        map.put(NitfHeaderAttribute.STANDARD_TYPE, "BF01");
-        map.put(NitfHeaderAttribute.ORIGINATING_STATION_ID, "i_3001a");
-        map.put(NitfHeaderAttribute.FILE_TITLE,
+        map.put(NitfHeaderAttribute.FILE_PROFILE_NAME_ATTRIBUTE, "NITF_TWO_ONE");
+        map.put(NitfHeaderAttribute.FILE_VERSION_ATTRIBUTE, "NITF_TWO_ONE");
+        map.put(NitfHeaderAttribute.COMPLEXITY_LEVEL_ATTRIBUTE, 3);
+        map.put(NitfHeaderAttribute.STANDARD_TYPE_ATTRIBUTE, "BF01");
+        map.put(NitfHeaderAttribute.ORIGINATING_STATION_ID_ATTRIBUTE, "i_3001a");
+        map.put(NitfHeaderAttribute.FILE_TITLE_ATTRIBUTE,
                 "Checks an uncompressed 1024x1024 8 bit mono image with GEOcentric data. Airfield");
-        map.put(NitfHeaderAttribute.FILE_SECURITY_CLASSIFICATION, "UNCLASSIFIED");
-        map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_SECURITY_SYSTEM, null);
-        map.put(NitfHeaderAttribute.FILE_CODE_WORDS, null);
-        map.put(NitfHeaderAttribute.FILE_CONTROL_AND_HANDLING, null);
-        map.put(NitfHeaderAttribute.FILE_RELEASING_INSTRUCTIONS, null);
-        map.put(NitfHeaderAttribute.FILE_DECLASSIFICATION_TYPE, null);
-        map.put(NitfHeaderAttribute.FILE_DECLASSIFICATION_DATE, null);
-        map.put(NitfHeaderAttribute.FILE_DECLASSIFICATION_EXEMPTION, null);
-        map.put(NitfHeaderAttribute.FILE_DOWNGRADE, null);
-        map.put(NitfHeaderAttribute.FILE_RELEASING_INSTRUCTIONS, null);
-        map.put(NitfHeaderAttribute.FILE_DOWNGRADE_DATE, null);
-        map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_TEXT, null);
-        map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_AUTHORITY_TYPE, null);
-        map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_AUTHORITY, null);
-        map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_REASON, null);
-        map.put(NitfHeaderAttribute.FILE_SECURITY_SOURCE_DATE, null);
-        map.put(NitfHeaderAttribute.FILE_SECURITY_CONTROL_NUMBER, null);
-        map.put(NitfHeaderAttribute.FILE_COPY_NUMBER, "00000");
-        map.put(NitfHeaderAttribute.FILE_NUMBER_OF_COPIES, "00000");
-        map.put(NitfHeaderAttribute.FILE_BACKGROUND_COLOR, "[0xff,0xff,0xff]");
-        map.put(NitfHeaderAttribute.ORIGINATORS_NAME, "JITC Fort Huachuca, AZ");
-        map.put(NitfHeaderAttribute.ORIGINATORS_PHONE_NUMBER, "(520) 538-5458");
+        map.put(NitfHeaderAttribute.FILE_SECURITY_CLASSIFICATION_ATTRIBUTE, "UNCLASSIFIED");
+        map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_SECURITY_SYSTEM_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_CODE_WORDS_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_CONTROL_AND_HANDLING_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_RELEASING_INSTRUCTIONS_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_DECLASSIFICATION_TYPE_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_DECLASSIFICATION_DATE_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_DECLASSIFICATION_EXEMPTION_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_DOWNGRADE_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_RELEASING_INSTRUCTIONS_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_DOWNGRADE_DATE_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_TEXT_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_AUTHORITY_TYPE_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_AUTHORITY_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_REASON_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_SECURITY_SOURCE_DATE_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_SECURITY_CONTROL_NUMBER_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_COPY_NUMBER_ATTRIBUTE, "00000");
+        map.put(NitfHeaderAttribute.FILE_NUMBER_OF_COPIES_ATTRIBUTE, "00000");
+        map.put(NitfHeaderAttribute.FILE_BACKGROUND_COLOR_ATTRIBUTE, "[0xff,0xff,0xff]");
+        map.put(NitfHeaderAttribute.ORIGINATORS_NAME_ATTRIBUTE, "JITC Fort Huachuca, AZ");
+        map.put(NitfHeaderAttribute.ORIGINATORS_PHONE_NUMBER_ATTRIBUTE, "(520) 538-5458");
         map.put(ImageAttribute.FILE_PART_TYPE, "IM");
         map.put(ImageAttribute.IMAGE_IDENTIFIER_1, "Missing ID");
         map.put(ImageAttribute.TARGET_IDENTIFIER, null);
@@ -551,7 +551,7 @@ public class ImageInputTransformerTest {
     private Map<NitfAttribute, String> initDateAttributesToBeAsserted() {
         //key value pair of attributes and expected getAttributes
         Map<NitfAttribute, String> map = new HashMap<>();
-        map.put(NitfHeaderAttribute.FILE_DATE_AND_TIME, "1997-12-17T10:26:30Z");
+        map.put(NitfHeaderAttribute.FILE_DATE_AND_TIME_ATTRIBUTE, "1997-12-17T10:26:30Z");
         map.put(ImageAttribute.IMAGE_DATE_AND_TIME, "1996-12-17T10:26:30Z");
         return map;
     }
