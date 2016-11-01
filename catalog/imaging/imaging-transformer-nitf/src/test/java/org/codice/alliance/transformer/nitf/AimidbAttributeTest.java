@@ -74,9 +74,9 @@ public class AimidbAttributeTest {
 
     @Test
     public void testReplay() throws NitfFormatException {
-        when(tre.getFieldValue(AimidbAttribute.REPLAY.getShortName())).thenReturn(REPLAY);
+        when(tre.getFieldValue(AimidbAttribute.REPLAY_ATTRIBUTE.getShortName())).thenReturn(REPLAY);
 
-        String operationNumber = (String) AimidbAttribute.REPLAY.getAccessorFunction()
+        String operationNumber = (String) AimidbAttribute.REPLAY_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(operationNumber, is(REPLAY));
@@ -84,11 +84,11 @@ public class AimidbAttributeTest {
 
     @Test
     public void testMissionIdentification() throws NitfFormatException {
-        when(tre.getFieldValue(AimidbAttribute.MISSION_IDENTIFICATION.getShortName())).thenReturn(
+        when(tre.getFieldValue(AimidbAttribute.MISSION_IDENTIFICATION_ATTRIBUTE.getShortName())).thenReturn(
                 MISSION_IDENTIFICATION);
 
         String missionIdentification =
-                (String) AimidbAttribute.MISSION_IDENTIFICATION.getAccessorFunction()
+                (String) AimidbAttribute.MISSION_IDENTIFICATION_ATTRIBUTE.getAccessorFunction()
                         .apply(tre);
 
         assertThat(missionIdentification, is(MISSION_IDENTIFICATION));
@@ -96,9 +96,9 @@ public class AimidbAttributeTest {
 
     @Test
     public void testEndSegment() throws NitfFormatException {
-        when(tre.getFieldValue(AimidbAttribute.END_SEGMENT.getShortName())).thenReturn(END_SEGMENT);
+        when(tre.getFieldValue(AimidbAttribute.END_SEGMENT_ATTRIBUTE.getShortName())).thenReturn(END_SEGMENT);
 
-        String endSegment = (String) AimidbAttribute.END_SEGMENT.getAccessorFunction()
+        String endSegment = (String) AimidbAttribute.END_SEGMENT_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(endSegment, is(END_SEGMENT));
@@ -106,10 +106,10 @@ public class AimidbAttributeTest {
 
     @Test
     public void testStartTileColumn() throws NitfFormatException {
-        when(tre.getFieldValue(AimidbAttribute.START_TILE_COLUMN.getShortName())).thenReturn(
+        when(tre.getFieldValue(AimidbAttribute.START_TILE_COLUMN_ATTRIBUTE.getShortName())).thenReturn(
                 START_TILE_COLUMN);
 
-        Integer startTileColumn = (Integer) AimidbAttribute.START_TILE_COLUMN.getAccessorFunction()
+        Integer startTileColumn = (Integer) AimidbAttribute.START_TILE_COLUMN_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(startTileColumn, is(Integer.parseInt(START_TILE_COLUMN)));
@@ -117,10 +117,10 @@ public class AimidbAttributeTest {
 
     @Test
     public void testStartTileRow() throws NitfFormatException {
-        when(tre.getFieldValue(AimidbAttribute.START_TILE_ROW.getShortName())).thenReturn(
+        when(tre.getFieldValue(AimidbAttribute.START_TILE_ROW_ATTRIBUTE.getShortName())).thenReturn(
                 START_TILE_ROW);
 
-        Integer startTileRow = (Integer) AimidbAttribute.START_TILE_ROW.getAccessorFunction()
+        Integer startTileRow = (Integer) AimidbAttribute.START_TILE_ROW_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(startTileRow, is(Integer.parseInt(START_TILE_ROW)));
@@ -128,10 +128,10 @@ public class AimidbAttributeTest {
 
     @Test
     public void testEndTileColumn() throws NitfFormatException {
-        when(tre.getFieldValue(AimidbAttribute.END_TILE_COLUMN.getShortName())).thenReturn(
+        when(tre.getFieldValue(AimidbAttribute.END_TILE_COLUMN_ATTRIBUTE.getShortName())).thenReturn(
                 END_TILE_COLUMN);
 
-        Integer endTileColumn = (Integer) AimidbAttribute.END_TILE_COLUMN.getAccessorFunction()
+        Integer endTileColumn = (Integer) AimidbAttribute.END_TILE_COLUMN_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(endTileColumn, is(Integer.parseInt(END_TILE_COLUMN)));
@@ -139,9 +139,9 @@ public class AimidbAttributeTest {
 
     @Test
     public void testEndTileRow() throws NitfFormatException {
-        when(tre.getFieldValue(AimidbAttribute.END_TILE_ROW.getShortName())).thenReturn(END_TILE_ROW);
+        when(tre.getFieldValue(AimidbAttribute.END_TILE_ROW_ATTRIBUTE.getShortName())).thenReturn(END_TILE_ROW);
 
-        Integer endTileRow = (Integer) AimidbAttribute.END_TILE_ROW.getAccessorFunction()
+        Integer endTileRow = (Integer) AimidbAttribute.END_TILE_ROW_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(endTileRow, is(Integer.parseInt(END_TILE_ROW)));
@@ -149,9 +149,9 @@ public class AimidbAttributeTest {
 
     @Test
     public void testOperationNumber() throws NitfFormatException {
-        when(tre.getFieldValue(AimidbAttribute.OPERATION_NUMBER.getShortName())).thenReturn(OP_NUM);
+        when(tre.getFieldValue(AimidbAttribute.OPERATION_NUMBER_ATTRIBUTE.getShortName())).thenReturn(OP_NUM);
 
-        Integer operationNumber = (Integer) AimidbAttribute.OPERATION_NUMBER.getAccessorFunction()
+        Integer operationNumber = (Integer) AimidbAttribute.OPERATION_NUMBER_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(operationNumber, is(Integer.parseInt(OP_NUM)));
@@ -159,10 +159,10 @@ public class AimidbAttributeTest {
 
     @Test
     public void testCurrentSegment() throws NitfFormatException {
-        when(tre.getFieldValue(AimidbAttribute.CURRENT_SEGMENT.getShortName())).thenReturn(
+        when(tre.getFieldValue(AimidbAttribute.CURRENT_SEGMENT_ATTRIBUTE.getShortName())).thenReturn(
                 CURRENT_SEGMENT);
 
-        String currentSegment = (String) AimidbAttribute.CURRENT_SEGMENT.getAccessorFunction()
+        String currentSegment = (String) AimidbAttribute.CURRENT_SEGMENT_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(currentSegment, is(CURRENT_SEGMENT));
@@ -170,10 +170,10 @@ public class AimidbAttributeTest {
 
     @Test
     public void testReprocessNumber() throws NitfFormatException {
-        when(tre.getFieldValue(AimidbAttribute.REPROCESS_NUMBER.getShortName())).thenReturn(
+        when(tre.getFieldValue(AimidbAttribute.REPROCESS_NUMBER_ATTRIBUTE.getShortName())).thenReturn(
                 REPRO_NUM);
 
-        Integer reprocessNumber = (Integer) AimidbAttribute.REPROCESS_NUMBER.getAccessorFunction()
+        Integer reprocessNumber = (Integer) AimidbAttribute.REPROCESS_NUMBER_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(reprocessNumber, is(Integer.parseInt(REPRO_NUM)));
@@ -181,9 +181,9 @@ public class AimidbAttributeTest {
 
     @Test
     public void testCountryCode() throws NitfFormatException {
-        when(tre.getFieldValue(AimidbAttribute.COUNTRY.getShortName())).thenReturn(FIPS_COUNTRY_CODE);
+        when(tre.getFieldValue(AimidbAttribute.COUNTRY_CODE_ATTRIBUTE.getShortName())).thenReturn(FIPS_COUNTRY_CODE);
 
-        String countryCode = (String) AimidbAttribute.COUNTRY.getAccessorFunction()
+        String countryCode = (String) AimidbAttribute.COUNTRY_CODE_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(countryCode, is(FIPS_COUNTRY_CODE));
@@ -191,10 +191,10 @@ public class AimidbAttributeTest {
 
     @Test
     public void testAcquisitionDate() throws NitfFormatException {
-        when(tre.getFieldValue(AimidbAttribute.ACQUISITION_DATE.getShortName())).thenReturn(
+        when(tre.getFieldValue(AimidbAttribute.ACQUISITION_DATE_ATTRIBUTE.getShortName())).thenReturn(
                 ACQUISITION_DATE);
 
-        String acquisitionDate = (String) AimidbAttribute.ACQUISITION_DATE.getAccessorFunction()
+        String acquisitionDate = (String) AimidbAttribute.ACQUISITION_DATE_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(acquisitionDate, is(ACQUISITION_DATE));
@@ -202,9 +202,9 @@ public class AimidbAttributeTest {
 
     @Test
     public void testMissionNo() throws NitfFormatException {
-        when(tre.getFieldValue(AimidbAttribute.MISSION_NUMBER.getShortName())).thenReturn(MISSION_NO);
+        when(tre.getFieldValue(AimidbAttribute.MISSION_NUMBER_ATTRIBUTE.getShortName())).thenReturn(MISSION_NO);
 
-        String missionNumber = (String) AimidbAttribute.MISSION_NUMBER.getAccessorFunction()
+        String missionNumber = (String) AimidbAttribute.MISSION_NUMBER_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(missionNumber, is(MISSION_NO));
@@ -212,9 +212,9 @@ public class AimidbAttributeTest {
 
     @Test
     public void testLocation() throws NitfFormatException {
-        when(tre.getFieldValue(AimidbAttribute.LOCATION.getShortName())).thenReturn(LOCATION);
+        when(tre.getFieldValue(AimidbAttribute.LOCATION_ATTRIBUTE.getShortName())).thenReturn(LOCATION);
 
-        String location = (String) AimidbAttribute.LOCATION.getAccessorFunction()
+        String location = (String) AimidbAttribute.LOCATION_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(location, is(LOCATION));
@@ -222,9 +222,9 @@ public class AimidbAttributeTest {
 
     @Test
     public void testFlightNumber() throws NitfFormatException {
-        when(tre.getFieldValue(AimidbAttribute.FLIGHT_NUMBER.getShortName())).thenReturn(FLIGHT_NO);
+        when(tre.getFieldValue(AimidbAttribute.FLIGHT_NUMBER_ATTRIBUTE.getShortName())).thenReturn(FLIGHT_NO);
 
-        String flightNumber = (String) AimidbAttribute.FLIGHT_NUMBER.getAccessorFunction()
+        String flightNumber = (String) AimidbAttribute.FLIGHT_NUMBER_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(flightNumber, is(FLIGHT_NO));

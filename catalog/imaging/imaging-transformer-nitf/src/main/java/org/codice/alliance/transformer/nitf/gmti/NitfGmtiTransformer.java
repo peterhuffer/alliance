@@ -113,7 +113,7 @@ public class NitfGmtiTransformer extends SegmentHandler {
                 LOGGER.debug("Setting the metacard attribute [{}, {}]",
                         Core.LOCATION,
                         geometry.toText());
-                IndexedMtirpbAttribute.INDEXED_TARGET_LOCATION.getAttributeDescriptors()
+                IndexedMtirpbAttribute.INDEXED_TARGET_LOCATION_ATTRIBUTE.getAttributeDescriptors()
                         .forEach(descriptor -> setMetacardAttribute(metacard,
                                 descriptor.getName(),
                                 geometry.toText()));
@@ -126,7 +126,7 @@ public class NitfGmtiTransformer extends SegmentHandler {
 
     private String formatTargetLocation(Metacard metacard) {
         Attribute locationAttribute =
-                IndexedMtirpbAttribute.INDEXED_TARGET_LOCATION.getAttributeDescriptors()
+                IndexedMtirpbAttribute.INDEXED_TARGET_LOCATION_ATTRIBUTE.getAttributeDescriptors()
                         .stream()
                         .map(descriptor -> metacard.getAttribute(descriptor.getName()))
                         .findFirst()
@@ -160,7 +160,7 @@ public class NitfGmtiTransformer extends SegmentHandler {
                 WKTReader wktReader = new WKTReader(geometryFactory);
                 Geometry geometry = wktReader.read(aircraftLocation);
 
-                MtirpbAttribute.AIRCRAFT_LOCATION.getAttributeDescriptors()
+                MtirpbAttribute.AIRCRAFT_LOCATION_ATTRIBUTE.getAttributeDescriptors()
                         .forEach(descriptor -> setMetacardAttribute(metacard,
                                 descriptor.getName(),
                                 aircraftLocation));
@@ -172,7 +172,7 @@ public class NitfGmtiTransformer extends SegmentHandler {
     }
 
     private String formatAircraftLocation(Metacard metacard) {
-        Attribute aircraftLocation = MtirpbAttribute.AIRCRAFT_LOCATION.getAttributeDescriptors()
+        Attribute aircraftLocation = MtirpbAttribute.AIRCRAFT_LOCATION_ATTRIBUTE.getAttributeDescriptors()
                 .stream()
                 .map(descriptor -> metacard.getAttribute(descriptor.getName()))
                 .findFirst()

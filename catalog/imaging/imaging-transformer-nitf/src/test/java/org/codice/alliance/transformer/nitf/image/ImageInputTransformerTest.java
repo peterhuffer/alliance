@@ -230,10 +230,10 @@ public class ImageInputTransformerTest {
 
         // key value pair of nitf attributes and expected getAttributes
         Map<NitfAttribute, Object> assertMap = new HashMap<>();
-        assertMap.put(AimidbAttribute.ACQUISITION_DATE, acquisitionDate);
-        assertMap.put(AimidbAttribute.MISSION_NUMBER, missionNumber);
-        assertMap.put(AimidbAttribute.COUNTRY, country);
-        assertMap.put(AimidbAttribute.LOCATION, location);
+        assertMap.put(AimidbAttribute.ACQUISITION_DATE_ATTRIBUTE, acquisitionDate);
+        assertMap.put(AimidbAttribute.MISSION_NUMBER_ATTRIBUTE, missionNumber);
+        assertMap.put(AimidbAttribute.COUNTRY_CODE_ATTRIBUTE, country);
+        assertMap.put(AimidbAttribute.LOCATION_ATTRIBUTE, location);
         return assertMap;
     }
 
@@ -484,75 +484,75 @@ public class ImageInputTransformerTest {
     private Map<NitfAttribute, Object> initAttributesToBeAsserted() {
         //key value pair of attributes and expected getAttributes
         Map<NitfAttribute, Object> map = new HashMap<>();
-        map.put(NitfHeaderAttribute.FILE_PROFILE_NAME, "NITF_TWO_ONE");
-        map.put(NitfHeaderAttribute.FILE_VERSION, "NITF_TWO_ONE");
-        map.put(NitfHeaderAttribute.COMPLEXITY_LEVEL, 3);
-        map.put(NitfHeaderAttribute.STANDARD_TYPE, "BF01");
-        map.put(NitfHeaderAttribute.ORIGINATING_STATION_ID, "i_3001a");
-        map.put(NitfHeaderAttribute.FILE_TITLE,
+        map.put(NitfHeaderAttribute.FILE_PROFILE_NAME_ATTRIBUTE, "NITF_TWO_ONE");
+        map.put(NitfHeaderAttribute.FILE_VERSION_ATTRIBUTE, "NITF_TWO_ONE");
+        map.put(NitfHeaderAttribute.COMPLEXITY_LEVEL_ATTRIBUTE, 3);
+        map.put(NitfHeaderAttribute.STANDARD_TYPE_ATTRIBUTE, "BF01");
+        map.put(NitfHeaderAttribute.ORIGINATING_STATION_ID_ATTRIBUTE, "i_3001a");
+        map.put(NitfHeaderAttribute.FILE_TITLE_ATTRIBUTE,
                 "Checks an uncompressed 1024x1024 8 bit mono image with GEOcentric data. Airfield");
-        map.put(NitfHeaderAttribute.FILE_SECURITY_CLASSIFICATION, "UNCLASSIFIED");
-        map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_SECURITY_SYSTEM, null);
-        map.put(NitfHeaderAttribute.FILE_CODE_WORDS, null);
-        map.put(NitfHeaderAttribute.FILE_CONTROL_AND_HANDLING, null);
-        map.put(NitfHeaderAttribute.FILE_RELEASING_INSTRUCTIONS, null);
-        map.put(NitfHeaderAttribute.FILE_DECLASSIFICATION_TYPE, null);
-        map.put(NitfHeaderAttribute.FILE_DECLASSIFICATION_DATE, null);
-        map.put(NitfHeaderAttribute.FILE_DECLASSIFICATION_EXEMPTION, null);
-        map.put(NitfHeaderAttribute.FILE_DOWNGRADE, null);
-        map.put(NitfHeaderAttribute.FILE_RELEASING_INSTRUCTIONS, null);
-        map.put(NitfHeaderAttribute.FILE_DOWNGRADE_DATE, null);
-        map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_TEXT, null);
-        map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_AUTHORITY_TYPE, null);
-        map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_AUTHORITY, null);
-        map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_REASON, null);
-        map.put(NitfHeaderAttribute.FILE_SECURITY_SOURCE_DATE, null);
-        map.put(NitfHeaderAttribute.FILE_SECURITY_CONTROL_NUMBER, null);
-        map.put(NitfHeaderAttribute.FILE_COPY_NUMBER, "00000");
-        map.put(NitfHeaderAttribute.FILE_NUMBER_OF_COPIES, "00000");
-        map.put(NitfHeaderAttribute.FILE_BACKGROUND_COLOR, "[0xff,0xff,0xff]");
-        map.put(NitfHeaderAttribute.ORIGINATORS_NAME, "JITC Fort Huachuca, AZ");
-        map.put(NitfHeaderAttribute.ORIGINATORS_PHONE_NUMBER, "(520) 538-5458");
-        map.put(ImageAttribute.FILE_PART_TYPE, "IM");
-        map.put(ImageAttribute.IMAGE_IDENTIFIER_1, "Missing ID");
-        map.put(ImageAttribute.TARGET_IDENTIFIER, null);
-        map.put(ImageAttribute.IMAGE_IDENTIFIER_2, "- BASE IMAGE -");
-        map.put(ImageAttribute.IMAGE_SECURITY_CLASSIFICATION, "UNCLASSIFIED");
-        map.put(ImageAttribute.IMAGE_CLASSIFICATION_SECURITY_SYSTEM, null);
-        map.put(ImageAttribute.IMAGE_CODEWORDS, null);
-        map.put(ImageAttribute.IMAGE_CONTROL_AND_HANDLING, null);
-        map.put(ImageAttribute.IMAGE_RELEASING_INSTRUCTIONS, null);
-        map.put(ImageAttribute.IMAGE_DECLASSIFICATION_TYPE, null);
-        map.put(ImageAttribute.IMAGE_DECLASSIFICATION_DATE, null);
-        map.put(ImageAttribute.IMAGE_DECLASSIFICATION_EXEMPTION, null);
-        map.put(ImageAttribute.IMAGE_DOWNGRADE, null);
-        map.put(ImageAttribute.IMAGE_DOWNGRADE_DATE, null);
-        map.put(ImageAttribute.IMAGE_CLASSIFICATION_TEXT, null);
-        map.put(ImageAttribute.IMAGE_CLASSIFICATION_AUTHORITY_TYPE, null);
-        map.put(ImageAttribute.IMAGE_CLASSIFICATION_AUTHORITY, null);
-        map.put(ImageAttribute.IMAGE_CLASSIFICATION_REASON, null);
-        map.put(ImageAttribute.IMAGE_SECURITY_SOURCE_DATE, null);
-        map.put(ImageAttribute.IMAGE_SECURITY_CONTROL_NUMBER, null);
-        map.put(ImageAttribute.IMAGE_SOURCE, "Unknown");
-        map.put(ImageAttribute.NUMBER_OF_SIGNIFICANT_ROWS_IN_IMAGE, 1024L);
-        map.put(ImageAttribute.NUMBER_OF_SIGNIFICANT_COLUMNS_IN_IMAGE, 1024L);
-        map.put(ImageAttribute.PIXEL_VALUE_TYPE, "INTEGER");
-        map.put(ImageAttribute.IMAGE_REPRESENTATION, "MONOCHROME");
-        map.put(ImageAttribute.IMAGE_CATEGORY, "VISUAL");
-        map.put(ImageAttribute.ACTUAL_BITS_PER_PIXEL_PER_BAND, 8);
-        map.put(ImageAttribute.PIXEL_JUSTIFICATION, "RIGHT");
-        map.put(ImageAttribute.IMAGE_COORDINATE_REPRESENTATION, "GEOGRAPHIC");
-        map.put(ImageAttribute.NUMBER_OF_IMAGE_COMMENTS, 0);
-        map.put(ImageAttribute.IMAGE_COMMENT_1, null);
-        map.put(ImageAttribute.IMAGE_COMPRESSION, "NOTCOMPRESSED");
+        map.put(NitfHeaderAttribute.FILE_SECURITY_CLASSIFICATION_ATTRIBUTE, "UNCLASSIFIED");
+        map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_SECURITY_SYSTEM_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_CODE_WORDS_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_CONTROL_AND_HANDLING_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_RELEASING_INSTRUCTIONS_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_DECLASSIFICATION_TYPE_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_DECLASSIFICATION_DATE_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_DECLASSIFICATION_EXEMPTION_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_DOWNGRADE_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_RELEASING_INSTRUCTIONS_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_DOWNGRADE_DATE_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_TEXT_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_AUTHORITY_TYPE_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_AUTHORITY_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_REASON_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_SECURITY_SOURCE_DATE_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_SECURITY_CONTROL_NUMBER_ATTRIBUTE, null);
+        map.put(NitfHeaderAttribute.FILE_COPY_NUMBER_ATTRIBUTE, "00000");
+        map.put(NitfHeaderAttribute.FILE_NUMBER_OF_COPIES_ATTRIBUTE, "00000");
+        map.put(NitfHeaderAttribute.FILE_BACKGROUND_COLOR_ATTRIBUTE, "[0xff,0xff,0xff]");
+        map.put(NitfHeaderAttribute.ORIGINATORS_NAME_ATTRIBUTE, "JITC Fort Huachuca, AZ");
+        map.put(NitfHeaderAttribute.ORIGINATORS_PHONE_NUMBER_ATTRIBUTE, "(520) 538-5458");
+        map.put(ImageAttribute.FILE_PART_TYPE_ATTRIBUTE, "IM");
+        map.put(ImageAttribute.IMAGE_IDENTIFIER_1_ATTRIBUTE, "Missing ID");
+        map.put(ImageAttribute.TARGET_IDENTIFIER_ATTRIBUTE, null);
+        map.put(ImageAttribute.IMAGE_IDENTIFIER_2_ATTRIBUTE, "- BASE IMAGE -");
+        map.put(ImageAttribute.IMAGE_SECURITY_CLASSIFICATION_ATTRIBUTE, "UNCLASSIFIED");
+        map.put(ImageAttribute.IMAGE_CLASSIFICATION_SECURITY_SYSTEM_ATTRIBUTE, null);
+        map.put(ImageAttribute.IMAGE_CODEWORDS_ATTRIBUTE, null);
+        map.put(ImageAttribute.IMAGE_CONTROL_AND_HANDLING_ATTRIBUTE, null);
+        map.put(ImageAttribute.IMAGE_RELEASING_INSTRUCTIONS_ATTRIBUTE, null);
+        map.put(ImageAttribute.IMAGE_DECLASSIFICATION_TYPE_ATTRIBUTE, null);
+        map.put(ImageAttribute.IMAGE_DECLASSIFICATION_DATE_ATTRIBUTE, null);
+        map.put(ImageAttribute.IMAGE_DECLASSIFICATION_EXEMPTION_ATTRIBUTE, null);
+        map.put(ImageAttribute.IMAGE_DOWNGRADE_ATTRIBUTE, null);
+        map.put(ImageAttribute.IMAGE_DOWNGRADE_DATE_ATTRIBUTE, null);
+        map.put(ImageAttribute.IMAGE_CLASSIFICATION_TEXT_ATTRIBUTE, null);
+        map.put(ImageAttribute.IMAGE_CLASSIFICATION_AUTHORITY_TYPE_ATTRIBUTE, null);
+        map.put(ImageAttribute.IMAGE_CLASSIFICATION_AUTHORITY_ATTRIBUTE, null);
+        map.put(ImageAttribute.IMAGE_CLASSIFICATION_REASON_ATTRIBUTE, null);
+        map.put(ImageAttribute.IMAGE_SECURITY_SOURCE_DATE_ATTRIBUTE, null);
+        map.put(ImageAttribute.IMAGE_SECURITY_CONTROL_NUMBER_ATTRIBUTE, null);
+        map.put(ImageAttribute.IMAGE_SOURCE_ATTRIBUTE, "Unknown");
+        map.put(ImageAttribute.NUMBER_OF_SIGNIFICANT_ROWS_IN_IMAGE_ATTRIBUTE, 1024L);
+        map.put(ImageAttribute.NUMBER_OF_SIGNIFICANT_COLUMNS_IN_IMAGE_ATTRIBUTE, 1024L);
+        map.put(ImageAttribute.PIXEL_VALUE_TYPE_ATTRIBUTE, "INTEGER");
+        map.put(ImageAttribute.IMAGE_REPRESENTATION_ATTRIBUTE, "MONOCHROME");
+        map.put(ImageAttribute.IMAGE_CATEGORY_ATTRIBUTE, "VISUAL");
+        map.put(ImageAttribute.ACTUAL_BITS_PER_PIXEL_PER_BAND_ATTRIBUTE, 8);
+        map.put(ImageAttribute.PIXEL_JUSTIFICATION_ATTRIBUTE, "RIGHT");
+        map.put(ImageAttribute.IMAGE_COORDINATE_REPRESENTATION_ATTRIBUTE, "GEOGRAPHIC");
+        map.put(ImageAttribute.NUMBER_OF_IMAGE_COMMENTS_ATTRIBUTE, 0);
+        map.put(ImageAttribute.IMAGE_COMMENT_1_ATTRIBUTE, null);
+        map.put(ImageAttribute.IMAGE_COMPRESSION_ATTRIBUTE, "NOTCOMPRESSED");
         return map;
     }
 
     private Map<NitfAttribute, String> initDateAttributesToBeAsserted() {
         //key value pair of attributes and expected getAttributes
         Map<NitfAttribute, String> map = new HashMap<>();
-        map.put(NitfHeaderAttribute.FILE_DATE_AND_TIME, "1997-12-17T10:26:30Z");
-        map.put(ImageAttribute.IMAGE_DATE_AND_TIME, "1996-12-17T10:26:30Z");
+        map.put(NitfHeaderAttribute.FILE_DATE_AND_TIME_ATTRIBUTE, "1997-12-17T10:26:30Z");
+        map.put(ImageAttribute.IMAGE_DATE_AND_TIME_ATTRIBUTE, "1996-12-17T10:26:30Z");
         return map;
     }
 }

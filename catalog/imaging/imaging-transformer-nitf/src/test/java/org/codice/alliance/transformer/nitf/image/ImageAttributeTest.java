@@ -53,24 +53,24 @@ public class ImageAttributeTest {
         ImageAttribute.getAttributes()
                 .forEach(attribute -> assertThat(attribute.getShortName(), is(notNullValue())));
 
-        assertThat(ImageAttribute.IMAGE_COMMENT_1.getAccessorFunction()
+        assertThat(ImageAttribute.IMAGE_COMMENT_1_ATTRIBUTE.getAccessorFunction()
                 .apply(imageSegment), is(COMMENT_1));
-        assertThat(ImageAttribute.IMAGE_COMMENT_2.getAccessorFunction()
+        assertThat(ImageAttribute.IMAGE_COMMENT_2_ATTRIBUTE.getAccessorFunction()
                 .apply(imageSegment), is(COMMENT_2));
-        assertThat(ImageAttribute.IMAGE_COMMENT_3.getAccessorFunction()
+        assertThat(ImageAttribute.IMAGE_COMMENT_3_ATTRIBUTE.getAccessorFunction()
                 .apply(imageSegment), is(COMMENT_3));
 
-        assertThat(ImageAttribute.TARGET_IDENTIFIER.getAccessorFunction()
+        assertThat(ImageAttribute.TARGET_IDENTIFIER_ATTRIBUTE.getAccessorFunction()
                 .apply(imageSegment), is(nullValue()));
-        assertThat(ImageAttribute.IMAGE_DATE_AND_TIME.getAccessorFunction()
+        assertThat(ImageAttribute.IMAGE_DATE_AND_TIME_ATTRIBUTE.getAccessorFunction()
                 .apply(imageSegment), is(nullValue()));
-        assertThat(ImageAttribute.IMAGE_IDENTIFIER_2.getAccessorFunction()
+        assertThat(ImageAttribute.IMAGE_IDENTIFIER_2_ATTRIBUTE.getAccessorFunction()
                 .apply(imageSegment), is(nullValue()));
-        assertThat(ImageAttribute.NUMBER_OF_SIGNIFICANT_ROWS_IN_IMAGE.getAccessorFunction()
+        assertThat(ImageAttribute.NUMBER_OF_SIGNIFICANT_ROWS_IN_IMAGE_ATTRIBUTE.getAccessorFunction()
                 .apply(imageSegment), is(0L));
-        assertThat(ImageAttribute.NUMBER_OF_SIGNIFICANT_COLUMNS_IN_IMAGE.getAccessorFunction()
+        assertThat(ImageAttribute.NUMBER_OF_SIGNIFICANT_COLUMNS_IN_IMAGE_ATTRIBUTE.getAccessorFunction()
                 .apply(imageSegment), is(0L));
-        assertThat(ImageAttribute.IMAGE_SOURCE.getAccessorFunction()
+        assertThat(ImageAttribute.IMAGE_SOURCE_ATTRIBUTE.getAccessorFunction()
                 .apply(imageSegment), is(nullValue()));
     }
 }

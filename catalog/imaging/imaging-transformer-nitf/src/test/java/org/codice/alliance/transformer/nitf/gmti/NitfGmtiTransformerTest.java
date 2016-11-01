@@ -122,10 +122,10 @@ public class NitfGmtiTransformerTest {
     @Test
     public void testClassificationCategory() throws NitfFormatException {
         Tre tre = mock(Tre.class);
-        when(tre.getFieldValue(IndexedMtirpbAttribute.INDEXED_TARGET_CLASSIFICATION_CATEGORY.getShortName())).thenReturn(
+        when(tre.getFieldValue(IndexedMtirpbAttribute.INDEXED_TARGET_CLASSIFICATION_CATEGORY_ATTRIBUTE.getShortName())).thenReturn(
                 null);
         String value =
-                IndexedMtirpbAttribute.INDEXED_TARGET_CLASSIFICATION_CATEGORY.getAccessorFunction()
+                IndexedMtirpbAttribute.INDEXED_TARGET_CLASSIFICATION_CATEGORY_ATTRIBUTE.getAccessorFunction()
                         .apply(tre)
                         .toString();
         assertThat(value, is("Unknown"));
@@ -159,25 +159,25 @@ public class NitfGmtiTransformerTest {
     private Map<NitfAttribute, String> initMtirpbAttributes() {
         // key value pair of nitf attributes and expected getAttributes
         Map<NitfAttribute, String> map = new HashMap<>();
-        map.put(MtirpbAttribute.AIRCRAFT_ALTITUDE, "150000");
-        map.put(MtirpbAttribute.NUMBER_OF_VALID_TARGETS, "001");
-        map.put(MtirpbAttribute.AIRCRAFT_ALTITUDE_UNITS, "m");
-        map.put(MtirpbAttribute.AIRCRAFT_HEADING, "000");
-        map.put(MtirpbAttribute.AIRCRAFT_LOCATION, "POINT (+52.123456 -004.123456)");
-        map.put(MtirpbAttribute.COSINE_OF_GRAZE_ANGLE, "0.03111");
-        map.put(MtirpbAttribute.DESTINATION_POINT, "00");
-        map.put(MtirpbAttribute.PATCH_NUMBER, "0001");
-        map.put(MtirpbAttribute.SCAN_DATE_AND_TIME, "20141108235219");
-        map.put(MtirpbAttribute.WIDE_AREA_MTI_BAR_NUMBER, "1");
-        map.put(MtirpbAttribute.WIDE_AREA_MTI_FRAME_NUMBER, "00001");
-        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_AMPLITUDE, "06");
-        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_CLASSIFICATION_CATEGORY, "Unknown");
-        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_GROUND_SPEED, "000");
-        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_HEADING, "000");
-        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_LOCATION,
+        map.put(MtirpbAttribute.AIRCRAFT_ALTITUDE_ATTRIBUTE, "150000");
+        map.put(MtirpbAttribute.NUMBER_OF_VALID_TARGETS_ATTRIBUTE, "001");
+        map.put(MtirpbAttribute.AIRCRAFT_ALTITUDE_UNITS_ATTRIBUTE, "m");
+        map.put(MtirpbAttribute.AIRCRAFT_HEADING_ATTRIBUTE, "000");
+        map.put(MtirpbAttribute.AIRCRAFT_LOCATION_ATTRIBUTE, "POINT (+52.123456 -004.123456)");
+        map.put(MtirpbAttribute.COSINE_OF_GRAZE_ANGLE_ATTRIBUTE, "0.03111");
+        map.put(MtirpbAttribute.DESTINATION_POINT_ATTRIBUTE, "00");
+        map.put(MtirpbAttribute.PATCH_NUMBER_ATTRIBUTE, "0001");
+        map.put(MtirpbAttribute.SCAN_DATE_AND_TIME_ATTRIBUTE, "20141108235219");
+        map.put(MtirpbAttribute.WIDE_AREA_MTI_BAR_NUMBER_ATTRIBUTE, "1");
+        map.put(MtirpbAttribute.WIDE_AREA_MTI_FRAME_NUMBER_ATTRIBUTE, "00001");
+        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_AMPLITUDE_ATTRIBUTE, "06");
+        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_CLASSIFICATION_CATEGORY_ATTRIBUTE, "Unknown");
+        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_GROUND_SPEED_ATTRIBUTE, "000");
+        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_HEADING_ATTRIBUTE, "000");
+        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_LOCATION_ATTRIBUTE,
                 "MULTIPOINT ((52.1234567 -4.1234567))");
-        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_LOCATION_ACCURACY, "000.00");
-        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_RADIAL_VELOCITY, "+013");
+        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_LOCATION_ACCURACY_ATTRIBUTE, "000.00");
+        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_RADIAL_VELOCITY_ATTRIBUTE, "+013");
         return map;
     }
 }
