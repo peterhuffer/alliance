@@ -45,10 +45,10 @@ public class CsdidaAttributeTest {
 
     @Test
     public void testPlatformIdBothSet() throws NitfFormatException {
-        when(tre.getFieldValue(CsdidaAttribute.PLATFORM_CODE_NAME)).thenReturn(PLATFORM_CODE);
-        when(tre.getFieldValue(CsdidaAttribute.VEHICLE_ID_NAME)).thenReturn(VEHICLE_ID);
+        when(tre.getFieldValue(CsdidaAttribute.PLATFORM_CODE_SHORT_NAME)).thenReturn(PLATFORM_CODE);
+        when(tre.getFieldValue(CsdidaAttribute.VEHICLE_ID_SHORT_NAME)).thenReturn(VEHICLE_ID);
 
-        Serializable actual = CsdidaAttribute.PLATFORM_ID.getAccessorFunction()
+        Serializable actual = CsdidaAttribute.PLATFORM_ID_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(actual, is("XY02"));
@@ -57,10 +57,10 @@ public class CsdidaAttributeTest {
     @SuppressWarnings("unchecked")
     @Test
     public void testPlatformIdPlatformOnly() throws NitfFormatException {
-        when(tre.getFieldValue(CsdidaAttribute.PLATFORM_CODE_NAME)).thenReturn(PLATFORM_CODE);
-        when(tre.getFieldValue(CsdidaAttribute.VEHICLE_ID_NAME)).thenThrow(NitfFormatException.class);
+        when(tre.getFieldValue(CsdidaAttribute.PLATFORM_CODE_SHORT_NAME)).thenReturn(PLATFORM_CODE);
+        when(tre.getFieldValue(CsdidaAttribute.VEHICLE_ID_SHORT_NAME)).thenThrow(NitfFormatException.class);
 
-        Serializable actual = CsdidaAttribute.PLATFORM_ID.getAccessorFunction()
+        Serializable actual = CsdidaAttribute.PLATFORM_ID_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(actual, is(nullValue()));
@@ -69,10 +69,10 @@ public class CsdidaAttributeTest {
     @SuppressWarnings("unchecked")
     @Test
     public void testPlatformIdVehicleOnly() throws NitfFormatException {
-        when(tre.getFieldValue(CsdidaAttribute.PLATFORM_CODE_NAME)).thenThrow(NitfFormatException.class);
-        when(tre.getFieldValue(CsdidaAttribute.VEHICLE_ID_NAME)).thenReturn(VEHICLE_ID);
+        when(tre.getFieldValue(CsdidaAttribute.PLATFORM_CODE_SHORT_NAME)).thenThrow(NitfFormatException.class);
+        when(tre.getFieldValue(CsdidaAttribute.VEHICLE_ID_SHORT_NAME)).thenReturn(VEHICLE_ID);
 
-        Serializable actual = CsdidaAttribute.PLATFORM_ID.getAccessorFunction()
+        Serializable actual = CsdidaAttribute.PLATFORM_ID_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(actual, is(nullValue()));
@@ -81,10 +81,10 @@ public class CsdidaAttributeTest {
     @SuppressWarnings("unchecked")
     @Test
     public void testPlatformIdNeitherSet() throws NitfFormatException {
-        when(tre.getFieldValue(CsdidaAttribute.PLATFORM_CODE_NAME)).thenThrow(NitfFormatException.class);
-        when(tre.getFieldValue(CsdidaAttribute.VEHICLE_ID_NAME)).thenThrow(NitfFormatException.class);
+        when(tre.getFieldValue(CsdidaAttribute.PLATFORM_CODE_SHORT_NAME)).thenThrow(NitfFormatException.class);
+        when(tre.getFieldValue(CsdidaAttribute.VEHICLE_ID_SHORT_NAME)).thenThrow(NitfFormatException.class);
 
-        Serializable actual = CsdidaAttribute.PLATFORM_ID.getAccessorFunction()
+        Serializable actual = CsdidaAttribute.PLATFORM_ID_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(actual, is(nullValue()));
@@ -92,16 +92,16 @@ public class CsdidaAttributeTest {
 
     @Test
     public void testDayOfDatasetCollectionMin() throws NitfFormatException {
-        when(tre.getFieldValue(CsdidaAttribute.DAY_NAME)).thenReturn("01");
-        Serializable actual = CsdidaAttribute.DAY.getAccessorFunction()
+        when(tre.getFieldValue(CsdidaAttribute.DAY_SHORT_NAME)).thenReturn("01");
+        Serializable actual = CsdidaAttribute.DAY_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(1));
     }
 
     @Test
     public void testDayOfDatasetCollectionMax() throws NitfFormatException {
-        when(tre.getFieldValue(CsdidaAttribute.DAY_NAME)).thenReturn("31");
-        Serializable actual = CsdidaAttribute.DAY.getAccessorFunction()
+        when(tre.getFieldValue(CsdidaAttribute.DAY_SHORT_NAME)).thenReturn("31");
+        Serializable actual = CsdidaAttribute.DAY_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(31));
     }
@@ -109,16 +109,16 @@ public class CsdidaAttributeTest {
     @SuppressWarnings("unchecked")
     @Test
     public void testDayOfDatasetCollectionNotSet() throws NitfFormatException {
-        when(tre.getIntValue(CsdidaAttribute.DAY_NAME)).thenThrow(NitfFormatException.class);
-        Serializable actual = CsdidaAttribute.DAY.getAccessorFunction()
+        when(tre.getIntValue(CsdidaAttribute.DAY_SHORT_NAME)).thenThrow(NitfFormatException.class);
+        Serializable actual = CsdidaAttribute.DAY_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(nullValue()));
     }
 
     @Test
     public void testMonOfDatasetCollectionSet() throws NitfFormatException {
-        when(tre.getFieldValue(CsdidaAttribute.MONTH_NAME)).thenReturn("JAN");
-        Serializable actual = CsdidaAttribute.MONTH.getAccessorFunction()
+        when(tre.getFieldValue(CsdidaAttribute.MONTH_SHORT_NAME)).thenReturn("JAN");
+        Serializable actual = CsdidaAttribute.MONTH_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is("JAN"));
     }
@@ -126,24 +126,24 @@ public class CsdidaAttributeTest {
     @SuppressWarnings("unchecked")
     @Test
     public void testMonthOfDatasetCollectionNotSet() throws NitfFormatException {
-        when(tre.getIntValue(CsdidaAttribute.MONTH_NAME)).thenThrow(NitfFormatException.class);
-        Serializable actual = CsdidaAttribute.MONTH.getAccessorFunction()
+        when(tre.getIntValue(CsdidaAttribute.MONTH_SHORT_NAME)).thenThrow(NitfFormatException.class);
+        Serializable actual = CsdidaAttribute.MONTH_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(nullValue()));
     }
 
     @Test
     public void testYearOfDatasetCollectionMin() throws NitfFormatException {
-        when(tre.getFieldValue(CsdidaAttribute.YEAR_NAME)).thenReturn("0000");
-        Serializable actual = CsdidaAttribute.YEAR.getAccessorFunction()
+        when(tre.getFieldValue(CsdidaAttribute.YEAR_SHORT_NAME)).thenReturn("0000");
+        Serializable actual = CsdidaAttribute.YEAR_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(0));
     }
 
     @Test
     public void testYearOfDatasetCollectionMax() throws NitfFormatException {
-        when(tre.getFieldValue(CsdidaAttribute.YEAR_NAME)).thenReturn("9999");
-        Serializable actual = CsdidaAttribute.YEAR.getAccessorFunction()
+        when(tre.getFieldValue(CsdidaAttribute.YEAR_SHORT_NAME)).thenReturn("9999");
+        Serializable actual = CsdidaAttribute.YEAR_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(9999));
     }
@@ -151,24 +151,24 @@ public class CsdidaAttributeTest {
     @SuppressWarnings("unchecked")
     @Test
     public void testYearOfDatasetCollectionNotSet() throws NitfFormatException {
-        when(tre.getIntValue(CsdidaAttribute.YEAR_NAME)).thenThrow(NitfFormatException.class);
-        Serializable actual = CsdidaAttribute.YEAR.getAccessorFunction()
+        when(tre.getIntValue(CsdidaAttribute.YEAR_SHORT_NAME)).thenThrow(NitfFormatException.class);
+        Serializable actual = CsdidaAttribute.YEAR_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(nullValue()));
     }
 
     @Test
     public void testPassNumMin() throws NitfFormatException {
-        when(tre.getFieldValue(CsdidaAttribute.PASS_NAME)).thenReturn("01");
-        Serializable actual = CsdidaAttribute.PASS.getAccessorFunction()
+        when(tre.getFieldValue(CsdidaAttribute.PASS_SHORT_NAME)).thenReturn("01");
+        Serializable actual = CsdidaAttribute.PASS_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(1));
     }
 
     @Test
     public void testPassNumMax() throws NitfFormatException {
-        when(tre.getFieldValue(CsdidaAttribute.PASS_NAME)).thenReturn("99");
-        Serializable actual = CsdidaAttribute.PASS.getAccessorFunction()
+        when(tre.getFieldValue(CsdidaAttribute.PASS_SHORT_NAME)).thenReturn("99");
+        Serializable actual = CsdidaAttribute.PASS_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(99));
     }
@@ -176,24 +176,24 @@ public class CsdidaAttributeTest {
     @SuppressWarnings("unchecked")
     @Test
     public void testPassNumNotSet() throws NitfFormatException {
-        when(tre.getIntValue(CsdidaAttribute.PASS_NAME)).thenThrow(NitfFormatException.class);
-        Serializable actual = CsdidaAttribute.PASS.getAccessorFunction()
+        when(tre.getIntValue(CsdidaAttribute.PASS_SHORT_NAME)).thenThrow(NitfFormatException.class);
+        Serializable actual = CsdidaAttribute.PASS_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(nullValue()));
     }
 
     @Test
     public void testOperationNumMin() throws NitfFormatException {
-        when(tre.getFieldValue(CsdidaAttribute.OPERATION_NAME)).thenReturn("000");
-        Serializable actual = CsdidaAttribute.OPERATION.getAccessorFunction()
+        when(tre.getFieldValue(CsdidaAttribute.OPERATION_SHORT_NAME)).thenReturn("000");
+        Serializable actual = CsdidaAttribute.OPERATION_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(0));
     }
 
     @Test
     public void testOperationNumMax() throws NitfFormatException {
-        when(tre.getFieldValue(CsdidaAttribute.OPERATION_NAME)).thenReturn("999");
-        Serializable actual = CsdidaAttribute.OPERATION.getAccessorFunction()
+        when(tre.getFieldValue(CsdidaAttribute.OPERATION_SHORT_NAME)).thenReturn("999");
+        Serializable actual = CsdidaAttribute.OPERATION_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(999));
     }
@@ -201,16 +201,16 @@ public class CsdidaAttributeTest {
     @SuppressWarnings("unchecked")
     @Test
     public void testOperationNumNotSet() throws NitfFormatException {
-        when(tre.getIntValue(CsdidaAttribute.OPERATION_NAME)).thenThrow(NitfFormatException.class);
-        Serializable actual = CsdidaAttribute.OPERATION.getAccessorFunction()
+        when(tre.getIntValue(CsdidaAttribute.OPERATION_SHORT_NAME)).thenThrow(NitfFormatException.class);
+        Serializable actual = CsdidaAttribute.OPERATION_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(nullValue()));
     }
 
     @Test
     public void testSensorIdSet() throws NitfFormatException {
-        when(tre.getFieldValue(CsdidaAttribute.SENSOR_ID_NAME)).thenReturn("AA");
-        Serializable actual = CsdidaAttribute.SENSOR_ID.getAccessorFunction()
+        when(tre.getFieldValue(CsdidaAttribute.SENSOR_ID_SHORT_NAME)).thenReturn("AA");
+        Serializable actual = CsdidaAttribute.SENSOR_ID_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is("AA"));
     }
@@ -218,16 +218,16 @@ public class CsdidaAttributeTest {
     @SuppressWarnings("unchecked")
     @Test
     public void testSensorIdNotSet() throws NitfFormatException {
-        when(tre.getIntValue(CsdidaAttribute.SENSOR_ID_NAME)).thenThrow(NitfFormatException.class);
-        Serializable actual = CsdidaAttribute.SENSOR_ID.getAccessorFunction()
+        when(tre.getIntValue(CsdidaAttribute.SENSOR_ID_SHORT_NAME)).thenThrow(NitfFormatException.class);
+        Serializable actual = CsdidaAttribute.SENSOR_ID_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(nullValue()));
     }
 
     @Test
     public void testProductIdSet() throws NitfFormatException {
-        when(tre.getFieldValue(CsdidaAttribute.PRODUCT_ID_NAME)).thenReturn("P2");
-        Serializable actual = CsdidaAttribute.PRODUCT_ID.getAccessorFunction()
+        when(tre.getFieldValue(CsdidaAttribute.PRODUCT_ID_SHORT_NAME)).thenReturn("P2");
+        Serializable actual = CsdidaAttribute.PRODUCT_ID_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is("P2"));
     }
@@ -235,16 +235,16 @@ public class CsdidaAttributeTest {
     @SuppressWarnings("unchecked")
     @Test
     public void testProductIdNotSet() throws NitfFormatException {
-        when(tre.getIntValue(CsdidaAttribute.PRODUCT_ID_NAME)).thenThrow(NitfFormatException.class);
-        Serializable actual = CsdidaAttribute.PRODUCT_ID.getAccessorFunction()
+        when(tre.getIntValue(CsdidaAttribute.PRODUCT_ID_SHORT_NAME)).thenThrow(NitfFormatException.class);
+        Serializable actual = CsdidaAttribute.PRODUCT_ID_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(nullValue()));
     }
 
     @Test
     public void testTimeSet() throws NitfFormatException {
-        when(tre.getFieldValue(CsdidaAttribute.TIME_NAME)).thenReturn("20160101231500");
-        Serializable actual = CsdidaAttribute.TIME.getAccessorFunction()
+        when(tre.getFieldValue(CsdidaAttribute.TIME_SHORT_NAME)).thenReturn("20160101231500");
+        Serializable actual = CsdidaAttribute.TIME_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         Date convDate = (Date) actual;
         DateFormat dateFormat = new SimpleDateFormat(TreUtility.TRE_DATE_FORMAT);
@@ -255,16 +255,16 @@ public class CsdidaAttributeTest {
     @SuppressWarnings("unchecked")
     @Test
     public void testTimeNotSet() throws NitfFormatException {
-        when(tre.getIntValue(CsdidaAttribute.TIME_NAME)).thenThrow(NitfFormatException.class);
-        Serializable actual = CsdidaAttribute.TIME.getAccessorFunction()
+        when(tre.getIntValue(CsdidaAttribute.TIME_SHORT_NAME)).thenThrow(NitfFormatException.class);
+        Serializable actual = CsdidaAttribute.TIME_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(nullValue()));
     }
 
     @Test
     public void testProcessTimeSet() throws NitfFormatException {
-        when(tre.getFieldValue(CsdidaAttribute.PROCESS_TIME_NAME)).thenReturn("20160101231515");
-        Serializable actual = CsdidaAttribute.PROCESS_TIME.getAccessorFunction()
+        when(tre.getFieldValue(CsdidaAttribute.PROCESS_TIME_SHORT_NAME)).thenReturn("20160101231515");
+        Serializable actual = CsdidaAttribute.PROCESS_TIME_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         Date convDate = (Date) actual;
         DateFormat dateFormat = new SimpleDateFormat(TreUtility.TRE_DATE_FORMAT);
@@ -275,16 +275,16 @@ public class CsdidaAttributeTest {
     @SuppressWarnings("unchecked")
     @Test
     public void testProcessTimeNotSet() throws NitfFormatException {
-        when(tre.getIntValue(CsdidaAttribute.PROCESS_TIME_NAME)).thenThrow(NitfFormatException.class);
-        Serializable actual = CsdidaAttribute.PROCESS_TIME.getAccessorFunction()
+        when(tre.getIntValue(CsdidaAttribute.PROCESS_TIME_SHORT_NAME)).thenThrow(NitfFormatException.class);
+        Serializable actual = CsdidaAttribute.PROCESS_TIME_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(nullValue()));
     }
 
     @Test
     public void testSoftwareVersionNumberSet() throws NitfFormatException {
-        when(tre.getFieldValue(CsdidaAttribute.SOFTWARE_VERSION_NUMBER_NAME)).thenReturn("v1.1.0");
-        Serializable actual = CsdidaAttribute.SOFTWARE_VERSION_NUMBER.getAccessorFunction()
+        when(tre.getFieldValue(CsdidaAttribute.SOFTWARE_VERSION_NUMBER_SHORT_NAME)).thenReturn("v1.1.0");
+        Serializable actual = CsdidaAttribute.SOFTWARE_VERSION_NUMBER_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is("v1.1.0"));
     }
@@ -292,9 +292,9 @@ public class CsdidaAttributeTest {
     @SuppressWarnings("unchecked")
     @Test
     public void testSoftwareVersionNotSet() throws NitfFormatException {
-        when(tre.getIntValue(CsdidaAttribute.SOFTWARE_VERSION_NUMBER_NAME)).thenThrow(
+        when(tre.getIntValue(CsdidaAttribute.SOFTWARE_VERSION_NUMBER_SHORT_NAME)).thenThrow(
                 NitfFormatException.class);
-        Serializable actual = CsdidaAttribute.SOFTWARE_VERSION_NUMBER.getAccessorFunction()
+        Serializable actual = CsdidaAttribute.SOFTWARE_VERSION_NUMBER_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(nullValue()));
     }

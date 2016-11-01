@@ -22,6 +22,7 @@ import java.util.function.Function;
 
 import org.codice.alliance.catalog.core.api.impl.types.IsrAttributes;
 import org.codice.alliance.catalog.core.api.types.Isr;
+import org.codice.alliance.transformer.nitf.ExtNitfUtility;
 import org.codice.imaging.nitf.core.tre.Tre;
 
 import ddf.catalog.data.AttributeDescriptor;
@@ -35,120 +36,133 @@ public class CsdidaAttribute extends NitfAttributeImpl<Tre> {
 
     private static final List<NitfAttribute<Tre>> ATTRIBUTES = new LinkedList<>();
 
-    public static final String PLATFORM_CODE_NAME = "PLATFORM_CODE";
+    public static final String ATTRIBUTE_NAME_PREFIX = ExtNitfUtility.EXT_NITF_PREFIX + "csdida.";
 
-    public static final String VEHICLE_ID_NAME = "VEHICLE_ID";
+    public static final String PLATFORM_ID = ATTRIBUTE_NAME_PREFIX + "platform-code-vehicle-id";
 
-    public static final String DAY_NAME = "DAY";
+    public static final String DAY = ATTRIBUTE_NAME_PREFIX + "day-dataset-collection";
 
-    public static final String MONTH_NAME = "MONTH";
+    public static final String MONTH = ATTRIBUTE_NAME_PREFIX + "month-dataset-collection";
 
-    public static final String YEAR_NAME = "YEAR";
+    public static final String YEAR = ATTRIBUTE_NAME_PREFIX + "year-dataset-collection";
 
-    public static final String PASS_NAME = "PASS";
+    public static final String PASS = ATTRIBUTE_NAME_PREFIX + "pass-num";
 
-    public static final String OPERATION_NAME = "OPERATION";
+    public static final String OPERATION = ATTRIBUTE_NAME_PREFIX + "operation-num";
 
-    public static final String SENSOR_ID_NAME = "SENSOR_ID";
+    public static final String SENSOR_ID = ATTRIBUTE_NAME_PREFIX + "sensor-id";
 
-    public static final String PRODUCT_ID_NAME = "PRODUCT_ID";
+    public static final String PRODUCT_ID = ATTRIBUTE_NAME_PREFIX + "product-id";
 
-    public static final String TIME_NAME = "TIME";
+    public static final String TIME = ATTRIBUTE_NAME_PREFIX + "image-start-time";
 
-    public static final String PROCESS_TIME_NAME = "PROCESS_TIME";
+    public static final String PROCESS_TIME = ATTRIBUTE_NAME_PREFIX + "process-completion-time";
 
-    public static final String SOFTWARE_VERSION_NUMBER_NAME = "SOFTWARE_VERSION_NUMBER";
+    public static final String SOFTWARE_VERSION_NUMBER =
+            ATTRIBUTE_NAME_PREFIX + "software-version-num";
 
-    public static final String ATTRIBUTE_NAME_PREFIX = "csdida.";
+    public static final String PLATFORM_CODE_SHORT_NAME = "PLATFORM_CODE";
 
-    public static final CsdidaAttribute PLATFORM_ID = new CsdidaAttribute(Isr.PLATFORM_ID,
+    public static final String VEHICLE_ID_SHORT_NAME = "VEHICLE_ID";
+
+    public static final String DAY_SHORT_NAME = "DAY";
+
+    public static final String MONTH_SHORT_NAME = "MONTH";
+
+    public static final String YEAR_SHORT_NAME = "YEAR";
+
+    public static final String PASS_SHORT_NAME = "PASS";
+
+    public static final String OPERATION_SHORT_NAME = "OPERATION";
+
+    public static final String SENSOR_ID_SHORT_NAME = "SENSOR_ID";
+
+    public static final String PRODUCT_ID_SHORT_NAME = "PRODUCT_ID";
+
+    public static final String TIME_SHORT_NAME = "TIME";
+
+    public static final String PROCESS_TIME_SHORT_NAME = "PROCESS_TIME";
+
+    public static final String SOFTWARE_VERSION_NUMBER_SHORT_NAME = "SOFTWARE_VERSION_NUMBER";
+
+    public static final CsdidaAttribute PLATFORM_ID_ATTRIBUTE = new CsdidaAttribute(Isr.PLATFORM_ID,
             "PLATFORM_CODE_VEHICLE_ID",
             CsdidaAttribute::getPlatformIdFunction,
             new IsrAttributes().getAttributeDescriptor(Isr.PLATFORM_ID),
-            "platformCodeVehicleId",
-            ATTRIBUTE_NAME_PREFIX);
+            PLATFORM_ID);
 
-    static final CsdidaAttribute DAY = new CsdidaAttribute("day-dataset-collection",
-            DAY_NAME,
-            tre -> TreUtility.convertToInteger(tre, DAY_NAME),
-            BasicTypes.INTEGER_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final CsdidaAttribute DAY_ATTRIBUTE = new CsdidaAttribute(DAY,
+            DAY_SHORT_NAME,
+            tre -> TreUtility.convertToInteger(tre, DAY_SHORT_NAME),
+            BasicTypes.INTEGER_TYPE);
 
-    static final CsdidaAttribute MONTH = new CsdidaAttribute("month-dataset-collection",
-            MONTH_NAME,
-            tre -> TreUtility.convertToString(tre, MONTH_NAME),
-            BasicTypes.STRING_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final CsdidaAttribute MONTH_ATTRIBUTE = new CsdidaAttribute(MONTH,
+            MONTH_SHORT_NAME,
+            tre -> TreUtility.convertToString(tre, MONTH_SHORT_NAME),
+            BasicTypes.STRING_TYPE);
 
-    static final CsdidaAttribute YEAR = new CsdidaAttribute("year-dataset-collection",
-            YEAR_NAME,
-            tre -> TreUtility.convertToInteger(tre, YEAR_NAME),
-            BasicTypes.INTEGER_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final CsdidaAttribute YEAR_ATTRIBUTE = new CsdidaAttribute(YEAR,
+            YEAR_SHORT_NAME,
+            tre -> TreUtility.convertToInteger(tre, YEAR_SHORT_NAME),
+            BasicTypes.INTEGER_TYPE);
 
-    static final CsdidaAttribute PASS = new CsdidaAttribute("pass-num",
-            PASS_NAME,
-            tre -> TreUtility.convertToInteger(tre, PASS_NAME),
-            BasicTypes.INTEGER_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final CsdidaAttribute PASS_ATTRIBUTE = new CsdidaAttribute(PASS,
+            PASS_SHORT_NAME,
+            tre -> TreUtility.convertToInteger(tre, PASS_SHORT_NAME),
+            BasicTypes.INTEGER_TYPE);
 
-    static final CsdidaAttribute OPERATION = new CsdidaAttribute("operation-num",
-            OPERATION_NAME,
-            tre -> TreUtility.convertToInteger(tre, OPERATION_NAME),
-            BasicTypes.INTEGER_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final CsdidaAttribute OPERATION_ATTRIBUTE = new CsdidaAttribute(OPERATION,
+            OPERATION_SHORT_NAME,
+            tre -> TreUtility.convertToInteger(tre, OPERATION_SHORT_NAME),
+            BasicTypes.INTEGER_TYPE);
 
-    static final CsdidaAttribute SENSOR_ID = new CsdidaAttribute("sensor-id",
-            SENSOR_ID_NAME,
-            tre -> TreUtility.convertToString(tre, SENSOR_ID_NAME),
-            BasicTypes.STRING_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final CsdidaAttribute SENSOR_ID_ATTRIBUTE = new CsdidaAttribute(SENSOR_ID,
+            SENSOR_ID_SHORT_NAME,
+            tre -> TreUtility.convertToString(tre, SENSOR_ID_SHORT_NAME),
+            BasicTypes.STRING_TYPE);
 
-    static final CsdidaAttribute PRODUCT_ID = new CsdidaAttribute("product-id",
-            PRODUCT_ID_NAME,
-            tre -> TreUtility.convertToString(tre, PRODUCT_ID_NAME),
-            BasicTypes.STRING_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final CsdidaAttribute PRODUCT_ID_ATTRIBUTE = new CsdidaAttribute(PRODUCT_ID,
+            PRODUCT_ID_SHORT_NAME,
+            tre -> TreUtility.convertToString(tre, PRODUCT_ID_SHORT_NAME),
+            BasicTypes.STRING_TYPE);
 
-    static final CsdidaAttribute TIME = new CsdidaAttribute("image-start-time",
-            TIME_NAME,
-            tre -> TreUtility.convertToDate(tre, TIME_NAME),
-            BasicTypes.DATE_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final CsdidaAttribute TIME_ATTRIBUTE = new CsdidaAttribute(TIME,
+            TIME_SHORT_NAME,
+            tre -> TreUtility.convertToDate(tre, TIME_SHORT_NAME),
+            BasicTypes.DATE_TYPE);
 
-    static final CsdidaAttribute PROCESS_TIME = new CsdidaAttribute("process-completion-time",
-            PROCESS_TIME_NAME,
-            tre -> TreUtility.convertToDate(tre, PROCESS_TIME_NAME),
-            BasicTypes.DATE_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final CsdidaAttribute PROCESS_TIME_ATTRIBUTE = new CsdidaAttribute(
+            PROCESS_TIME,
+            PROCESS_TIME_SHORT_NAME,
+            tre -> TreUtility.convertToDate(tre, PROCESS_TIME_SHORT_NAME),
+            BasicTypes.DATE_TYPE);
 
-    static final CsdidaAttribute SOFTWARE_VERSION_NUMBER = new CsdidaAttribute("software-version-num",
-            SOFTWARE_VERSION_NUMBER_NAME,
-            tre -> TreUtility.convertToString(tre, SOFTWARE_VERSION_NUMBER_NAME),
-            BasicTypes.STRING_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final CsdidaAttribute SOFTWARE_VERSION_NUMBER_ATTRIBUTE = new CsdidaAttribute(
+            SOFTWARE_VERSION_NUMBER,
+            SOFTWARE_VERSION_NUMBER_SHORT_NAME,
+            tre -> TreUtility.convertToString(tre, SOFTWARE_VERSION_NUMBER_SHORT_NAME),
+            BasicTypes.STRING_TYPE);
 
     private CsdidaAttribute(String longName, String shortName,
-            Function<Tre, Serializable> accessorFunction, AttributeType attributeType,
-            String prefix) {
-        super(longName, shortName, accessorFunction, attributeType, prefix);
+            Function<Tre, Serializable> accessorFunction, AttributeType attributeType) {
+        super(longName, shortName, accessorFunction, attributeType);
         ATTRIBUTES.add(this);
     }
 
     private CsdidaAttribute(final String longName, final String shortName,
             final Function<Tre, Serializable> accessorFunction,
-            AttributeDescriptor attributeDescriptor, String extNitfName, String prefix) {
-        super(longName, shortName, accessorFunction, attributeDescriptor, extNitfName, prefix);
+            AttributeDescriptor attributeDescriptor, String extNitfName) {
+        super(longName, shortName, accessorFunction, attributeDescriptor, extNitfName);
         ATTRIBUTES.add(this);
     }
 
     private static Serializable getPlatformIdFunction(Tre tre) {
         Optional<String> platformCode = Optional.ofNullable(TreUtility.getTreValue(tre,
-                PLATFORM_CODE_NAME))
+                PLATFORM_CODE_SHORT_NAME))
                 .filter(String.class::isInstance)
                 .map(String.class::cast);
         Optional<Serializable> vehicleId = Optional.ofNullable(TreUtility.getTreValue(tre,
-                VEHICLE_ID_NAME));
+                VEHICLE_ID_SHORT_NAME));
 
         if (platformCode.isPresent() && vehicleId.isPresent()) {
             return String.format("%s%s", platformCode.get(), vehicleId.get());
