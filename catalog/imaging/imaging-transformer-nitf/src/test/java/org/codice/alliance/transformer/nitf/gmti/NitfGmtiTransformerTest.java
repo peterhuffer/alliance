@@ -159,17 +159,17 @@ public class NitfGmtiTransformerTest {
     private Map<NitfAttribute, String> initMtirpbAttributes() {
         // key value pair of nitf attributes and expected getAttributes
         Map<NitfAttribute, String> map = new HashMap<>();
-        map.put(MtirpbAttribute.AIRCRAFT_ALTITUDE, "150000");
-        map.put(MtirpbAttribute.NUMBER_OF_VALID_TARGETS, "001");
-        map.put(MtirpbAttribute.AIRCRAFT_ALTITUDE_UNITS, "m");
-        map.put(MtirpbAttribute.AIRCRAFT_HEADING, "000");
-        map.put(MtirpbAttribute.AIRCRAFT_LOCATION, "POINT (+52.123456 -004.123456)");
-        map.put(MtirpbAttribute.COSINE_OF_GRAZE_ANGLE, "0.03111");
-        map.put(MtirpbAttribute.DESTINATION_POINT, "00");
-        map.put(MtirpbAttribute.PATCH_NUMBER, "0001");
-        map.put(MtirpbAttribute.SCAN_DATE_AND_TIME, "20141108235219");
-        map.put(MtirpbAttribute.WIDE_AREA_MTI_BAR_NUMBER, "1");
-        map.put(MtirpbAttribute.WIDE_AREA_MTI_FRAME_NUMBER, "00001");
+        map.put(MtirpbAttribute.AIRCRAFT_ALTITUDE_ATTRIBUTE, "150000");
+        map.put(MtirpbAttribute.NUMBER_OF_VALID_TARGETS_ATTRIBUTE, "001");
+        map.put(MtirpbAttribute.AIRCRAFT_ALTITUDE_UNITS_ATTRIBUTE, "m");
+        map.put(MtirpbAttribute.AIRCRAFT_HEADING_ATTRIBUTE, "000");
+        map.put(MtirpbAttribute.AIRCRAFT_LOCATION_ATTRIBUTE, "POINT (+52.123456 -004.123456)");
+        map.put(MtirpbAttribute.COSINE_OF_GRAZE_ANGLE_ATTRIBUTE, "0.03111");
+        map.put(MtirpbAttribute.DESTINATION_POINT_ATTRIBUTE, "00");
+        map.put(MtirpbAttribute.PATCH_NUMBER_ATTRIBUTE, "0001");
+        map.put(MtirpbAttribute.SCAN_DATE_AND_TIME_ATTRIBUTE, "20141108235219");
+        map.put(MtirpbAttribute.WIDE_AREA_MTI_BAR_NUMBER_ATTRIBUTE, "1");
+        map.put(MtirpbAttribute.WIDE_AREA_MTI_FRAME_NUMBER_ATTRIBUTE, "00001");
         map.put(IndexedMtirpbAttribute.INDEXED_TARGET_AMPLITUDE_ATTRIBUTE, "06");
         map.put(IndexedMtirpbAttribute.INDEXED_TARGET_CLASSIFICATION_CATEGORY_ATTRIBUTE, "Unknown");
         map.put(IndexedMtirpbAttribute.INDEXED_TARGET_GROUND_SPEED_ATTRIBUTE, "000");
