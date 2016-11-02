@@ -22,6 +22,7 @@ import java.util.function.Function;
 
 import org.codice.alliance.catalog.core.api.impl.types.IsrAttributes;
 import org.codice.alliance.catalog.core.api.types.Isr;
+import org.codice.alliance.transformer.nitf.ExtNitfUtility;
 import org.codice.imaging.nitf.core.tre.Tre;
 
 import ddf.catalog.data.AttributeDescriptor;
@@ -35,185 +36,204 @@ public class PiaimcAttribute extends NitfAttributeImpl<Tre> {
 
     private static final List<NitfAttribute<Tre>> ATTRIBUTES = new LinkedList<>();
 
-    public static final String CLOUDCVR_NAME = "CLOUDCVR";
+    private static final String ATTRIBUTE_NAME_PREFIX = ExtNitfUtility.EXT_NITF_PREFIX + "piaimc.";
 
-    public static final String STANDARD_RADIOMETRIC_PRODUCT_NAME = "SRP";
+    public static final String CLOUDCVR = ATTRIBUTE_NAME_PREFIX + "cloud-cvr";
 
-    public static final String SENSMODE_NAME = "SENSMODE";
+    public static final String SRP = ATTRIBUTE_NAME_PREFIX + "standard-radiometric-product";
 
-    public static final String SENSNAME_NAME = "SENSNAME";
+    public static final String SENSMODE = ATTRIBUTE_NAME_PREFIX + "sensor-mode";
 
-    public static final String SOURCE_NAME = "SOURCE";
+    public static final String SENSNAME = ATTRIBUTE_NAME_PREFIX + "sensor-name";
 
-    public static final String COMGEN_NAME = "COMGEN";
+    public static final String SOURCE = ATTRIBUTE_NAME_PREFIX + "source";
 
-    public static final String SUBQUAL_NAME = "SUBQUAL";
+    public static final String COMGEN = ATTRIBUTE_NAME_PREFIX + "compression-generation";
 
-    public static final String PIAMSNNUM_NAME = "PIAMSNNUM";
+    public static final String SUBQUAL = ATTRIBUTE_NAME_PREFIX + "subjective-quality";
 
-    public static final String CAMSPECS_NAME = "CAMSPECS";
+    public static final String PIAMSNNUM = ATTRIBUTE_NAME_PREFIX + "pia-mission-num";
 
-    public static final String PROJID_NAME = "PROJID";
+    public static final String CAMSPECS = ATTRIBUTE_NAME_PREFIX + "camera-specs";
 
-    public static final String GENERATION_NAME = "GENERATION";
+    public static final String PROJID = ATTRIBUTE_NAME_PREFIX + "project-id-code";
 
-    public static final String EXPLOITATION_SUPPORT_DATA_NAME = "ESD";
+    public static final String GENERATION = ATTRIBUTE_NAME_PREFIX + "generation";
 
-    public static final String OTHERCOND_NAME = "OTHERCOND";
+    public static final String ESD = ATTRIBUTE_NAME_PREFIX + "exploitation-support-data";
 
-    public static final String MEANGSD_NAME = "MEANGSD";
+    public static final String OTHERCOND = ATTRIBUTE_NAME_PREFIX + "other-conditions";
 
-    public static final String IDATUM_NAME = "IDATUM";
+    public static final String MEANGSD = ATTRIBUTE_NAME_PREFIX + "mean-gsd";
 
-    public static final String IELLIP_NAME = "IELLIP";
+    public static final String IDATUM = ATTRIBUTE_NAME_PREFIX + "image-datum";
 
-    public static final String PREPROC_NAME = "PREPROC";
+    public static final String IELLIP = ATTRIBUTE_NAME_PREFIX + "image-ellipsoid";
 
-    public static final String IPROJ_NAME = "IPROJ";
+    public static final String PREPROC = ATTRIBUTE_NAME_PREFIX + "image-processing-level";
 
-    public static final String SATTRACK_PATH_NAME = "SATTRACK_PATH";
+    public static final String IPROJ = ATTRIBUTE_NAME_PREFIX + "image-projection-system";
 
-    public static final String SATTRACK_ROW_NAME = "SATTRACK_ROW";
+    public static final String SATTRACK_PATH = ATTRIBUTE_NAME_PREFIX + "satellite-track-path";
 
-    public static final String ATTRIBUTE_NAME_PREFIX = "piaimc.";
+    public static final String SATTRACK_ROW = ATTRIBUTE_NAME_PREFIX + "satellite-track-row";
 
-    static final PiaimcAttribute CLOUDCVR = new PiaimcAttribute(Isr.CLOUD_COVER,
-            CLOUDCVR_NAME,
+    public static final String CLOUDCVR_SHORT_NAME = "CLOUDCVR";
+
+    public static final String STANDARD_RADIOMETRIC_PRODUCT_SHORT_NAME = "SRP";
+
+    public static final String SENSMODE_SHORT_NAME = "SENSMODE";
+
+    public static final String SENSNAME_SHORT_NAME = "SENSNAME";
+
+    public static final String SOURCE_SHORT_NAME = "SOURCE";
+
+    public static final String COMGEN_SHORT_NAME = "COMGEN";
+
+    public static final String SUBQUAL_SHORT_NAME = "SUBQUAL";
+
+    public static final String PIAMSNNUM_SHORT_NAME = "PIAMSNNUM";
+
+    public static final String CAMSPECS_SHORT_NAME = "CAMSPECS";
+
+    public static final String PROJID_SHORT_NAME = "PROJID";
+
+    public static final String GENERATION_SHORT_NAME = "GENERATION";
+
+    public static final String EXPLOITATION_SUPPORT_DATA_SHORT_NAME = "ESD";
+
+    public static final String OTHERCOND_SHORT_NAME = "OTHERCOND";
+
+    public static final String MEANGSD_SHORT_NAME = "MEANGSD";
+
+    public static final String IDATUM_SHORT_NAME = "IDATUM";
+
+    public static final String IELLIP_SHORT_NAME = "IELLIP";
+
+    public static final String PREPROC_SHORT_NAME = "PREPROC";
+
+    public static final String IPROJ_SHORT_NAME = "IPROJ";
+
+    public static final String SATTRACK_PATH_SHORT_NAME = "SATTRACK_PATH";
+
+    public static final String SATTRACK_ROW_SHORT_NAME = "SATTRACK_ROW";
+
+    static final PiaimcAttribute CLOUDCVR_ATTRIBUTE = new PiaimcAttribute(Isr.CLOUD_COVER,
+            CLOUDCVR_SHORT_NAME,
             PiaimcAttribute::getCloudCoverFunction,
             new IsrAttributes().getAttributeDescriptor(Isr.CLOUD_COVER),
-            "cloudCvr",
-            ATTRIBUTE_NAME_PREFIX);
+            CLOUDCVR);
 
-    static final PiaimcAttribute SRP = new PiaimcAttribute("standard-radiometric-product",
-            STANDARD_RADIOMETRIC_PRODUCT_NAME,
-            tre -> TreUtility.convertYnToBoolean(tre, STANDARD_RADIOMETRIC_PRODUCT_NAME),
-            BasicTypes.BOOLEAN_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final PiaimcAttribute SRP_ATTRIBUTE = new PiaimcAttribute(SRP,
+            STANDARD_RADIOMETRIC_PRODUCT_SHORT_NAME,
+            tre -> TreUtility.convertYnToBoolean(tre, STANDARD_RADIOMETRIC_PRODUCT_SHORT_NAME),
+            BasicTypes.BOOLEAN_TYPE);
 
-    static final PiaimcAttribute SENSMODE = new PiaimcAttribute("sensor-mode",
-            SENSMODE_NAME,
-            tre -> TreUtility.convertToString(tre, SENSMODE_NAME),
-            BasicTypes.STRING_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final PiaimcAttribute SENSMODE_ATTRIBUTE = new PiaimcAttribute(SENSMODE,
+            SENSMODE_SHORT_NAME,
+            tre -> TreUtility.convertToString(tre, SENSMODE_SHORT_NAME),
+            BasicTypes.STRING_TYPE);
 
-    static final PiaimcAttribute SENSNAME = new PiaimcAttribute("sensor-name",
-            SENSNAME_NAME,
-            tre -> TreUtility.convertToString(tre, SENSNAME_NAME),
-            BasicTypes.STRING_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final PiaimcAttribute SENSNAME_ATTRIBUTE = new PiaimcAttribute(SENSNAME,
+            SENSNAME_SHORT_NAME,
+            tre -> TreUtility.convertToString(tre, SENSNAME_SHORT_NAME),
+            BasicTypes.STRING_TYPE);
 
-    static final PiaimcAttribute SOURCE = new PiaimcAttribute("source",
-            SOURCE_NAME,
-            tre -> TreUtility.convertToString(tre, SOURCE_NAME),
-            BasicTypes.STRING_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final PiaimcAttribute SOURCE_ATTRIBUTE = new PiaimcAttribute(SOURCE,
+            SOURCE_SHORT_NAME,
+            tre -> TreUtility.convertToString(tre, SOURCE_SHORT_NAME),
+            BasicTypes.STRING_TYPE);
 
-    static final PiaimcAttribute COMGEN = new PiaimcAttribute("compression-generation",
-            COMGEN_NAME,
-            tre -> TreUtility.convertToInteger(tre, COMGEN_NAME),
-            BasicTypes.INTEGER_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final PiaimcAttribute COMGEN_ATTRIBUTE = new PiaimcAttribute(COMGEN,
+            COMGEN_SHORT_NAME,
+            tre -> TreUtility.convertToInteger(tre, COMGEN_SHORT_NAME),
+            BasicTypes.INTEGER_TYPE);
 
-    static final PiaimcAttribute SUBQUAL = new PiaimcAttribute("subjective-quality",
-            SUBQUAL_NAME,
-            tre -> TreUtility.convertToString(tre, SUBQUAL_NAME),
-            BasicTypes.STRING_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final PiaimcAttribute SUBQUAL_ATTRIBUTE = new PiaimcAttribute(SUBQUAL,
+            SUBQUAL_SHORT_NAME,
+            tre -> TreUtility.convertToString(tre, SUBQUAL_SHORT_NAME),
+            BasicTypes.STRING_TYPE);
 
-    static final PiaimcAttribute PIAMSNNUM = new PiaimcAttribute("pia-mission-num",
-            PIAMSNNUM_NAME,
-            tre -> TreUtility.convertToString(tre, PIAMSNNUM_NAME),
-            BasicTypes.STRING_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final PiaimcAttribute PIAMSNNUM_ATTRIBUTE = new PiaimcAttribute(PIAMSNNUM,
+            PIAMSNNUM_SHORT_NAME,
+            tre -> TreUtility.convertToString(tre, PIAMSNNUM_SHORT_NAME),
+            BasicTypes.STRING_TYPE);
 
-    static final PiaimcAttribute CAMSPECS = new PiaimcAttribute("camera-specs",
-            CAMSPECS_NAME,
-            tre -> TreUtility.convertToString(tre, CAMSPECS_NAME),
-            BasicTypes.STRING_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final PiaimcAttribute CAMSPECS_ATTRIBUTE = new PiaimcAttribute(CAMSPECS,
+            CAMSPECS_SHORT_NAME,
+            tre -> TreUtility.convertToString(tre, CAMSPECS_SHORT_NAME),
+            BasicTypes.STRING_TYPE);
 
-    static final PiaimcAttribute PROJID = new PiaimcAttribute("project-id-code",
-            PROJID_NAME,
-            tre -> TreUtility.convertToString(tre, PROJID_NAME),
-            BasicTypes.STRING_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final PiaimcAttribute PROJID_ATTRIBUTE = new PiaimcAttribute(PROJID,
+            PROJID_SHORT_NAME,
+            tre -> TreUtility.convertToString(tre, PROJID_SHORT_NAME),
+            BasicTypes.STRING_TYPE);
 
-    static final PiaimcAttribute GENERATION = new PiaimcAttribute("generation",
-            GENERATION_NAME,
-            tre -> TreUtility.convertToInteger(tre, GENERATION_NAME),
-            BasicTypes.INTEGER_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final PiaimcAttribute GENERATION_ATTRIBUTE = new PiaimcAttribute(GENERATION,
+            GENERATION_SHORT_NAME,
+            tre -> TreUtility.convertToInteger(tre, GENERATION_SHORT_NAME),
+            BasicTypes.INTEGER_TYPE);
 
-    static final PiaimcAttribute ESD = new PiaimcAttribute("exploitation-support-data",
-            EXPLOITATION_SUPPORT_DATA_NAME,
-            tre -> TreUtility.convertYnToBoolean(tre, EXPLOITATION_SUPPORT_DATA_NAME),
-            BasicTypes.BOOLEAN_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final PiaimcAttribute ESD_ATTRIBUTE = new PiaimcAttribute(ESD,
+            EXPLOITATION_SUPPORT_DATA_SHORT_NAME,
+            tre -> TreUtility.convertYnToBoolean(tre, EXPLOITATION_SUPPORT_DATA_SHORT_NAME),
+            BasicTypes.BOOLEAN_TYPE);
 
-    static final PiaimcAttribute OTHERCOND = new PiaimcAttribute("other-conditions",
-            OTHERCOND_NAME,
-            tre -> TreUtility.convertToString(tre, OTHERCOND_NAME),
-            BasicTypes.STRING_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final PiaimcAttribute OTHERCOND_ATTRIBUTE = new PiaimcAttribute(OTHERCOND,
+            OTHERCOND_SHORT_NAME,
+            tre -> TreUtility.convertToString(tre, OTHERCOND_SHORT_NAME),
+            BasicTypes.STRING_TYPE);
 
-    static final PiaimcAttribute MEANGSD = new PiaimcAttribute("mean-gsd",
-            MEANGSD_NAME,
-            tre -> TreUtility.convertToFloat(tre, MEANGSD_NAME),
-            BasicTypes.FLOAT_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final PiaimcAttribute MEANGSD_ATTRIBUTE = new PiaimcAttribute(MEANGSD,
+            MEANGSD_SHORT_NAME,
+            tre -> TreUtility.convertToFloat(tre, MEANGSD_SHORT_NAME),
+            BasicTypes.FLOAT_TYPE);
 
-    static final PiaimcAttribute IDATUM = new PiaimcAttribute("image-datum",
-            IDATUM_NAME,
-            tre -> TreUtility.convertToString(tre, IDATUM_NAME),
-            BasicTypes.STRING_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final PiaimcAttribute IDATUM_ATTRIBUTE = new PiaimcAttribute(IDATUM,
+            IDATUM_SHORT_NAME,
+            tre -> TreUtility.convertToString(tre, IDATUM_SHORT_NAME),
+            BasicTypes.STRING_TYPE);
 
-    static final PiaimcAttribute IELLIP = new PiaimcAttribute("image-ellipsoid",
-            IELLIP_NAME,
-            tre -> TreUtility.convertToString(tre, IELLIP_NAME),
-            BasicTypes.STRING_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final PiaimcAttribute IELLIP_ATTRIBUTE = new PiaimcAttribute(IELLIP,
+            IELLIP_SHORT_NAME,
+            tre -> TreUtility.convertToString(tre, IELLIP_SHORT_NAME),
+            BasicTypes.STRING_TYPE);
 
-    static final PiaimcAttribute PREPROC = new PiaimcAttribute("image-processing-level",
-            PREPROC_NAME,
-            tre -> TreUtility.convertToString(tre, PREPROC_NAME),
-            BasicTypes.STRING_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final PiaimcAttribute PREPROC_ATTRIBUTE = new PiaimcAttribute(PREPROC,
+            PREPROC_SHORT_NAME,
+            tre -> TreUtility.convertToString(tre, PREPROC_SHORT_NAME),
+            BasicTypes.STRING_TYPE);
 
-    static final PiaimcAttribute IPROJ = new PiaimcAttribute("image-projection-system",
-            IPROJ_NAME,
-            tre -> TreUtility.convertToString(tre, IPROJ_NAME),
-            BasicTypes.STRING_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final PiaimcAttribute IPROJ_ATTRIBUTE = new PiaimcAttribute(IPROJ,
+            IPROJ_SHORT_NAME,
+            tre -> TreUtility.convertToString(tre, IPROJ_SHORT_NAME),
+            BasicTypes.STRING_TYPE);
 
-    static final PiaimcAttribute SATTRACK_PATH = new PiaimcAttribute("satellite-track-path",
-            SATTRACK_PATH_NAME,
-            tre -> TreUtility.convertToInteger(tre, SATTRACK_PATH_NAME),
-            BasicTypes.INTEGER_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final PiaimcAttribute SATTRACK_PATH_ATTRIBUTE = new PiaimcAttribute(SATTRACK_PATH,
+            SATTRACK_PATH_SHORT_NAME,
+            tre -> TreUtility.convertToInteger(tre, SATTRACK_PATH_SHORT_NAME),
+            BasicTypes.INTEGER_TYPE);
 
-    static final PiaimcAttribute SATTRACK_ROW = new PiaimcAttribute("satellite-track-row",
-            SATTRACK_ROW_NAME,
-            tre -> TreUtility.convertToInteger(tre, SATTRACK_ROW_NAME),
-            BasicTypes.INTEGER_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+    static final PiaimcAttribute SATTRACK_ROW_ATTRIBUTE = new PiaimcAttribute(SATTRACK_ROW,
+            SATTRACK_ROW_SHORT_NAME,
+            tre -> TreUtility.convertToInteger(tre, SATTRACK_ROW_SHORT_NAME),
+            BasicTypes.INTEGER_TYPE);
 
     private PiaimcAttribute(String longName, String shortName,
-            Function<Tre, Serializable> accessorFunction, AttributeType attributeType,
-            String prefix) {
-        super(longName, shortName, accessorFunction, attributeType, prefix);
+            Function<Tre, Serializable> accessorFunction, AttributeType attributeType) {
+        super(longName, shortName, accessorFunction, attributeType);
         ATTRIBUTES.add(this);
     }
 
     private PiaimcAttribute(String longName, String shortName,
             Function<Tre, Serializable> accessorFunction, AttributeDescriptor attributeDescriptor,
-            String extNitfName, String prefix) {
-        super(longName, shortName, accessorFunction, attributeDescriptor, extNitfName, prefix);
+            String extNitfName) {
+        super(longName, shortName, accessorFunction, attributeDescriptor, extNitfName);
         ATTRIBUTES.add(this);
     }
 
     private static Serializable getCloudCoverFunction(Tre tre) {
-        return Optional.ofNullable(TreUtility.getTreValue(tre, CLOUDCVR_NAME))
+        return Optional.ofNullable(TreUtility.getTreValue(tre, CLOUDCVR_SHORT_NAME))
                 .filter(String.class::isInstance)
                 .map(String.class::cast)
                 .map(Integer::valueOf)
