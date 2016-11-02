@@ -122,10 +122,10 @@ public class NitfGmtiTransformerTest {
     @Test
     public void testClassificationCategory() throws NitfFormatException {
         Tre tre = mock(Tre.class);
-        when(tre.getFieldValue(IndexedMtirpbAttribute.INDEXED_TARGET_CLASSIFICATION_CATEGORY.getShortName())).thenReturn(
+        when(tre.getFieldValue(IndexedMtirpbAttribute.INDEXED_TARGET_CLASSIFICATION_CATEGORY_ATTRIBUTE.getShortName())).thenReturn(
                 null);
         String value =
-                IndexedMtirpbAttribute.INDEXED_TARGET_CLASSIFICATION_CATEGORY.getAccessorFunction()
+                IndexedMtirpbAttribute.INDEXED_TARGET_CLASSIFICATION_CATEGORY_ATTRIBUTE.getAccessorFunction()
                         .apply(tre)
                         .toString();
         assertThat(value, is("Unknown"));
@@ -170,14 +170,14 @@ public class NitfGmtiTransformerTest {
         map.put(MtirpbAttribute.SCAN_DATE_AND_TIME, "20141108235219");
         map.put(MtirpbAttribute.WIDE_AREA_MTI_BAR_NUMBER, "1");
         map.put(MtirpbAttribute.WIDE_AREA_MTI_FRAME_NUMBER, "00001");
-        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_AMPLITUDE, "06");
-        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_CLASSIFICATION_CATEGORY, "Unknown");
-        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_GROUND_SPEED, "000");
-        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_HEADING, "000");
-        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_LOCATION,
+        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_AMPLITUDE_ATTRIBUTE, "06");
+        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_CLASSIFICATION_CATEGORY_ATTRIBUTE, "Unknown");
+        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_GROUND_SPEED_ATTRIBUTE, "000");
+        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_HEADING_ATTRIBUTE, "000");
+        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_LOCATION_ATTRIBUTE,
                 "MULTIPOINT ((52.1234567 -4.1234567))");
-        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_LOCATION_ACCURACY, "000.00");
-        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_RADIAL_VELOCITY, "+013");
+        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_LOCATION_ACCURACY_ATTRIBUTE, "000.00");
+        map.put(IndexedMtirpbAttribute.INDEXED_TARGET_RADIAL_VELOCITY_ATTRIBUTE, "+013");
         return map;
     }
 }
