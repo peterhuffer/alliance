@@ -39,7 +39,7 @@ public class HistoaAttributeTest {
     public void testSystypeSet() throws NitfFormatException {
         when(tre.getFieldValue(HistoaAttribute.SYSTYPE_NAME)).thenReturn("TestType");
 
-        Serializable actual = HistoaAttribute.SYSTYPE.getAccessorFunction()
+        Serializable actual = HistoaAttribute.SYSTYPE_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(actual, is("TestType"));
@@ -49,7 +49,7 @@ public class HistoaAttributeTest {
     @Test
     public void testSystypeNotSet() throws NitfFormatException {
         when(tre.getIntValue(HistoaAttribute.SYSTYPE_NAME)).thenThrow(NitfFormatException.class);
-        Serializable actual = HistoaAttribute.SYSTYPE.getAccessorFunction()
+        Serializable actual = HistoaAttribute.SYSTYPE_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(nullValue()));
     }
@@ -58,7 +58,7 @@ public class HistoaAttributeTest {
     public void testPcSet() throws NitfFormatException {
         when(tre.getFieldValue(HistoaAttribute.PRIOR_COMPRESSION_NAME)).thenReturn("TestPC");
 
-        Serializable actual = HistoaAttribute.PC.getAccessorFunction()
+        Serializable actual = HistoaAttribute.PC_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(actual, is("TestPC"));
@@ -68,7 +68,7 @@ public class HistoaAttributeTest {
     @Test
     public void testPcNotSet() throws NitfFormatException {
         when(tre.getIntValue(HistoaAttribute.PRIOR_COMPRESSION_NAME)).thenThrow(NitfFormatException.class);
-        Serializable actual = HistoaAttribute.PC.getAccessorFunction()
+        Serializable actual = HistoaAttribute.PC_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(nullValue()));
     }
@@ -77,7 +77,7 @@ public class HistoaAttributeTest {
     public void testPeSet() throws NitfFormatException {
         when(tre.getFieldValue(HistoaAttribute.PRIOR_ENHANCEMENTS_NAME)).thenReturn("TestPE");
 
-        Serializable actual = HistoaAttribute.PE.getAccessorFunction()
+        Serializable actual = HistoaAttribute.PE_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(actual, is("TestPE"));
@@ -87,7 +87,7 @@ public class HistoaAttributeTest {
     @Test
     public void testPeNotSet() throws NitfFormatException {
         when(tre.getIntValue(HistoaAttribute.PRIOR_ENHANCEMENTS_NAME)).thenThrow(NitfFormatException.class);
-        Serializable actual = HistoaAttribute.PE.getAccessorFunction()
+        Serializable actual = HistoaAttribute.PE_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(nullValue()));
     }
@@ -96,7 +96,7 @@ public class HistoaAttributeTest {
     public void testRemapFlagSet() throws NitfFormatException {
         when(tre.getFieldValue(HistoaAttribute.REMAP_FLAG_NAME)).thenReturn("N");
 
-        Serializable actual = HistoaAttribute.REMAP_FLAG.getAccessorFunction()
+        Serializable actual = HistoaAttribute.REMAP_FLAG_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(actual, is("N"));
@@ -106,7 +106,7 @@ public class HistoaAttributeTest {
     @Test
     public void testRemapFlagNotSet() throws NitfFormatException {
         when(tre.getIntValue(HistoaAttribute.REMAP_FLAG_NAME)).thenThrow(NitfFormatException.class);
-        Serializable actual = HistoaAttribute.REMAP_FLAG.getAccessorFunction()
+        Serializable actual = HistoaAttribute.REMAP_FLAG_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(nullValue()));
     }
@@ -115,7 +115,7 @@ public class HistoaAttributeTest {
     public void testDataMappingIdSet() throws NitfFormatException {
         when(tre.getFieldValue(HistoaAttribute.LUTID_NAME)).thenReturn("01");
 
-        Serializable actual = HistoaAttribute.LUTID.getAccessorFunction()
+        Serializable actual = HistoaAttribute.LUTID_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
 
         assertThat(actual, is(1));
@@ -125,7 +125,7 @@ public class HistoaAttributeTest {
     @Test
     public void testDataMappingFlagNotSet() throws NitfFormatException {
         when(tre.getIntValue(HistoaAttribute.LUTID_NAME)).thenThrow(NitfFormatException.class);
-        Serializable actual = HistoaAttribute.LUTID.getAccessorFunction()
+        Serializable actual = HistoaAttribute.LUTID_ATTRIBUTE.getAccessorFunction()
                 .apply(tre);
         assertThat(actual, is(nullValue()));
     }

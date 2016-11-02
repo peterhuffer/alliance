@@ -38,6 +38,7 @@ import javax.ws.rs.core.MediaType;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpStatus;
 import org.codice.alliance.test.itests.common.AbstractAllianceIntegrationTest;
+import org.codice.alliance.transformer.nitf.image.ImageAttribute;
 import org.codice.ddf.itests.common.annotations.BeforeExam;
 import org.junit.After;
 import org.junit.Test;
@@ -150,7 +151,7 @@ public class ImagingTest extends AbstractAllianceIntegrationTest {
     public void testNitfJpeg2000p001a() throws Exception {
         ingestAndValidateCommonNitfJpeg2000Attributes("p0_01a").and()
                 .hasStringElement("resource-size", "8957")
-                .hasDateElement("ext.nitf.image.imageDateAndTime", "2001-11-02T06:30:48.000+00:00")
+                .hasDateElement(ImageAttribute.IMAGE_DATE_AND_TIME, "2001-11-02T06:30:48.000+00:00")
                 .hasStringElement("checksum", "3a3bc72");
     }
 
@@ -163,7 +164,7 @@ public class ImagingTest extends AbstractAllianceIntegrationTest {
     public void testNitfJpeg2000p002a() throws Exception {
         ingestAndValidateCommonNitfJpeg2000Attributes("p0_02a").and()
                 .hasStringElement("resource-size", "7750")
-                .hasDateElement("ext.nitf.image.imageDateAndTime", "2001-11-02T06:30:48.000+00:00")
+                .hasDateElement(ImageAttribute.IMAGE_DATE_AND_TIME, "2001-11-02T06:30:48.000+00:00")
                 .hasStringElement("checksum", "972f2672");
     }
 
@@ -176,7 +177,7 @@ public class ImagingTest extends AbstractAllianceIntegrationTest {
     public void testNitfJpeg2000p004b() throws Exception {
         ingestAndValidateCommonNitfJpeg2000Attributes("p0_04b").and()
                 .hasStringElement("resource-size", "265508")
-                .hasDateElement("ext.nitf.image.imageDateAndTime", "2001-12-10T05:38:34.000+00:00")
+                .hasDateElement(ImageAttribute.IMAGE_DATE_AND_TIME, "2001-12-10T05:38:34.000+00:00")
                 .hasStringElement("checksum", "a0d12a41");
     }
 
@@ -187,7 +188,7 @@ public class ImagingTest extends AbstractAllianceIntegrationTest {
     public void testNitfJpeg2000p009a() throws Exception {
         ingestAndValidateCommonNitfJpeg2000Attributes("p0_09a").and()
                 .hasStringElement("resource-size", "2161")
-                .hasDateElement("ext.nitf.image.imageDateAndTime", "2001-12-17T18:22:24.000+00:00")
+                .hasDateElement(ImageAttribute.IMAGE_DATE_AND_TIME, "2001-12-17T18:22:24.000+00:00")
                 .hasStringElement("checksum", "117990ba");
     }
 
@@ -199,7 +200,7 @@ public class ImagingTest extends AbstractAllianceIntegrationTest {
     public void testNitfJpeg2000p010b() throws Exception {
         ingestAndValidateCommonNitfJpeg2000Attributes("p0_10b").and()
                 .hasStringElement("resource-size", "15004")
-                .hasDateElement("ext.nitf.image.imageDateAndTime", "2002-01-23T13:09:22.000+00:00")
+                .hasDateElement(ImageAttribute.IMAGE_DATE_AND_TIME, "2002-01-23T13:09:22.000+00:00")
                 .hasStringElement("checksum", "cdf9dc3f");
     }
 
@@ -211,7 +212,7 @@ public class ImagingTest extends AbstractAllianceIntegrationTest {
     public void testNitfJpeg2000p011xa() throws Exception {
         ingestAndValidateCommonNitfJpeg2000Attributes("p0_11xa").and()
                 .hasStringElement("resource-size", "1800")
-                .hasDateElement("ext.nitf.image.imageDateAndTime", "2001-11-02T06:30:50.000+00:00")
+                .hasDateElement(ImageAttribute.IMAGE_DATE_AND_TIME, "2001-11-02T06:30:50.000+00:00")
                 .hasStringElement("checksum", "76abdc9c");
     }
 
@@ -222,7 +223,7 @@ public class ImagingTest extends AbstractAllianceIntegrationTest {
     public void testNitfJpeg2000p012a() throws Exception {
         ingestAndValidateCommonNitfJpeg2000Attributes("p0_12a").and()
                 .hasStringElement("resource-size", "1852")
-                .hasDateElement("ext.nitf.image.imageDateAndTime", "2001-12-13T11:15:18.000+00:00")
+                .hasDateElement(ImageAttribute.IMAGE_DATE_AND_TIME, "2001-12-13T11:15:18.000+00:00")
                 .hasStringElement("checksum", "fa66cc4e");
     }
 
@@ -233,7 +234,7 @@ public class ImagingTest extends AbstractAllianceIntegrationTest {
     public void testNitfJpeg2000p014b() throws Exception {
         ingestAndValidateCommonNitfJpeg2000Attributes("p0_14b").and()
                 .hasStringElement("resource-size", "2507")
-                .hasDateElement("ext.nitf.image.imageDateAndTime", "2001-12-17T17:36:26.000+00:00")
+                .hasDateElement(ImageAttribute.IMAGE_DATE_AND_TIME, "2001-12-17T17:36:26.000+00:00")
                 .hasStringElement("checksum", "9cf98387");
     }
 
@@ -244,7 +245,7 @@ public class ImagingTest extends AbstractAllianceIntegrationTest {
     public void testNitfJpeg2000p016a() throws Exception {
         ingestAndValidateCommonNitfJpeg2000Attributes("p0_16a").and()
                 .hasStringElement("resource-size", "8974")
-                .hasDateElement("ext.nitf.image.imageDateAndTime", "2002-01-23T19:32:10.000+00:00")
+                .hasDateElement(ImageAttribute.IMAGE_DATE_AND_TIME, "2002-01-23T19:32:10.000+00:00")
                 .hasStringElement("checksum", "9e81c514");
     }
 
@@ -256,7 +257,7 @@ public class ImagingTest extends AbstractAllianceIntegrationTest {
     public void testNitfJpeg2000p102b() throws Exception {
         ingestAndValidateCommonNitfJpeg2000Attributes("p1_02b").and()
                 .hasStringElement("resource-size", "263963")
-                .hasDateElement("ext.nitf.image.imageDateAndTime", "2001-12-26T15:02:10.000+00:00")
+                .hasDateElement(ImageAttribute.IMAGE_DATE_AND_TIME, "2001-12-26T15:02:10.000+00:00")
                 .hasStringElement("checksum", "74b85e69");
     }
 
@@ -267,7 +268,7 @@ public class ImagingTest extends AbstractAllianceIntegrationTest {
     public void testNitfJpeg2000p104a() throws Exception {
         ingestAndValidateCommonNitfJpeg2000Attributes("p1_04a").and()
                 .hasStringElement("resource-size", "103411")
-                .hasDateElement("ext.nitf.image.imageDateAndTime", "2001-11-02T06:30:50.000+00:00")
+                .hasDateElement(ImageAttribute.IMAGE_DATE_AND_TIME, "2001-11-02T06:30:50.000+00:00")
                 .hasStringElement("checksum", "1dc68130");
     }
 
@@ -278,7 +279,7 @@ public class ImagingTest extends AbstractAllianceIntegrationTest {
     public void testNitfJpeg2000p106b() throws Exception {
         ingestAndValidateCommonNitfJpeg2000Attributes("p1_06b").and()
                 .hasStringElement("resource-size", "4229")
-                .hasDateElement("ext.nitf.image.imageDateAndTime", "2001-11-02T06:30:50.000+00:00")
+                .hasDateElement(ImageAttribute.IMAGE_DATE_AND_TIME, "2001-11-02T06:30:50.000+00:00")
                 .hasStringElement("checksum", "30c9ef90");
     }
 
@@ -383,7 +384,7 @@ public class ImagingTest extends AbstractAllianceIntegrationTest {
 
         return new MetacardXmlValidator(response, id).hasStringElement("media.type", "image/nitf")
                 .hasStringElement("media.compression", "JPEG2000")
-                .hasStringElement("ext.nitf.image.imageCompression", "JPEG2000")
+                .hasStringElement(ImageAttribute.IMAGE_COMPRESSION, "JPEG2000")
                 .hasBase64Binary("thumbnail", fileNamePrefix + ".thumbnail");
     }
 

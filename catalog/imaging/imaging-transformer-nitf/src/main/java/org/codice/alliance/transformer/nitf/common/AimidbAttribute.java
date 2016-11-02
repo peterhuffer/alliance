@@ -33,50 +33,49 @@ public class AimidbAttribute extends NitfAttributeImpl<Tre> {
 
     private static final List<NitfAttribute<Tre>> ATTRIBUTES = new LinkedList<>();
 
-    private static final String ATTRIBUTE_NAME_PREFIX = ExtNitfUtility.EXT_NITF_PREFIX + "aimidb.";
+    private static final String PREFIX = ExtNitfUtility.EXT_NITF_PREFIX + "aimidb.";
 
-    public static final String ACQUISITION_DATE = ATTRIBUTE_NAME_PREFIX + "acquisition-date";
+    public static final String ACQUISITION_DATE = PREFIX + "acquisition-date";
 
-    public static final String MISSION_NUMBER = ATTRIBUTE_NAME_PREFIX + "mission-number";
+    public static final String MISSION_NUMBER = PREFIX + "mission-number";
 
-    public static final String MISSION_IDENTIFICATION =
-            ATTRIBUTE_NAME_PREFIX + "mission-identification";
+    public static final String MISSION_IDENTIFICATION = PREFIX + "mission-identification";
 
-    public static final String FLIGHT_NUMBER = ATTRIBUTE_NAME_PREFIX + "flight-number";
+    public static final String FLIGHT_NUMBER = PREFIX + "flight-number";
 
-    public static final String OPERATION_NUMBER =
-            ATTRIBUTE_NAME_PREFIX + "image-operation-number";
+    public static final String OPERATION_NUMBER = PREFIX + "image-operation-number";
 
-    public static final String CURRENT_SEGMENT = ATTRIBUTE_NAME_PREFIX + "current-segment";
+    public static final String CURRENT_SEGMENT = PREFIX + "current-segment";
 
-    public static final String REPROCESS_NUMBER = ATTRIBUTE_NAME_PREFIX + "reprocess-number";
+    public static final String REPROCESS_NUMBER = PREFIX + "reprocess-number";
 
-    public static final String REPLAY = ATTRIBUTE_NAME_PREFIX + "replay";
+    public static final String REPLAY = PREFIX + "replay";
 
-    public static final String START_TILE_COLUMN = ATTRIBUTE_NAME_PREFIX + "start-tile-column";
+    public static final String START_TILE_COLUMN = PREFIX + "start-tile-column";
 
-    public static final String START_TILE_ROW = ATTRIBUTE_NAME_PREFIX + "start-tile-row";
+    public static final String START_TILE_ROW = PREFIX + "start-tile-row";
 
-    public static final String END_SEGMENT = ATTRIBUTE_NAME_PREFIX + "end-segment";
+    public static final String END_SEGMENT = PREFIX + "end-segment";
 
-    public static final String END_TILE_COLUMN = ATTRIBUTE_NAME_PREFIX + "end-tile-column";
+    public static final String END_TILE_COLUMN = PREFIX + "end-tile-column";
 
-    public static final String END_TILE_ROW = ATTRIBUTE_NAME_PREFIX + "end-tile-row";
+    public static final String END_TILE_ROW = PREFIX + "end-tile-row";
 
-    public static final String COUNTRY = ATTRIBUTE_NAME_PREFIX + "country-code";
+    public static final String COUNTRY = PREFIX + "country-code";
 
-    public static final String LOCATION = ATTRIBUTE_NAME_PREFIX + "location";
+    public static final String LOCATION = PREFIX + "location";
 
     /*
      * Non-normalized attributes
      */
-    public static final AimidbAttribute ACQUISITION_DATE_ATTRIBUTE =
-            new AimidbAttribute(ACQUISITION_DATE,
-                    "ACQUISITION_DATE",
-                    tre -> TreUtility.convertToString(tre, "ACQUISITION_DATE"),
-                    BasicTypes.STRING_TYPE);
+    public static final AimidbAttribute ACQUISITION_DATE_ATTRIBUTE = new AimidbAttribute(
+            ACQUISITION_DATE,
+            "ACQUISITION_DATE",
+            tre -> TreUtility.convertToString(tre, "ACQUISITION_DATE"),
+            BasicTypes.STRING_TYPE);
 
-    public static final AimidbAttribute MISSION_NUMBER_ATTRIBUTE = new AimidbAttribute(MISSION_NUMBER,
+    public static final AimidbAttribute MISSION_NUMBER_ATTRIBUTE = new AimidbAttribute(
+            MISSION_NUMBER,
             "MISSION_NO",
             tre -> TreUtility.convertToString(tre, "MISSION_NO"),
             BasicTypes.STRING_TYPE);
@@ -92,22 +91,23 @@ public class AimidbAttribute extends NitfAttributeImpl<Tre> {
             tre -> TreUtility.convertToString(tre, "FLIGHT_NO"),
             BasicTypes.STRING_TYPE);
 
-    public static final AimidbAttribute OPERATION_NUMBER_ATTRIBUTE =
-            new AimidbAttribute(OPERATION_NUMBER,
-                    "OP_NUM",
-                    tre -> TreUtility.convertToInteger(tre, "OP_NUM"),
-                    BasicTypes.INTEGER_TYPE);
+    public static final AimidbAttribute OPERATION_NUMBER_ATTRIBUTE = new AimidbAttribute(
+            OPERATION_NUMBER,
+            "OP_NUM",
+            tre -> TreUtility.convertToInteger(tre, "OP_NUM"),
+            BasicTypes.INTEGER_TYPE);
 
-    public static final AimidbAttribute CURRENT_SEGMENT_ATTRIBUTE = new AimidbAttribute(CURRENT_SEGMENT,
+    public static final AimidbAttribute CURRENT_SEGMENT_ATTRIBUTE = new AimidbAttribute(
+            CURRENT_SEGMENT,
             "CURRENT_SEGMENT",
             tre -> TreUtility.convertToString(tre, "CURRENT_SEGMENT"),
             BasicTypes.STRING_TYPE);
 
-    public static final AimidbAttribute REPROCESS_NUMBER_ATTRIBUTE =
-            new AimidbAttribute(REPROCESS_NUMBER,
-                    "REPRO_NUM",
-                    tre -> TreUtility.convertToInteger(tre, "REPRO_NUM"),
-                    BasicTypes.INTEGER_TYPE);
+    public static final AimidbAttribute REPROCESS_NUMBER_ATTRIBUTE = new AimidbAttribute(
+            REPROCESS_NUMBER,
+            "REPRO_NUM",
+            tre -> TreUtility.convertToInteger(tre, "REPRO_NUM"),
+            BasicTypes.INTEGER_TYPE);
 
     public static final AimidbAttribute REPLAY_ATTRIBUTE = new AimidbAttribute(REPLAY,
             "REPLAY",
@@ -120,7 +120,8 @@ public class AimidbAttribute extends NitfAttributeImpl<Tre> {
             tre -> TreUtility.convertToInteger(tre, "START_TILE_COLUMN"),
             BasicTypes.INTEGER_TYPE);
 
-    public static final AimidbAttribute START_TILE_ROW_ATTRIBUTE = new AimidbAttribute(START_TILE_ROW,
+    public static final AimidbAttribute START_TILE_ROW_ATTRIBUTE = new AimidbAttribute(
+            START_TILE_ROW,
             "START_TILE_ROW",
             tre -> TreUtility.convertToInteger(tre, "START_TILE_ROW"),
             BasicTypes.INTEGER_TYPE);
@@ -130,7 +131,8 @@ public class AimidbAttribute extends NitfAttributeImpl<Tre> {
             tre -> TreUtility.convertToString(tre, "END_SEGMENT"),
             BasicTypes.STRING_TYPE);
 
-    public static final AimidbAttribute END_TILE_COLUMN_ATTRIBUTE = new AimidbAttribute(END_TILE_COLUMN,
+    public static final AimidbAttribute END_TILE_COLUMN_ATTRIBUTE = new AimidbAttribute(
+            END_TILE_COLUMN,
             "END_TILE_COLUMN",
             tre -> TreUtility.convertToInteger(tre, "END_TILE_COLUMN"),
             BasicTypes.INTEGER_TYPE);

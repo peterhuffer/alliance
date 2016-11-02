@@ -36,30 +36,29 @@ public class CsdidaAttribute extends NitfAttributeImpl<Tre> {
 
     private static final List<NitfAttribute<Tre>> ATTRIBUTES = new LinkedList<>();
 
-    public static final String ATTRIBUTE_NAME_PREFIX = ExtNitfUtility.EXT_NITF_PREFIX + "csdida.";
+    private static final String PREFIX = ExtNitfUtility.EXT_NITF_PREFIX + "csdida.";
 
-    public static final String PLATFORM_ID = ATTRIBUTE_NAME_PREFIX + "platform-code-vehicle-id";
+    public static final String PLATFORM_ID = PREFIX + "platform-code-vehicle-id";
 
-    public static final String DAY = ATTRIBUTE_NAME_PREFIX + "day-dataset-collection";
+    public static final String DAY = PREFIX + "day-dataset-collection";
 
-    public static final String MONTH = ATTRIBUTE_NAME_PREFIX + "month-dataset-collection";
+    public static final String MONTH = PREFIX + "month-dataset-collection";
 
-    public static final String YEAR = ATTRIBUTE_NAME_PREFIX + "year-dataset-collection";
+    public static final String YEAR = PREFIX + "year-dataset-collection";
 
-    public static final String PASS = ATTRIBUTE_NAME_PREFIX + "pass-num";
+    public static final String PASS = PREFIX + "pass-num";
 
-    public static final String OPERATION = ATTRIBUTE_NAME_PREFIX + "operation-num";
+    public static final String OPERATION = PREFIX + "operation-num";
 
-    public static final String SENSOR_ID = ATTRIBUTE_NAME_PREFIX + "sensor-id";
+    public static final String SENSOR_ID = PREFIX + "sensor-id";
 
-    public static final String PRODUCT_ID = ATTRIBUTE_NAME_PREFIX + "product-id";
+    public static final String PRODUCT_ID = PREFIX + "product-id";
 
-    public static final String TIME = ATTRIBUTE_NAME_PREFIX + "image-start-time";
+    public static final String TIME = PREFIX + "image-start-time";
 
-    public static final String PROCESS_TIME = ATTRIBUTE_NAME_PREFIX + "process-completion-time";
+    public static final String PROCESS_TIME = PREFIX + "process-completion-time";
 
-    public static final String SOFTWARE_VERSION_NUMBER =
-            ATTRIBUTE_NAME_PREFIX + "software-version-num";
+    public static final String SOFTWARE_VERSION_NUMBER = PREFIX + "software-version-num";
 
     public static final String PLATFORM_CODE_SHORT_NAME = "PLATFORM_CODE";
 
@@ -131,8 +130,7 @@ public class CsdidaAttribute extends NitfAttributeImpl<Tre> {
             tre -> TreUtility.convertToDate(tre, TIME_SHORT_NAME),
             BasicTypes.DATE_TYPE);
 
-    static final CsdidaAttribute PROCESS_TIME_ATTRIBUTE = new CsdidaAttribute(
-            PROCESS_TIME,
+    static final CsdidaAttribute PROCESS_TIME_ATTRIBUTE = new CsdidaAttribute(PROCESS_TIME,
             PROCESS_TIME_SHORT_NAME,
             tre -> TreUtility.convertToDate(tre, PROCESS_TIME_SHORT_NAME),
             BasicTypes.DATE_TYPE);

@@ -36,47 +36,47 @@ public class PiaimcAttribute extends NitfAttributeImpl<Tre> {
 
     private static final List<NitfAttribute<Tre>> ATTRIBUTES = new LinkedList<>();
 
-    private static final String ATTRIBUTE_NAME_PREFIX = ExtNitfUtility.EXT_NITF_PREFIX + "piaimc.";
+    private static final String PREFIX = ExtNitfUtility.EXT_NITF_PREFIX + "piaimc.";
 
-    public static final String CLOUDCVR = ATTRIBUTE_NAME_PREFIX + "cloud-cvr";
+    public static final String CLOUDCVR = PREFIX + "cloud-cvr";
 
-    public static final String SRP = ATTRIBUTE_NAME_PREFIX + "standard-radiometric-product";
+    public static final String SRP = PREFIX + "standard-radiometric-product";
 
-    public static final String SENSMODE = ATTRIBUTE_NAME_PREFIX + "sensor-mode";
+    public static final String SENSMODE = PREFIX + "sensor-mode";
 
-    public static final String SENSNAME = ATTRIBUTE_NAME_PREFIX + "sensor-name";
+    public static final String SENSNAME = PREFIX + "sensor-name";
 
-    public static final String SOURCE = ATTRIBUTE_NAME_PREFIX + "source";
+    public static final String SOURCE = PREFIX + "source";
 
-    public static final String COMGEN = ATTRIBUTE_NAME_PREFIX + "compression-generation";
+    public static final String COMGEN = PREFIX + "compression-generation";
 
-    public static final String SUBQUAL = ATTRIBUTE_NAME_PREFIX + "subjective-quality";
+    public static final String SUBQUAL = PREFIX + "subjective-quality";
 
-    public static final String PIAMSNNUM = ATTRIBUTE_NAME_PREFIX + "pia-mission-num";
+    public static final String PIAMSNNUM = PREFIX + "pia-mission-num";
 
-    public static final String CAMSPECS = ATTRIBUTE_NAME_PREFIX + "camera-specs";
+    public static final String CAMSPECS = PREFIX + "camera-specs";
 
-    public static final String PROJID = ATTRIBUTE_NAME_PREFIX + "project-id-code";
+    public static final String PROJID = PREFIX + "project-id-code";
 
-    public static final String GENERATION = ATTRIBUTE_NAME_PREFIX + "generation";
+    public static final String GENERATION = PREFIX + "generation";
 
-    public static final String ESD = ATTRIBUTE_NAME_PREFIX + "exploitation-support-data";
+    public static final String ESD = PREFIX + "exploitation-support-data";
 
-    public static final String OTHERCOND = ATTRIBUTE_NAME_PREFIX + "other-conditions";
+    public static final String OTHERCOND = PREFIX + "other-conditions";
 
-    public static final String MEANGSD = ATTRIBUTE_NAME_PREFIX + "mean-gsd";
+    public static final String MEANGSD = PREFIX + "mean-gsd";
 
-    public static final String IDATUM = ATTRIBUTE_NAME_PREFIX + "image-datum";
+    public static final String IDATUM = PREFIX + "image-datum";
 
-    public static final String IELLIP = ATTRIBUTE_NAME_PREFIX + "image-ellipsoid";
+    public static final String IELLIP = PREFIX + "image-ellipsoid";
 
-    public static final String PREPROC = ATTRIBUTE_NAME_PREFIX + "image-processing-level";
+    public static final String PREPROC = PREFIX + "image-processing-level";
 
-    public static final String IPROJ = ATTRIBUTE_NAME_PREFIX + "image-projection-system";
+    public static final String IPROJ = PREFIX + "image-projection-system";
 
-    public static final String SATTRACK_PATH = ATTRIBUTE_NAME_PREFIX + "satellite-track-path";
+    public static final String SATTRACK_PATH = PREFIX + "satellite-track-path";
 
-    public static final String SATTRACK_ROW = ATTRIBUTE_NAME_PREFIX + "satellite-track-row";
+    public static final String SATTRACK_ROW = PREFIX + "satellite-track-row";
 
     public static final String CLOUDCVR_SHORT_NAME = "CLOUDCVR";
 

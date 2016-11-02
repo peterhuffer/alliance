@@ -30,33 +30,29 @@ import ddf.catalog.data.impl.BasicTypes;
 
 public class AcftbAttribute extends NitfAttributeImpl<Tre> {
 
-    private static final String ATTRIBUTE_NAME_PREFIX = ExtNitfUtility.EXT_NITF_PREFIX + "acftb.";
+    private static final String PREFIX = ExtNitfUtility.EXT_NITF_PREFIX + "acftb.";
 
-    public static final String AIRCRAFT_MISSION_ID =
-            ATTRIBUTE_NAME_PREFIX + "aircraft-mission-id";
+    public static final String AIRCRAFT_MISSION_ID = PREFIX + "aircraft-mission-id";
 
-    public static final String AIRCRAFT_TAIL_NUMBER =
-            ATTRIBUTE_NAME_PREFIX + "aircraft-tail-number";
+    public static final String AIRCRAFT_TAIL_NUMBER = PREFIX + "aircraft-tail-number";
 
-    public static final String SENSOR_ID_TYPE = ATTRIBUTE_NAME_PREFIX + "sensor-id-type";
+    public static final String SENSOR_ID_TYPE = PREFIX + "sensor-id-type";
 
-    public static final String SENSOR_ID = ATTRIBUTE_NAME_PREFIX + "sensor-id";
+    public static final String SENSOR_ID = PREFIX + "sensor-id";
 
-    public static final String AIRCRAFT_TAKEOFF = ATTRIBUTE_NAME_PREFIX + "aircraft-take-off";
+    public static final String AIRCRAFT_TAKEOFF = PREFIX + "aircraft-take-off";
 
-    public static final String SCENE_SOURCE = ATTRIBUTE_NAME_PREFIX + "scene-source";
+    public static final String SCENE_SOURCE = PREFIX + "scene-source";
 
-    public static final String SCENE_NUMBER = ATTRIBUTE_NAME_PREFIX + "scene-number";
+    public static final String SCENE_NUMBER = PREFIX + "scene-number";
 
-    public static final String PROCESSING_DATE = ATTRIBUTE_NAME_PREFIX + "processing-date";
+    public static final String PROCESSING_DATE = PREFIX + "processing-date";
 
-    public static final String IMMEDIATE_SCENE_HOST =
-            ATTRIBUTE_NAME_PREFIX + "immediate-scene-host";
+    public static final String IMMEDIATE_SCENE_HOST = PREFIX + "immediate-scene-host";
 
-    public static final String IMMEDIATE_SCENE_REQUEST_ID =
-            ATTRIBUTE_NAME_PREFIX + "immediate-scene-request-id";
+    public static final String IMMEDIATE_SCENE_REQUEST_ID = PREFIX + "immediate-scene-request-id";
 
-    public static final String MISSION_PLAN_MODE_NAME = ATTRIBUTE_NAME_PREFIX + "mission-plan-mode";
+    public static final String MISSION_PLAN_MODE_NAME = PREFIX + "mission-plan-mode";
 
     private static final List<NitfAttribute<Tre>> ATTRIBUTES = new LinkedList<>();
 
@@ -65,23 +61,26 @@ public class AcftbAttribute extends NitfAttributeImpl<Tre> {
      * appropriate
      */
 
-    public static final AcftbAttribute AIRCRAFT_MISSION_ID_ATTRIBUTE = new AcftbAttribute(Isr.MISSION_ID,
-            "AC_MSN_ID",
-            tre -> TreUtility.getTreValue(tre, "AC_MSN_ID"),
-            new IsrAttributes().getAttributeDescriptor(Isr.MISSION_ID),
-            AIRCRAFT_MISSION_ID);
+    public static final AcftbAttribute AIRCRAFT_MISSION_ID_ATTRIBUTE =
+            new AcftbAttribute(Isr.MISSION_ID,
+                    "AC_MSN_ID",
+                    tre -> TreUtility.getTreValue(tre, "AC_MSN_ID"),
+                    new IsrAttributes().getAttributeDescriptor(Isr.MISSION_ID),
+                    AIRCRAFT_MISSION_ID);
 
-    public static final AcftbAttribute AIRCRAFT_TAIL_NUMBER_ATTRIBUTE = new AcftbAttribute(Isr.PLATFORM_ID,
-            "AC_TAIL_NO",
-            tre -> TreUtility.getTreValue(tre, "AC_TAIL_NO"),
-            new IsrAttributes().getAttributeDescriptor(Isr.PLATFORM_ID),
-            AIRCRAFT_TAIL_NUMBER);
+    public static final AcftbAttribute AIRCRAFT_TAIL_NUMBER_ATTRIBUTE =
+            new AcftbAttribute(Isr.PLATFORM_ID,
+                    "AC_TAIL_NO",
+                    tre -> TreUtility.getTreValue(tre, "AC_TAIL_NO"),
+                    new IsrAttributes().getAttributeDescriptor(Isr.PLATFORM_ID),
+                    AIRCRAFT_TAIL_NUMBER);
 
-    public static final AcftbAttribute SENSOR_ID_TYPE_ATTRIBUTE = new AcftbAttribute(Isr.SENSOR_TYPE,
-            "SENSOR_ID_TYPE",
-            tre -> TreUtility.getTreValue(tre, "SENSOR_ID_TYPE"),
-            new IsrAttributes().getAttributeDescriptor(Isr.SENSOR_TYPE),
-            SENSOR_ID_TYPE);
+    public static final AcftbAttribute SENSOR_ID_TYPE_ATTRIBUTE =
+            new AcftbAttribute(Isr.SENSOR_TYPE,
+                    "SENSOR_ID_TYPE",
+                    tre -> TreUtility.getTreValue(tre, "SENSOR_ID_TYPE"),
+                    new IsrAttributes().getAttributeDescriptor(Isr.SENSOR_TYPE),
+                    SENSOR_ID_TYPE);
 
     public static final AcftbAttribute SENSOR_ID_ATTRIBUTE = new AcftbAttribute(Isr.SENSOR_ID,
             "SENSOR_ID",
@@ -93,7 +92,8 @@ public class AcftbAttribute extends NitfAttributeImpl<Tre> {
      * Non-normalized attributes
      */
 
-    public static final AcftbAttribute AIRCRAFT_TAKEOFF_ATTRIBUTE = new AcftbAttribute(AIRCRAFT_TAKEOFF,
+    public static final AcftbAttribute AIRCRAFT_TAKEOFF_ATTRIBUTE = new AcftbAttribute(
+            AIRCRAFT_TAKEOFF,
             "AC_TO",
             tre -> TreUtility.getTreValue(tre, "AC_TO"),
             BasicTypes.STRING_TYPE);
@@ -108,7 +108,8 @@ public class AcftbAttribute extends NitfAttributeImpl<Tre> {
             tre -> TreUtility.getTreValue(tre, "SCNUM"),
             BasicTypes.STRING_TYPE);
 
-    public static final AcftbAttribute PROCESSING_DATE_ATTRIBUTE = new AcftbAttribute(PROCESSING_DATE,
+    public static final AcftbAttribute PROCESSING_DATE_ATTRIBUTE = new AcftbAttribute(
+            PROCESSING_DATE,
             "PDATE",
             tre -> TreUtility.getTreValue(tre, "PDATE"),
             BasicTypes.STRING_TYPE);
@@ -125,11 +126,11 @@ public class AcftbAttribute extends NitfAttributeImpl<Tre> {
             tre -> TreUtility.getTreValue(tre, "IMREQID"),
             BasicTypes.STRING_TYPE);
 
-    public static final AcftbAttribute MISSION_PLAN_MODE_ATTRIBUTE =
-            new AcftbAttribute(MISSION_PLAN_MODE_NAME,
-                    "MPLAN",
-                    tre -> TreUtility.getTreValue(tre, "MPLAN"),
-                    BasicTypes.STRING_TYPE);
+    public static final AcftbAttribute MISSION_PLAN_MODE_ATTRIBUTE = new AcftbAttribute(
+            MISSION_PLAN_MODE_NAME,
+            "MPLAN",
+            tre -> TreUtility.getTreValue(tre, "MPLAN"),
+            BasicTypes.STRING_TYPE);
 
     private AcftbAttribute(final String longName, final String shortName,
             final Function<Tre, Serializable> accessorFunction,

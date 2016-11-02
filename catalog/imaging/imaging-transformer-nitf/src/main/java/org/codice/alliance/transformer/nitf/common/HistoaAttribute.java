@@ -19,6 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
+import org.codice.alliance.transformer.nitf.ExtNitfUtility;
 import org.codice.imaging.nitf.core.tre.Tre;
 
 import ddf.catalog.data.AttributeDescriptor;
@@ -42,49 +43,53 @@ public class HistoaAttribute extends NitfAttributeImpl<Tre> {
 
     public static final String LUTID_NAME = "LUTID";
 
-    public static final String ATTRIBUTE_NAME_PREFIX = "histoa.";
+    public static final String PREFIX = ExtNitfUtility.EXT_NITF_PREFIX + "histoa.";
 
-    static final HistoaAttribute SYSTYPE = new HistoaAttribute("system-type",
+    public static final String SYSTYPE = PREFIX + "system-type";
+
+    public static final String PC = PREFIX + "prior-compression";
+
+    public static final String PE = PREFIX + "prior-enhancements";
+
+    public static final String REMAP_FLAG = PREFIX + "system-specific-remap";
+
+    public static final String LUTID = PREFIX + "data-mapping-id";
+
+    static final HistoaAttribute SYSTYPE_ATTRIBUTE = new HistoaAttribute(SYSTYPE,
             SYSTYPE_NAME,
             tre -> TreUtility.convertToString(tre, SYSTYPE_NAME),
-            BasicTypes.STRING_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+            BasicTypes.STRING_TYPE);
 
-    static final HistoaAttribute PC = new HistoaAttribute("prior-compression",
+    static final HistoaAttribute PC_ATTRIBUTE = new HistoaAttribute(PC,
             PRIOR_COMPRESSION_NAME,
             tre -> TreUtility.convertToString(tre, PRIOR_COMPRESSION_NAME),
-            BasicTypes.STRING_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+            BasicTypes.STRING_TYPE);
 
-    static final HistoaAttribute PE = new HistoaAttribute("prior-enhancements",
+    static final HistoaAttribute PE_ATTRIBUTE = new HistoaAttribute(PE,
             PRIOR_ENHANCEMENTS_NAME,
             tre -> TreUtility.convertToString(tre, PRIOR_ENHANCEMENTS_NAME),
-            BasicTypes.STRING_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+            BasicTypes.STRING_TYPE);
 
-    static final HistoaAttribute REMAP_FLAG = new HistoaAttribute("system-specific-remap",
+    static final HistoaAttribute REMAP_FLAG_ATTRIBUTE = new HistoaAttribute(REMAP_FLAG,
             REMAP_FLAG_NAME,
             tre -> TreUtility.convertToString(tre, REMAP_FLAG_NAME),
-            BasicTypes.STRING_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+            BasicTypes.STRING_TYPE);
 
-    static final HistoaAttribute LUTID = new HistoaAttribute("data-mapping-id",
+    static final HistoaAttribute LUTID_ATTRIBUTE = new HistoaAttribute(LUTID,
             LUTID_NAME,
             tre -> TreUtility.convertToInteger(tre, LUTID_NAME),
-            BasicTypes.INTEGER_TYPE,
-            ATTRIBUTE_NAME_PREFIX);
+            BasicTypes.INTEGER_TYPE);
 
     private HistoaAttribute(String longName, String shortName,
-            Function<Tre, Serializable> accessorFunction, AttributeType attributeType,
-            String prefix) {
-        super(longName, shortName, accessorFunction, attributeType, prefix);
+            Function<Tre, Serializable> accessorFunction, AttributeType attributeType) {
+        super(longName, shortName, accessorFunction, attributeType);
         ATTRIBUTES.add(this);
     }
 
     private HistoaAttribute(final String longName, final String shortName,
             final Function<Tre, Serializable> accessorFunction,
-            AttributeDescriptor attributeDescriptor, String extNitfName, String prefix) {
-        super(longName, shortName, accessorFunction, attributeDescriptor, extNitfName, prefix);
+            AttributeDescriptor attributeDescriptor, String extNitfName) {
+        super(longName, shortName, accessorFunction, attributeDescriptor, extNitfName);
         ATTRIBUTES.add(this);
     }
 

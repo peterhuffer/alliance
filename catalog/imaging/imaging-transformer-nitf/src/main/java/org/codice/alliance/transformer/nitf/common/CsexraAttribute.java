@@ -42,61 +42,59 @@ public class CsexraAttribute extends NitfAttributeImpl<Tre> {
 
     private static final List<NitfAttribute<Tre>> ATTRIBUTES = new LinkedList<>();
 
-    public static final String ATTRIBUTE_NAME_PREFIX = ExtNitfUtility.EXT_NITF_PREFIX + "csexra.";
+    public static final String PREFIX = ExtNitfUtility.EXT_NITF_PREFIX + "csexra.";
 
-    public static final String SNOW_COVER = ATTRIBUTE_NAME_PREFIX + "snow-cover";
+    public static final String SNOW_COVER = PREFIX + "snow-cover";
 
-    public static final String PREDICTED_NIIRS = ATTRIBUTE_NAME_PREFIX + "predicted-niirs";
+    public static final String PREDICTED_NIIRS = PREFIX + "predicted-niirs";
 
-    public static final String SNOW_DEPTH_MIN = ATTRIBUTE_NAME_PREFIX + "snow-depth-min";
+    public static final String SNOW_DEPTH_MIN = PREFIX + "snow-depth-min";
 
-    public static final String SNOW_DEPTH_MAX = ATTRIBUTE_NAME_PREFIX + "snow-depth-max";
+    public static final String SNOW_DEPTH_MAX = PREFIX + "snow-depth-max";
 
-    public static final String SNOW_DEPTH_CAT = ATTRIBUTE_NAME_PREFIX + "snow-depth-category";
+    public static final String SNOW_DEPTH_CAT = PREFIX + "snow-depth-category";
 
-    public static final String SENSOR = ATTRIBUTE_NAME_PREFIX + "sensor";
+    public static final String SENSOR = PREFIX + "sensor";
 
-    public static final String TIME_FIRST_LINE_IMAGE =
-            ATTRIBUTE_NAME_PREFIX + "time-first-line-image";
+    public static final String TIME_FIRST_LINE_IMAGE = PREFIX + "time-first-line-image";
 
-    public static final String TIME_IMAGE_DURATION = ATTRIBUTE_NAME_PREFIX + "image-duration-time";
+    public static final String TIME_IMAGE_DURATION = PREFIX + "image-duration-time";
 
-    public static final String MAX_GSD = ATTRIBUTE_NAME_PREFIX + "max-gsd";
+    public static final String MAX_GSD = PREFIX + "max-gsd";
 
-    public static final String ALONG_SCAN_GSD = ATTRIBUTE_NAME_PREFIX + "along-scan-gsd";
+    public static final String ALONG_SCAN_GSD = PREFIX + "along-scan-gsd";
 
-    public static final String CROSS_SCAN_GSD = ATTRIBUTE_NAME_PREFIX + "cross-scan-gsd";
+    public static final String CROSS_SCAN_GSD = PREFIX + "cross-scan-gsd";
 
-    public static final String GEO_MEAN_GSD = ATTRIBUTE_NAME_PREFIX + "geometric-mean-gsd";
+    public static final String GEO_MEAN_GSD = PREFIX + "geometric-mean-gsd";
 
-    public static final String A_S_VERT_GSD = ATTRIBUTE_NAME_PREFIX + "along-scan-vertical-gsd";
+    public static final String A_S_VERT_GSD = PREFIX + "along-scan-vertical-gsd";
 
-    public static final String C_S_VERT_GSD = ATTRIBUTE_NAME_PREFIX + "cross-scan-vertical-gsd";
+    public static final String C_S_VERT_GSD = PREFIX + "cross-scan-vertical-gsd";
 
-    public static final String GEO_MEAN_VERT_GSD =
-            ATTRIBUTE_NAME_PREFIX + "geometric-mean-vertical-gsd";
+    public static final String GEO_MEAN_VERT_GSD = PREFIX + "geometric-mean-vertical-gsd";
 
-    public static final String GSD_BETA_ANGLE = ATTRIBUTE_NAME_PREFIX + "gsd-beta-angle";
+    public static final String GSD_BETA_ANGLE = PREFIX + "gsd-beta-angle";
 
-    public static final String DYNAMIC_RANGE = ATTRIBUTE_NAME_PREFIX + "pixel-dynamic-range";
+    public static final String DYNAMIC_RANGE = PREFIX + "pixel-dynamic-range";
 
-    public static final String NUM_LINES = ATTRIBUTE_NAME_PREFIX + "num-lines";
+    public static final String NUM_LINES = PREFIX + "num-lines";
 
-    public static final String NUM_SAMPLES = ATTRIBUTE_NAME_PREFIX + "num-samples";
+    public static final String NUM_SAMPLES = PREFIX + "num-samples";
 
-    public static final String ANGLE_TO_NORTH = ATTRIBUTE_NAME_PREFIX + "angle-to-north";
+    public static final String ANGLE_TO_NORTH = PREFIX + "angle-to-north";
 
-    public static final String OBLIQUITY_ANGLE = ATTRIBUTE_NAME_PREFIX + "obliquity-angle";
+    public static final String OBLIQUITY_ANGLE = PREFIX + "obliquity-angle";
 
-    public static final String AZ_OF_OBLIQUITY = ATTRIBUTE_NAME_PREFIX + "azimuth-obliquity";
+    public static final String AZ_OF_OBLIQUITY = PREFIX + "azimuth-obliquity";
 
-    public static final String SUN_AZIMUTH = ATTRIBUTE_NAME_PREFIX + "sun-azimuth";
+    public static final String SUN_AZIMUTH = PREFIX + "sun-azimuth";
 
-    public static final String SUN_ELEVATION = ATTRIBUTE_NAME_PREFIX + "sun-elevation";
+    public static final String SUN_ELEVATION = PREFIX + "sun-elevation";
 
-    public static final String CIRCL_ERR = ATTRIBUTE_NAME_PREFIX + "circular-error";
+    public static final String CIRCL_ERR = PREFIX + "circular-error";
 
-    public static final String LINEAR_ERR = ATTRIBUTE_NAME_PREFIX + "linear-error";
+    public static final String LINEAR_ERR = PREFIX + "linear-error";
 
     static final String SNOW_DEPTH_CAT_SHORT_NAME = "SNOW_DEPTH_CAT";
 
