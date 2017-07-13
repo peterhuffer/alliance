@@ -22,7 +22,7 @@ import spock.lang.Unroll
 
 import static org.codice.alliance.security.banner.marking.BannerMarkings.ClassificationLevel.*
 
-class BannerCommonMarkingExtractorTest extends Specification {
+class BannerCommonMarkingExtractorSpec extends Specification {
     private BannerCommonMarkingExtractor extractor
     private Metacard metacard
     private BannerMarkings bannerMarkings

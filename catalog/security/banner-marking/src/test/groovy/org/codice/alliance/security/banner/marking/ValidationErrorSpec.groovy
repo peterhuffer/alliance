@@ -15,7 +15,7 @@ package org.codice.alliance.security.banner.marking
 
 import spock.lang.Specification
 
-class ValidationErrorTest extends Specification {
+class ValidationErrorSpec extends Specification {
     def 'test ctors'() {
         expect:
         new ValidationError('message', 'appendix', 'para').message == 'message'

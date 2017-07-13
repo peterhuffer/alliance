@@ -295,8 +295,6 @@
                         </argLine>
                         <includes>
                             <include>**/*Test.java</include>
-                            <include>**/Test*.java</include>
-                            <include>**/*TestCase.java</include>
                             <include>**/*Spec.class</include>
                         </includes>
                     </configuration>

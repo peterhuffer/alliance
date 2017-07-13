@@ -11,13 +11,13 @@
  * is distributed along with this program and can be found at
  * <http://www.gnu.org/licenses/lgpl.html>.
  */
+package org.codice.alliance.plugin.nitf
 
-import org.codice.alliance.plugin.nitf.NitfPreStoragePlugin
 import spock.lang.Specification
 import spock.lang.Unroll
 
 @Unroll
-class NitfPreStoragePluginTest extends Specification {
+class NitfPreStoragePluginSpec extends Specification {
 
     def "Building derived image filename from \"#ftitle\"" (String ftitle, String expectedFname) {
         setup:

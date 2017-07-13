@@ -19,7 +19,7 @@ import ddf.catalog.data.impl.MetacardTypeImpl
 import spock.lang.Specification
 import spock.lang.Unroll
 
-class Dod520001MarkingExtractorTest extends Specification {
+class Dod520001MarkingExtractorSpec extends Specification {
     private Dod520001MarkingExtractor extractor
     private Metacard metacard
     private BannerMarkings bannerMarkings

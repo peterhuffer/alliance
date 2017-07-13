@@ -26,7 +26,7 @@ import static org.codice.alliance.security.banner.marking.BannerMarkings.DissemC
 import static org.codice.alliance.security.banner.marking.BannerMarkings.MarkingType.*
 import static org.codice.alliance.security.banner.marking.BannerMarkings.OtherDissemControl.*
 
-class BannerMarkingsTest extends Specification {
+class BannerMarkingsSpec extends Specification {
     def 'test type and classification'() {
         when:
         def bannerMarkings = BannerMarkings.parseMarkings(markings)

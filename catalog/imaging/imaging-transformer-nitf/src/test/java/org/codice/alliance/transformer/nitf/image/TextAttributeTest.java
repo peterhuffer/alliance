@@ -30,7 +30,7 @@ import org.codice.imaging.nitf.core.text.TextSegment;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestTextAttribute {
+public class TextAttributeTest {
 
     public static final int TEXT_ATTACHMENT_LEVEL = 0;
 
