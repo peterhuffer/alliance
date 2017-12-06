@@ -20,7 +20,6 @@ import static org.codice.alliance.transformer.nitf.common.NitfHeaderAttribute.FI
 import static org.codice.alliance.transformer.nitf.common.NitfHeaderAttribute.FILE_DATE_AND_TIME_EFFECTIVE_ATTRIBUTE;
 import static org.codice.alliance.transformer.nitf.common.NitfHeaderAttribute.FILE_DATE_AND_TIME_MODIFIED_ATTRIBUTE;
 import static org.codice.alliance.transformer.nitf.image.ImageAttribute.IMAGE_DATE_AND_TIME_ATTRIBUTE;
-import static org.codice.alliance.transformer.nitf.image.ImageAttribute.convertNitfDate;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.closeTo;
@@ -55,6 +54,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.codice.alliance.catalog.core.api.types.Isr;
 import org.codice.alliance.transformer.nitf.MetacardFactory;
+import org.codice.alliance.transformer.nitf.NitfUtilities;
 import org.codice.alliance.transformer.nitf.TreTestUtility;
 import org.codice.alliance.transformer.nitf.common.AimidbAttribute;
 import org.codice.alliance.transformer.nitf.common.IndexedPiaprdAttribute;
@@ -645,7 +645,6 @@ public class ImageInputTransformerTest {
     map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_SECURITY_SYSTEM_ATTRIBUTE, null);
     map.put(NitfHeaderAttribute.FILE_CODE_WORDS_ATTRIBUTE, null);
     map.put(NitfHeaderAttribute.FILE_CONTROL_AND_HANDLING_ATTRIBUTE, null);
-    map.put(NitfHeaderAttribute.FILE_RELEASING_INSTRUCTIONS_ATTRIBUTE, null);
     map.put(NitfHeaderAttribute.FILE_DECLASSIFICATION_TYPE_ATTRIBUTE, null);
     map.put(NitfHeaderAttribute.FILE_DECLASSIFICATION_DATE_ATTRIBUTE, null);
     map.put(NitfHeaderAttribute.FILE_DECLASSIFICATION_EXEMPTION_ATTRIBUTE, null);
@@ -754,7 +753,7 @@ public class ImageInputTransformerTest {
       String reason, Attribute attribute, DateTime... expectedDateTimes) {
     List<Date> expectedDates =
         Stream.of(expectedDateTimes)
-            .map(dateTime -> convertNitfDate(dateTime))
+            .map(dateTime -> NitfUtilities.convertNitfDate(dateTime))
             .collect(Collectors.toList());
 
     assertThat(reason, attribute.getValues(), is(expectedDates));

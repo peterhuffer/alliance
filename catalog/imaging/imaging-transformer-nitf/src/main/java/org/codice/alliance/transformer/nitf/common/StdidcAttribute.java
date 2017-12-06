@@ -19,14 +19,12 @@ import ddf.catalog.data.impl.BasicTypes;
 import ddf.catalog.data.impl.types.LocationAttributes;
 import ddf.catalog.data.types.Location;
 import java.io.Serializable;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
 import org.codice.alliance.transformer.nitf.ExtNitfUtility;
-import org.codice.ddf.platform.util.properties.PropertiesLoader;
+import org.codice.alliance.transformer.nitf.NitfUtilities;
 import org.codice.imaging.nitf.core.tre.Tre;
 
 /** TRE for "STDIDC "Standard ID" */
@@ -96,11 +94,6 @@ public class StdidcAttribute extends NitfAttributeImpl<Tre> {
 
   public static final String END_SEGMENT = PREFIX + "end-segment";
 
-  private static final String FIPS_TO_ISO_3_PROPERTY_PATH =
-      Paths.get(System.getProperty("karaf.etc"), "fipsToIso.properties").toString();
-
-  private static final Map<String, String> FIPS_TO_ISO3_MAP = getFipsMap();
-
   /*
    * Normalized attributes. These taxonomy terms will be duplicated by `ext.nitf.stdidc.*` when appropriate.
    */
@@ -109,7 +102,9 @@ public class StdidcAttribute extends NitfAttributeImpl<Tre> {
       new StdidcAttribute(
           Location.COUNTRY_CODE,
           COUNTRY_SHORT_NAME,
-          tre -> getAlpha3CountryCode(TreUtility.convertToString(tre, COUNTRY_SHORT_NAME)),
+          tre ->
+              NitfUtilities.fipsToAlpha3CountryCode(
+                  TreUtility.convertToString(tre, COUNTRY_SHORT_NAME)),
           new LocationAttributes().getAttributeDescriptor(Location.COUNTRY_CODE),
           "");
 
@@ -243,30 +238,5 @@ public class StdidcAttribute extends NitfAttributeImpl<Tre> {
 
   public static List<NitfAttribute<Tre>> getAttributes() {
     return Collections.unmodifiableList(ATTRIBUTES);
-  }
-
-  private static Map<String, String> getFipsMap() {
-    Map<String, String> map =
-        PropertiesLoader.getInstance()
-            .toMap(PropertiesLoader.getInstance().loadProperties(FIPS_TO_ISO_3_PROPERTY_PATH));
-    // It is possible that there are multiple iso3 entries per fips entry.
-    // If there are multiple iso3 entries, take only the first one.
-    for (Map.Entry<String, String> entry : map.entrySet()) {
-      entry.setValue(entry.getValue().split(",")[0]);
-    }
-    return map;
-  }
-
-  /**
-   * Get the alpha3 country code for a fips country code.
-   *
-   * @param fips The fips country code.
-   * @return The alpha3 country code. Returns null if fips = null or the mapping doesn't exist.
-   */
-  private static String getAlpha3CountryCode(String fips) {
-    if (fips == null) {
-      return fips;
-    }
-    return FIPS_TO_ISO3_MAP.get(fips);
   }
 }

@@ -19,19 +19,16 @@ import ddf.catalog.data.impl.BasicTypes;
 import ddf.catalog.data.impl.types.MediaAttributes;
 import ddf.catalog.data.types.Media;
 import java.io.Serializable;
-import java.time.Instant;
-import java.time.ZonedDateTime;
 import java.util.Collections;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 import org.codice.alliance.catalog.core.api.impl.types.IsrAttributes;
 import org.codice.alliance.catalog.core.api.types.Isr;
 import org.codice.alliance.transformer.nitf.ExtNitfUtility;
+import org.codice.alliance.transformer.nitf.NitfUtilities;
 import org.codice.alliance.transformer.nitf.common.NitfAttribute;
 import org.codice.alliance.transformer.nitf.common.NitfAttributeImpl;
-import org.codice.imaging.nitf.core.common.DateTime;
 import org.codice.imaging.nitf.core.common.NitfFormatException;
 import org.codice.imaging.nitf.core.image.ImageSegment;
 import org.slf4j.Logger;
@@ -237,7 +234,7 @@ public class ImageAttribute extends NitfAttributeImpl<ImageSegment> {
       new ImageAttribute(
           IMAGE_DATE_AND_TIME,
           "IDATIM",
-          segment -> convertNitfDate(segment.getImageDateTime()),
+          segment -> NitfUtilities.convertNitfDate(segment.getImageDateTime()),
           BasicTypes.DATE_TYPE);
 
   public static final ImageAttribute IMAGE_IDENTIFIER_1_ATTRIBUTE =
@@ -511,21 +508,6 @@ public class ImageAttribute extends NitfAttributeImpl<ImageSegment> {
       return imageSegment.getImageTargetId().textValue().trim();
     } catch (NitfFormatException nfe) {
       LOGGER.debug(nfe.getMessage(), nfe);
-    }
-
-    return null;
-  }
-
-  public static Date convertNitfDate(DateTime nitfDateTime) {
-    if (nitfDateTime == null || nitfDateTime.getZonedDateTime() == null) {
-      return null;
-    }
-
-    ZonedDateTime zonedDateTime = nitfDateTime.getZonedDateTime();
-    Instant instant = zonedDateTime.toInstant();
-
-    if (instant != null) {
-      return Date.from(instant);
     }
 
     return null;
