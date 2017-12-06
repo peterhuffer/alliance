@@ -18,6 +18,7 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.Map;
+import javax.annotation.Nullable;
 import org.apache.commons.lang.StringUtils;
 import org.codice.ddf.platform.util.properties.PropertiesLoader;
 import org.codice.imaging.nitf.core.common.DateTime;
@@ -38,7 +39,8 @@ public class NitfUtilities {
    * @return The alpha3 country code. Returns null if fips = null, empty string, or the mapping
    *     doesn't exist.
    */
-  public static String fipsToAlpha3CountryCode(String fips) {
+  @Nullable
+  public static String fipsToAlpha3CountryCode(@Nullable String fips) {
     if (StringUtils.isEmpty(fips)) {
       return null;
     }
@@ -57,7 +59,8 @@ public class NitfUtilities {
     return map;
   }
 
-  public static Date convertNitfDate(DateTime nitfDateTime) {
+  @Nullable
+  public static Date convertNitfDate(@Nullable DateTime nitfDateTime) {
     if (nitfDateTime == null || nitfDateTime.getZonedDateTime() == null) {
       return null;
     }

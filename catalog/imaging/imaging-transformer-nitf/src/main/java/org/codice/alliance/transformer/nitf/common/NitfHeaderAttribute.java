@@ -25,12 +25,13 @@ import ddf.catalog.data.types.Contact;
 import ddf.catalog.data.types.Core;
 import ddf.catalog.data.types.Media;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.commons.lang.StringUtils;
 import org.codice.alliance.catalog.core.api.impl.types.IsrAttributes;
 import org.codice.alliance.catalog.core.api.impl.types.SecurityAttributes;
@@ -421,13 +422,11 @@ public class NitfHeaderAttribute extends NitfAttributeImpl<NitfHeader> {
     }
 
     String[] fipsCountryCodes = nitfReleaseInstructions.split(" ");
-    List<String> alpha3CountryCodes = new ArrayList<>();
-
-    for (String fipsCode : fipsCountryCodes) {
-      alpha3CountryCodes.add(NitfUtilities.fipsToAlpha3CountryCode(fipsCode));
-    }
-
-    return alpha3CountryCodes.stream().collect(Collectors.joining(" "));
+    return Stream.of(fipsCountryCodes)
+        .map(NitfUtilities::fipsToAlpha3CountryCode)
+        .filter(Objects::nonNull)
+        .distinct()
+        .collect(Collectors.joining(" "));
   }
 
   public static List<NitfAttribute<NitfHeader>> getAttributes() {
