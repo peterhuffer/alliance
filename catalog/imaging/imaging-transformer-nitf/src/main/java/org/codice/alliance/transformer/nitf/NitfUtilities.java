@@ -13,50 +13,37 @@
  */
 package org.codice.alliance.transformer.nitf;
 
-import java.nio.file.Paths;
 import java.time.Instant;
 import java.time.ZonedDateTime;
+import java.util.Collections;
 import java.util.Date;
-import java.util.Map;
+import java.util.List;
 import javax.annotation.Nullable;
-import org.apache.commons.lang.StringUtils;
-import org.codice.ddf.platform.util.properties.PropertiesLoader;
+import org.apache.commons.collections.CollectionUtils;
+import org.codice.ddf.internal.country.converter.api.CountryCodeConverter;
 import org.codice.imaging.nitf.core.common.DateTime;
 
 public class NitfUtilities {
 
-  private static final String FIPS_TO_ISO_3_PROPERTY_PATH =
-      Paths.get(System.getProperty("karaf.etc"), "fipsToIso.properties").toString();
+  private static CountryCodeConverter countryCodeConverter;
 
-  private static final Map<String, String> FIPS_TO_ISO3_MAP = getFipsMap();
-
-  private NitfUtilities() {}
-
-  /**
-   * Get the alpha3 country code for a fips country code.
-   *
-   * @param fips The fips country code.
-   * @return The alpha3 country code. Returns null if fips = null, empty string, or the mapping
-   *     doesn't exist.
-   */
-  @Nullable
-  public static String fipsToAlpha3CountryCode(@Nullable String fips) {
-    if (StringUtils.isEmpty(fips)) {
-      return null;
-    }
-    return FIPS_TO_ISO3_MAP.get(fips);
+  @SuppressWarnings("squid:S1118" /* Used by Blueprint */)
+  public NitfUtilities(CountryCodeConverter converter) {
+    countryCodeConverter = converter;
   }
 
-  private static Map<String, String> getFipsMap() {
-    Map<String, String> map =
-        PropertiesLoader.getInstance()
-            .toMap(PropertiesLoader.getInstance().loadProperties(FIPS_TO_ISO_3_PROPERTY_PATH));
-    // It is possible that there are multiple iso3 entries per fips entry.
-    // If there are multiple iso3 entries, take only the first one.
-    for (Map.Entry<String, String> entry : map.entrySet()) {
-      entry.setValue(entry.getValue().split(",")[0]);
-    }
-    return map;
+  /**
+   * Gets the alpha3 country code for a fips country code by delegating to the {@link
+   * CountryCodeConverter} service.
+   *
+   * @see CountryCodeConverter
+   *
+   * @param fips The fips country code.
+   * @return The alpha3 country code. Returns an empty list if fips = null, empty string, or the
+   *     mapping doesn't exist.
+   */
+  public static List<String> fipsToAlpha3CountryCode(@Nullable String fips) {
+    return countryCodeConverter.convertFipsToIso3(fips);
   }
 
   @Nullable
@@ -69,5 +56,15 @@ public class NitfUtilities {
     Instant instant = zonedDateTime.toInstant();
 
     return Date.from(instant);
+  }
+
+  @Nullable
+  public static String getFirstCountryCodeFor(@Nullable String fipsCode) {
+    List<String> countryCodes = countryCodeConverter.convertFipsToIso3(fipsCode);
+
+    if(CollectionUtils.isEmpty(countryCodes)) {
+      return null;
+    }
+    return countryCodes.get(0);
   }
 }

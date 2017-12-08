@@ -29,42 +29,6 @@ import org.junit.Test;
 public class NitfUtilitiesTest {
 
   @Test
-  public void testValidFipsToIsoAlpha3() {
-    // when
-    String isoAlpha3Result = NitfUtilities.fipsToAlpha3CountryCode("US");
-
-    // then
-    assertThat(isoAlpha3Result, is("USA"));
-  }
-
-  @Test
-  public void testInvalidFipsToIsoAlpha3() {
-    // when
-    String isoAlpha3Result = NitfUtilities.fipsToAlpha3CountryCode("NOT_VALID_FIPS");
-
-    // then
-    assertThat(isoAlpha3Result, is(nullValue()));
-  }
-
-  @Test
-  public void testFipsToIsoAlpha3WithNullCode() {
-    // when
-    String isoAlpha3Result = NitfUtilities.fipsToAlpha3CountryCode(null);
-
-    // then
-    assertThat(isoAlpha3Result, is(nullValue()));
-  }
-
-  @Test
-  public void testFipsToIsoAlpha3WithEmptyCode() {
-    // when
-    String isoAlpha3Result = NitfUtilities.fipsToAlpha3CountryCode("");
-
-    // then
-    assertThat(isoAlpha3Result, is(nullValue()));
-  }
-
-  @Test
   public void testConvertNitfDate() {
     // setup
     DateTime dateTime = createNitfDateTime(1997, 12, 17, 10, 26, 30);

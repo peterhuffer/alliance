@@ -103,7 +103,7 @@ public class StdidcAttribute extends NitfAttributeImpl<Tre> {
           Location.COUNTRY_CODE,
           COUNTRY_SHORT_NAME,
           tre ->
-              NitfUtilities.fipsToAlpha3CountryCode(
+              NitfUtilities.getFirstCountryCodeFor(
                   TreUtility.convertToString(tre, COUNTRY_SHORT_NAME)),
           new LocationAttributes().getAttributeDescriptor(Location.COUNTRY_CODE),
           "");
