@@ -26,6 +26,7 @@ import static org.hamcrest.Matchers.closeTo;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
 import ddf.catalog.data.Attribute;
@@ -43,6 +44,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -63,6 +65,7 @@ import org.codice.alliance.transformer.nitf.common.NitfHeaderAttribute;
 import org.codice.alliance.transformer.nitf.common.NitfHeaderTransformer;
 import org.codice.alliance.transformer.nitf.common.PiaprdAttribute;
 import org.codice.alliance.transformer.nitf.common.PiatgbAttribute;
+import org.codice.ddf.internal.country.converter.api.CountryCodeConverter;
 import org.codice.imaging.nitf.core.common.DateTime;
 import org.codice.imaging.nitf.core.common.FileType;
 import org.codice.imaging.nitf.core.common.NitfFormatException;
@@ -86,6 +89,7 @@ import org.junit.Test;
 public class ImageInputTransformerTest {
 
   private static final String GEO_NITF = "i_3001a.ntf";
+  public static final String TEST_CLASSIFICATION_SYSTEM = "US";
 
   private NitfImageTransformer transformer = null;
 
@@ -102,6 +106,8 @@ public class ImageInputTransformerTest {
     metacardFactory.setMetacardType(new ImageMetacardType());
 
     headerTransformer = new NitfHeaderTransformer();
+
+    setupNitfUtilies(TEST_CLASSIFICATION_SYSTEM, Collections.singletonList("USA"));
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -642,7 +648,9 @@ public class ImageInputTransformerTest {
         NitfHeaderAttribute.FILE_TITLE_ATTRIBUTE,
         "Checks an uncompressed 1024x1024 8 bit mono image with GEOcentric data. Airfield");
     map.put(NitfHeaderAttribute.FILE_SECURITY_CLASSIFICATION_ATTRIBUTE, "UNCLASSIFIED");
-    map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_SECURITY_SYSTEM_ATTRIBUTE, null);
+    map.put(
+        NitfHeaderAttribute.FILE_CLASSIFICATION_SECURITY_SYSTEM_ATTRIBUTE,
+        TEST_CLASSIFICATION_SYSTEM);
     map.put(NitfHeaderAttribute.FILE_CODE_WORDS_ATTRIBUTE, null);
     map.put(NitfHeaderAttribute.FILE_CONTROL_AND_HANDLING_ATTRIBUTE, null);
     map.put(NitfHeaderAttribute.FILE_DECLASSIFICATION_TYPE_ATTRIBUTE, null);
@@ -778,5 +786,11 @@ public class ImageInputTransformerTest {
     dateTime.set(
         ZonedDateTime.of(year, month, dayOfMonth, hour, minute, second, 0, ZoneId.of("UTC")));
     return dateTime;
+  }
+
+  private void setupNitfUtilies(String fromCode, List<String> toCodes) {
+    CountryCodeConverter mockCountryCodeConverter = mock(CountryCodeConverter.class);
+    doReturn(toCodes).when(mockCountryCodeConverter).convertFipsToIso3(fromCode);
+    new NitfUtilities(mockCountryCodeConverter);
   }
 }

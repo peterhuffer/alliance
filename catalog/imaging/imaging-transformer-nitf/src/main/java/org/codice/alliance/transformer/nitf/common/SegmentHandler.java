@@ -70,17 +70,26 @@ public class SegmentHandler {
   }
 
   private <T> void handleValue(Metacard metacard, NitfAttribute attribute, T segment) {
-
     Function<T, Serializable> accessor = attribute.getAccessorFunction();
-    Serializable value = accessor.apply(segment);
+
+    Serializable value;
+    try {
+      value = accessor.apply(segment);
+    } catch (IllegalStateException e) {
+      LOGGER.debug(
+          "Error accessing NITF attribute value. Skipping attribute [{}] on Metacard with ID [{}]",
+          attribute.getLongName(),
+          metacard.getId(),
+          e);
+      return;
+    }
 
     Set<AttributeDescriptor> descriptors = attribute.getAttributeDescriptors();
 
     if (descriptors == null) {
       LOGGER.debug(
-          "Could not set metacard attribute "
-              + attribute.getLongName()
-              + " since it does not belong to this metacard type");
+          "Could not set metacard attribute {} since it does not belong to this metacard type.",
+          attribute.getLongName());
       return;
     }
 

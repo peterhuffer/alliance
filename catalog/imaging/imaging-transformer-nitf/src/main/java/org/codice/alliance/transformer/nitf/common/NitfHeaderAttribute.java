@@ -40,7 +40,6 @@ import org.codice.alliance.catalog.core.api.types.Isr;
 import org.codice.alliance.catalog.core.api.types.Security;
 import org.codice.alliance.transformer.nitf.ExtNitfUtility;
 import org.codice.alliance.transformer.nitf.NitfUtilities;
-import org.codice.ddf.internal.country.converter.api.CountryCodeConverter;
 import org.codice.imaging.nitf.core.common.FileType;
 import org.codice.imaging.nitf.core.header.NitfHeader;
 
@@ -120,8 +119,6 @@ public class NitfHeaderAttribute extends NitfAttributeImpl<NitfHeader> {
 
   private static final List<NitfAttribute<NitfHeader>> ATTRIBUTES = new LinkedList<>();
 
-  private static CountryCodeConverter countryCodeConverter;
-
   /*
    * Normalized attributes. These taxonomy terms will be duplicated by `ext.nitf.*` when appropriate.
    */
@@ -200,7 +197,7 @@ public class NitfHeaderAttribute extends NitfAttributeImpl<NitfHeader> {
           Security.CLASSIFICATION_SYSTEM,
           "FSCLSY",
           header ->
-              NitfUtilities.getFirstCountryCodeFor(
+              NitfUtilities.getSingleValueOrError(
                   header.getFileSecurityMetadata().getSecurityClassificationSystem()),
           new SecurityAttributes().getAttributeDescriptor(Security.CLASSIFICATION_SYSTEM));
 

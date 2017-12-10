@@ -15,7 +15,6 @@ package org.codice.alliance.transformer.nitf;
 
 import java.time.Instant;
 import java.time.ZonedDateTime;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Nullable;
@@ -37,7 +36,6 @@ public class NitfUtilities {
    * CountryCodeConverter} service.
    *
    * @see CountryCodeConverter
-   *
    * @param fips The fips country code.
    * @return The alpha3 country code. Returns an empty list if fips = null, empty string, or the
    *     mapping doesn't exist.
@@ -62,7 +60,23 @@ public class NitfUtilities {
   public static String getFirstCountryCodeFor(@Nullable String fipsCode) {
     List<String> countryCodes = countryCodeConverter.convertFipsToIso3(fipsCode);
 
-    if(CollectionUtils.isEmpty(countryCodes)) {
+    if (CollectionUtils.isEmpty(countryCodes)) {
+      return null;
+    }
+    return countryCodes.get(0);
+  }
+
+  public static String getSingleValueOrError(@Nullable String fipsCode) {
+    List<String> countryCodes = countryCodeConverter.convertFipsToIso3(fipsCode);
+
+    if (countryCodes.size() > 1) {
+      throw new IllegalArgumentException(
+          String.format(
+              "Found %s while converting %s, but expected only 1 conversion value.",
+              countryCodes, fipsCode));
+    }
+
+    if (CollectionUtils.isEmpty(countryCodes)) {
       return null;
     }
     return countryCodes.get(0);
