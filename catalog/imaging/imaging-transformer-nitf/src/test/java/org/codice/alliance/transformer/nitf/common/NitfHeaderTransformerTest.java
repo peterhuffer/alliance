@@ -51,7 +51,7 @@ public class NitfHeaderTransformerTest {
   @Rule public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
   @Before
-  public void setup() {
+  public void setUp() {
     nitfHeaderTransformer = new NitfHeaderTransformer();
 
     metacardFactory = new MetacardFactory();

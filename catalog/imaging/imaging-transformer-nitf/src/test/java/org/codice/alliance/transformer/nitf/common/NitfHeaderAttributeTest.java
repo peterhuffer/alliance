@@ -33,7 +33,7 @@ public class NitfHeaderAttributeTest {
   private NitfHeader nitfHeader;
 
   @Before
-  public void setup() {
+  public void setUp() {
     nitfHeader = mock(NitfHeader.class);
   }
 

@@ -45,7 +45,7 @@ public class NitfUtilitiesTest {
     NitfTestCommons.setupNitfUtilities("US", Arrays.asList("USA", "CAN"));
 
     // when
-    String convertedValue = NitfUtilities.fipsToSingleIsoOrException("US");
+    NitfUtilities.fipsToSingleIsoOrException("US");
   }
 
   @Test
