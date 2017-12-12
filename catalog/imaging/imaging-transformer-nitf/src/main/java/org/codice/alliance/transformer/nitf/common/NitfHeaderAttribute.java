@@ -197,7 +197,7 @@ public class NitfHeaderAttribute extends NitfAttributeImpl<NitfHeader> {
           Security.CLASSIFICATION_SYSTEM,
           "FSCLSY",
           header ->
-              NitfUtilities.getSingleValueOrError(
+              NitfUtilities.fipsToSingleIsoOrException(
                   header.getFileSecurityMetadata().getSecurityClassificationSystem()),
           new SecurityAttributes().getAttributeDescriptor(Security.CLASSIFICATION_SYSTEM));
 
@@ -424,13 +424,13 @@ public class NitfHeaderAttribute extends NitfAttributeImpl<NitfHeader> {
 
     String[] fipsCountryCodes = nitfReleaseInstructions.split(" ");
 
-    Set<String> uniqueCountryCodes = new HashSet<>();
+    Set<String> convertedCountryCodes = new HashSet<>();
     for (String fipsCode : fipsCountryCodes) {
       List<String> isoAlpha3Codes = NitfUtilities.fipsToAlpha3CountryCode(fipsCode);
-      uniqueCountryCodes.addAll(isoAlpha3Codes);
+      convertedCountryCodes.addAll(isoAlpha3Codes);
     }
 
-    return uniqueCountryCodes
+    return convertedCountryCodes
         .stream()
         .filter(Objects::nonNull)
         .distinct()

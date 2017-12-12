@@ -13,14 +13,16 @@
  */
 package org.codice.alliance.transformer.nitf.common;
 
-import static org.mockito.Mockito.doReturn;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.io.Serializable;
 import java.util.Arrays;
-import java.util.List;
-import org.codice.alliance.transformer.nitf.NitfUtilities;
-import org.codice.ddf.internal.country.converter.api.CountryCodeConverter;
+import java.util.Collections;
+import org.codice.alliance.transformer.nitf.NitfParsingException;
+import org.codice.alliance.transformer.nitf.NitfTestCommons;
 import org.codice.imaging.nitf.core.header.NitfHeader;
 import org.codice.imaging.nitf.core.security.FileSecurityMetadata;
 import org.junit.Before;
@@ -35,9 +37,24 @@ public class NitfHeaderAttributeTest {
     nitfHeader = mock(NitfHeader.class);
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
+  public void testValidFileClassificationSystem() throws Exception {
+    NitfTestCommons.setupNitfUtilities("US", Collections.singletonList("ABC"));
+
+    FileSecurityMetadata fsmMock = mock(FileSecurityMetadata.class);
+    when(nitfHeader.getFileSecurityMetadata()).thenReturn(fsmMock);
+    when(nitfHeader.getFileSecurityMetadata().getSecurityClassificationSystem()).thenReturn("US");
+    Serializable value =
+        NitfHeaderAttribute.FILE_CLASSIFICATION_SECURITY_SYSTEM_ATTRIBUTE
+            .getAccessorFunction()
+            .apply(nitfHeader);
+
+    assertThat(value, is("ABC"));
+  }
+
+  @Test(expected = NitfParsingException.class)
   public void testMultipleConvertedCountryCodesForFileClassificationSystem() throws Exception {
-    setupNitfUtilies("US", Arrays.asList("ABC", "XYZ"));
+    NitfTestCommons.setupNitfUtilities("US", Arrays.asList("ABC", "XYZ"));
 
     FileSecurityMetadata fsmMock = mock(FileSecurityMetadata.class);
     when(nitfHeader.getFileSecurityMetadata()).thenReturn(fsmMock);
@@ -45,13 +62,5 @@ public class NitfHeaderAttributeTest {
     NitfHeaderAttribute.FILE_CLASSIFICATION_SECURITY_SYSTEM_ATTRIBUTE
         .getAccessorFunction()
         .apply(nitfHeader);
-  }
-
-  // This method is needed even though the NitfUtilties object created is not used. It will populate
-  // the static CountryCodeConverter reference of the NitfUtilies for use in these tests
-  private void setupNitfUtilies(String fromCode, List<String> toCodes) {
-    CountryCodeConverter mockCountryCodeConverter = mock(CountryCodeConverter.class);
-    doReturn(toCodes).when(mockCountryCodeConverter).convertFipsToIso3(fromCode);
-    new NitfUtilities(mockCountryCodeConverter);
   }
 }

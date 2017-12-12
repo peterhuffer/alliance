@@ -282,6 +282,17 @@ public class TreTestUtility {
     return securityMetadata;
   }
 
+  public static NitfHeader createFileHeader(FileSecurityMetadata fileSecurityMetadata) {
+    return createFileHeader(DateTimeImpl.getNitfDateTimeForNow(), fileSecurityMetadata);
+  }
+
+  public static NitfHeader createFileHeader(
+      DateTime fileDateTime, FileSecurityMetadata fileSecurityMetadata) {
+    NitfHeader nitfHeader = createFileHeader(fileDateTime);
+    when(nitfHeader.getFileSecurityMetadata()).thenReturn(fileSecurityMetadata);
+    return nitfHeader;
+  }
+
   public static ImageSegment createImageSegment() {
     return createImageSegment(DateTimeImpl.getNitfDateTimeForNow());
   }

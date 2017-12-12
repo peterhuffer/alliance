@@ -19,19 +19,39 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import org.codice.imaging.nitf.core.common.DateTime;
-import org.codice.imaging.nitf.core.common.impl.DateTimeImpl;
 import org.junit.Test;
 
 public class NitfUtilitiesTest {
 
   @Test
+  public void testFipsToSingleIsoOrExceptionValid() {
+    // setup
+    NitfTestCommons.setupNitfUtilities("US", Collections.singletonList("USA"));
+
+    // when
+    String convertedValue = NitfUtilities.fipsToSingleIsoOrException("US");
+
+    // then
+    assertThat(convertedValue, is("USA"));
+  }
+
+  @Test(expected = NitfParsingException.class)
+  public void testFipsToSingleIsoOrExceptionInvalid() {
+    // setup
+    NitfTestCommons.setupNitfUtilities("US", Arrays.asList("USA", "CAN"));
+
+    // when
+    String convertedValue = NitfUtilities.fipsToSingleIsoOrException("US");
+  }
+
+  @Test
   public void testConvertNitfDate() {
     // setup
-    DateTime dateTime = createNitfDateTime(1997, 12, 17, 10, 26, 30);
+    DateTime dateTime = NitfTestCommons.createNitfDateTime(1997, 12, 17, 10, 26, 30);
 
     // when
     Date convertedDate = NitfUtilities.convertNitfDate(dateTime);
@@ -60,13 +80,5 @@ public class NitfUtilitiesTest {
 
     // then
     assertThat(convertedDate, is(nullValue()));
-  }
-
-  private static DateTime createNitfDateTime(
-      int year, int month, int dayOfMonth, int hour, int minute, int second) {
-    DateTimeImpl dateTime = new DateTimeImpl();
-    dateTime.set(
-        ZonedDateTime.of(year, month, dayOfMonth, hour, minute, second, 0, ZoneId.of("UTC")));
-    return dateTime;
   }
 }

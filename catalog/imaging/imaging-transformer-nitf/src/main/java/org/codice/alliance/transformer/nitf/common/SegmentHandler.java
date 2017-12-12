@@ -18,12 +18,15 @@ import ddf.catalog.data.AttributeDescriptor;
 import ddf.catalog.data.Metacard;
 import ddf.catalog.data.impl.AttributeImpl;
 import ddf.catalog.data.impl.BasicTypes;
+import ddf.catalog.data.types.Validation;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
+import org.codice.alliance.transformer.nitf.ExtNitfUtility;
+import org.codice.alliance.transformer.nitf.NitfParsingException;
 import org.codice.imaging.nitf.core.common.TaggedRecordExtensionHandler;
 import org.codice.imaging.nitf.core.tre.Tre;
 import org.codice.imaging.nitf.core.tre.TreGroup;
@@ -75,12 +78,17 @@ public class SegmentHandler {
     Serializable value;
     try {
       value = accessor.apply(segment);
-    } catch (IllegalStateException e) {
+    } catch (NitfParsingException e) {
       LOGGER.debug(
           "Error accessing NITF attribute value. Skipping attribute [{}] on Metacard with ID [{}]",
           attribute.getLongName(),
           metacard.getId(),
           e);
+
+      if (!attribute.getLongName().startsWith(ExtNitfUtility.EXT_NITF_PREFIX)) {
+        handleBadAttribute(metacard, attribute, e.getOriginalValue());
+      }
+
       return;
     }
 
@@ -107,6 +115,44 @@ public class SegmentHandler {
         LOGGER.trace("Setting the metacard attribute [{}, {}]", descriptor.getName(), value);
         metacard.setAttribute(catalogAttribute);
       }
+    }
+  }
+
+  private void handleBadAttribute(
+      Metacard metacard, NitfAttribute attribute, Serializable originalValue) {
+    Set<AttributeDescriptor> attributeDescriptors = attribute.getAttributeDescriptors();
+
+    for (AttributeDescriptor descriptor : attributeDescriptors) {
+      Attribute catalogAttribute = populateAttribute(metacard, descriptor.getName(), originalValue);
+      metacard.setAttribute(catalogAttribute);
+    }
+
+    attachValidationWarning(metacard, attribute);
+  }
+
+  private void attachValidationWarning(Metacard metacard, NitfAttribute attribute) {
+    Set<AttributeDescriptor> metacardAttrDescriptors =
+        metacard.getMetacardType().getAttributeDescriptors();
+
+    boolean hasValidationWarningAttribute =
+        metacardAttrDescriptors
+            .stream()
+            .anyMatch(attr -> attr.getName().equals(Validation.VALIDATION_WARNINGS));
+
+    if (hasValidationWarningAttribute) {
+      String warningMessage =
+          String.format(
+              "Error while processing NITF attribute %s (%s). This NITF attribute was set to its original value and needs to be fixed manually.",
+              attribute.getLongName(), attribute.getShortName());
+
+      Attribute validationAttribute =
+          populateAttribute(metacard, Validation.VALIDATION_WARNINGS, warningMessage);
+      metacard.setAttribute(validationAttribute);
+    } else {
+      LOGGER.debug(
+          "Error while setting attribute [{}], but no validation warnings attribute to set on metacard with id [{}].",
+          attribute.getLongName(),
+          metacard.getId());
     }
   }
 

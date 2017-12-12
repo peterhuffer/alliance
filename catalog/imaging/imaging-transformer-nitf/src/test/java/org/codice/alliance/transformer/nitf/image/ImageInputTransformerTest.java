@@ -26,7 +26,6 @@ import static org.hamcrest.Matchers.closeTo;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
 import ddf.catalog.data.Attribute;
@@ -40,8 +39,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -56,6 +53,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.codice.alliance.catalog.core.api.types.Isr;
 import org.codice.alliance.transformer.nitf.MetacardFactory;
+import org.codice.alliance.transformer.nitf.NitfTestCommons;
 import org.codice.alliance.transformer.nitf.NitfUtilities;
 import org.codice.alliance.transformer.nitf.TreTestUtility;
 import org.codice.alliance.transformer.nitf.common.AimidbAttribute;
@@ -65,11 +63,9 @@ import org.codice.alliance.transformer.nitf.common.NitfHeaderAttribute;
 import org.codice.alliance.transformer.nitf.common.NitfHeaderTransformer;
 import org.codice.alliance.transformer.nitf.common.PiaprdAttribute;
 import org.codice.alliance.transformer.nitf.common.PiatgbAttribute;
-import org.codice.ddf.internal.country.converter.api.CountryCodeConverter;
 import org.codice.imaging.nitf.core.common.DateTime;
 import org.codice.imaging.nitf.core.common.FileType;
 import org.codice.imaging.nitf.core.common.NitfFormatException;
-import org.codice.imaging.nitf.core.common.impl.DateTimeImpl;
 import org.codice.imaging.nitf.core.header.NitfHeader;
 import org.codice.imaging.nitf.core.header.impl.NitfHeaderFactory;
 import org.codice.imaging.nitf.core.image.ImageSegment;
@@ -107,7 +103,8 @@ public class ImageInputTransformerTest {
 
     headerTransformer = new NitfHeaderTransformer();
 
-    setupNitfUtilies(TEST_CLASSIFICATION_SYSTEM, Collections.singletonList("USA"));
+    NitfTestCommons.setupNitfUtilities(
+        TEST_CLASSIFICATION_SYSTEM, Collections.singletonList("USA"));
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -146,8 +143,8 @@ public class ImageInputTransformerTest {
 
     validateDates(
         metacard,
-        createNitfDateTime(1997, 12, 17, 10, 26, 30),
-        createNitfDateTime(1996, 12, 17, 10, 26, 30));
+        NitfTestCommons.createNitfDateTime(1997, 12, 17, 10, 26, 30),
+        NitfTestCommons.createNitfDateTime(1996, 12, 17, 10, 26, 30));
   }
 
   @Test
@@ -605,11 +602,11 @@ public class ImageInputTransformerTest {
   public void testNitfWithDifferentImageDates() throws Exception {
     File nitfFile = File.createTempFile("nitf-", ".ntf");
     try {
-      final DateTime fileDateTime = createNitfDateTime(2016, 1, 1, 0, 0, 0);
+      final DateTime fileDateTime = NitfTestCommons.createNitfDateTime(2016, 1, 1, 0, 0, 0);
       DateTime[] imageDateTimes = {
-        createNitfDateTime(2001, 1, 1, 0, 0, 0),
-        createNitfDateTime(2002, 1, 1, 0, 0, 0),
-        createNitfDateTime(2003, 1, 1, 0, 0, 0)
+        NitfTestCommons.createNitfDateTime(2001, 1, 1, 0, 0, 0),
+        NitfTestCommons.createNitfDateTime(2002, 1, 1, 0, 0, 0),
+        NitfTestCommons.createNitfDateTime(2003, 1, 1, 0, 0, 0)
       };
 
       createNitfWithDifferentImageDateTimes(nitfFile, fileDateTime, imageDateTimes);
@@ -778,19 +775,5 @@ public class ImageInputTransformerTest {
 
       assertDateAttribute(reason, attribute, expectedDateTimes);
     }
-  }
-
-  private static DateTime createNitfDateTime(
-      int year, int month, int dayOfMonth, int hour, int minute, int second) {
-    DateTimeImpl dateTime = new DateTimeImpl();
-    dateTime.set(
-        ZonedDateTime.of(year, month, dayOfMonth, hour, minute, second, 0, ZoneId.of("UTC")));
-    return dateTime;
-  }
-
-  private void setupNitfUtilies(String fromCode, List<String> toCodes) {
-    CountryCodeConverter mockCountryCodeConverter = mock(CountryCodeConverter.class);
-    doReturn(toCodes).when(mockCountryCodeConverter).convertFipsToIso3(fromCode);
-    new NitfUtilities(mockCountryCodeConverter);
   }
 }

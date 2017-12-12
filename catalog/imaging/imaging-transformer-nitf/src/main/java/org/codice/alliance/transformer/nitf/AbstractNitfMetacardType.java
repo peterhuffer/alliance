@@ -86,6 +86,5 @@ public abstract class AbstractNitfMetacardType extends MetacardTypeImpl {
     descriptors.addAll(new ValidationAttributes().getAttributeDescriptors());
     descriptors.addAll(new IsrAttributes().getAttributeDescriptors());
     descriptors.addAll(new SecurityAttributes().getAttributeDescriptors());
-    descriptors.addAll(new ValidationAttributes().getAttributeDescriptors());
   }
 }

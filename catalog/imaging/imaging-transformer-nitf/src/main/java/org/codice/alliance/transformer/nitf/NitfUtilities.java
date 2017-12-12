@@ -22,6 +22,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.codice.ddf.internal.country.converter.api.CountryCodeConverter;
 import org.codice.imaging.nitf.core.common.DateTime;
 
+/** General NITF utility functions */
 public class NitfUtilities {
 
   private static CountryCodeConverter countryCodeConverter;
@@ -57,23 +58,15 @@ public class NitfUtilities {
   }
 
   @Nullable
-  public static String getFirstCountryCodeFor(@Nullable String fipsCode) {
-    List<String> countryCodes = countryCodeConverter.convertFipsToIso3(fipsCode);
-
-    if (CollectionUtils.isEmpty(countryCodes)) {
-      return null;
-    }
-    return countryCodes.get(0);
-  }
-
-  public static String getSingleValueOrError(@Nullable String fipsCode) {
+  public static String fipsToSingleIsoOrException(@Nullable String fipsCode) {
     List<String> countryCodes = countryCodeConverter.convertFipsToIso3(fipsCode);
 
     if (countryCodes.size() > 1) {
-      throw new IllegalArgumentException(
+      throw new NitfParsingException(
           String.format(
               "Found %s while converting %s, but expected only 1 conversion value.",
-              countryCodes, fipsCode));
+              countryCodes, fipsCode),
+          fipsCode);
     }
 
     if (CollectionUtils.isEmpty(countryCodes)) {
