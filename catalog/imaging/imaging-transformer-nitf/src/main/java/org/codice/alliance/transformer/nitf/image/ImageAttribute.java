@@ -26,7 +26,7 @@ import java.util.function.Function;
 import org.codice.alliance.catalog.core.api.impl.types.IsrAttributes;
 import org.codice.alliance.catalog.core.api.types.Isr;
 import org.codice.alliance.transformer.nitf.ExtNitfUtility;
-import org.codice.alliance.transformer.nitf.NitfUtilities;
+import org.codice.alliance.transformer.nitf.NitfAttributeConverters;
 import org.codice.alliance.transformer.nitf.common.NitfAttribute;
 import org.codice.alliance.transformer.nitf.common.NitfAttributeImpl;
 import org.codice.imaging.nitf.core.common.NitfFormatException;
@@ -234,7 +234,7 @@ public class ImageAttribute extends NitfAttributeImpl<ImageSegment> {
       new ImageAttribute(
           IMAGE_DATE_AND_TIME,
           "IDATIM",
-          segment -> NitfUtilities.convertNitfDate(segment.getImageDateTime()),
+          segment -> NitfAttributeConverters.nitfDate(segment.getImageDateTime()),
           BasicTypes.DATE_TYPE);
 
   public static final ImageAttribute IMAGE_IDENTIFIER_1_ATTRIBUTE =

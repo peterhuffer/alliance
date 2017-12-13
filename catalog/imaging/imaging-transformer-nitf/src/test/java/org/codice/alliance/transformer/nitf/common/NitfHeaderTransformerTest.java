@@ -59,7 +59,7 @@ public class NitfHeaderTransformerTest {
   }
 
   @Test
-  public void testSecurityFileClassificationWithMultipleConversionValues() throws Exception {
+  public void testValidationWarningsOnNitfAttributeTransformException() throws Exception {
     String originalNitfValue = "US";
     NitfTestCommons.setupNitfUtilities(originalNitfValue, Arrays.asList("USA", "CAN"));
     File nitfFile = temporaryFolder.newFile("nitf-attribute-header-test.ntf");

@@ -23,30 +23,16 @@ import org.codice.ddf.internal.country.converter.api.CountryCodeConverter;
 import org.codice.imaging.nitf.core.common.DateTime;
 
 /** General NITF utility functions */
-public class NitfUtilities {
+public class NitfAttributeConverters {
 
   private static CountryCodeConverter countryCodeConverter;
 
-  @SuppressWarnings("squid:S1118" /* Used by Blueprint */)
-  public NitfUtilities(CountryCodeConverter converter) {
+  public NitfAttributeConverters(CountryCodeConverter converter) {
     countryCodeConverter = converter;
   }
 
-  /**
-   * Gets the alpha3 country code for a fips country code by delegating to the {@link
-   * CountryCodeConverter} service.
-   *
-   * @see CountryCodeConverter
-   * @param fips The fips country code.
-   * @return The alpha3 country code. Returns an empty list if fips = null, empty string, or the
-   *     mapping doesn't exist.
-   */
-  public static List<String> fipsToAlpha3CountryCode(@Nullable String fips) {
-    return countryCodeConverter.convertFipsToIso3(fips);
-  }
-
   @Nullable
-  public static Date convertNitfDate(@Nullable DateTime nitfDateTime) {
+  public static Date nitfDate(@Nullable DateTime nitfDateTime) {
     if (nitfDateTime == null || nitfDateTime.getZonedDateTime() == null) {
       return null;
     }
@@ -57,12 +43,22 @@ public class NitfUtilities {
     return Date.from(instant);
   }
 
+  /**
+   * Gets the alpha3 country code for a fips country code by delegating to the {@link
+   * CountryCodeConverter} service.
+   *
+   * @param fipsCode FIPS 10-4 country code to convert
+   * @return a ISO 3166 Alpha3 country code
+   * @throws NitfAttributeTransformException when the fipsCode maps to multiple ISO 3166-1 Alpha3
+   *     values
+   */
   @Nullable
-  public static String fipsToSingleIsoOrException(@Nullable String fipsCode) {
+  public static String fipsToStandardCountryCode(@Nullable String fipsCode)
+      throws NitfAttributeTransformException {
     List<String> countryCodes = countryCodeConverter.convertFipsToIso3(fipsCode);
 
     if (countryCodes.size() > 1) {
-      throw new NitfParsingException(
+      throw new NitfAttributeTransformException(
           String.format(
               "Found %s while converting %s, but expected only 1 conversion value.",
               countryCodes, fipsCode),

@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 import org.codice.alliance.transformer.nitf.ExtNitfUtility;
-import org.codice.alliance.transformer.nitf.NitfUtilities;
+import org.codice.alliance.transformer.nitf.NitfAttributeConverters;
 import org.codice.imaging.nitf.core.tre.Tre;
 
 /** TRE for "STDIDC "Standard ID" */
@@ -103,7 +103,7 @@ public class StdidcAttribute extends NitfAttributeImpl<Tre> {
           Location.COUNTRY_CODE,
           COUNTRY_SHORT_NAME,
           tre ->
-              NitfUtilities.fipsToSingleIsoOrException(
+              NitfAttributeConverters.fipsToStandardCountryCode(
                   TreUtility.convertToString(tre, COUNTRY_SHORT_NAME)),
           new LocationAttributes().getAttributeDescriptor(Location.COUNTRY_CODE),
           "");

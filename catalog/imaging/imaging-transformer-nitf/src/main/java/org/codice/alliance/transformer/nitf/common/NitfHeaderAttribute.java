@@ -26,20 +26,19 @@ import ddf.catalog.data.types.Core;
 import ddf.catalog.data.types.Media;
 import java.io.Serializable;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.commons.lang.StringUtils;
 import org.codice.alliance.catalog.core.api.impl.types.IsrAttributes;
 import org.codice.alliance.catalog.core.api.impl.types.SecurityAttributes;
 import org.codice.alliance.catalog.core.api.types.Isr;
 import org.codice.alliance.catalog.core.api.types.Security;
 import org.codice.alliance.transformer.nitf.ExtNitfUtility;
-import org.codice.alliance.transformer.nitf.NitfUtilities;
+import org.codice.alliance.transformer.nitf.NitfAttributeConverters;
 import org.codice.imaging.nitf.core.common.FileType;
 import org.codice.imaging.nitf.core.header.NitfHeader;
 
@@ -159,7 +158,7 @@ public class NitfHeaderAttribute extends NitfAttributeImpl<NitfHeader> {
       new NitfHeaderAttribute(
           Core.CREATED,
           "FDT",
-          header -> NitfUtilities.convertNitfDate(header.getFileDateTime()),
+          header -> NitfAttributeConverters.nitfDate(header.getFileDateTime()),
           new CoreAttributes().getAttributeDescriptor(Core.CREATED),
           FILE_DATE_AND_TIME);
 
@@ -167,7 +166,7 @@ public class NitfHeaderAttribute extends NitfAttributeImpl<NitfHeader> {
       new NitfHeaderAttribute(
           Core.MODIFIED,
           "FDT",
-          header -> NitfUtilities.convertNitfDate(header.getFileDateTime()),
+          header -> NitfAttributeConverters.nitfDate(header.getFileDateTime()),
           new CoreAttributes().getAttributeDescriptor(Core.MODIFIED),
           "");
 
@@ -175,7 +174,7 @@ public class NitfHeaderAttribute extends NitfAttributeImpl<NitfHeader> {
       new NitfHeaderAttribute(
           Metacard.EFFECTIVE,
           "FDT",
-          header -> NitfUtilities.convertNitfDate(header.getFileDateTime()),
+          header -> NitfAttributeConverters.nitfDate(header.getFileDateTime()),
           new AttributeDescriptorImpl(
               Metacard.EFFECTIVE,
               true, /* indexed */
@@ -197,7 +196,7 @@ public class NitfHeaderAttribute extends NitfAttributeImpl<NitfHeader> {
           Security.CLASSIFICATION_SYSTEM,
           "FSCLSY",
           header ->
-              NitfUtilities.fipsToSingleIsoOrException(
+              NitfAttributeConverters.fipsToStandardCountryCode(
                   header.getFileSecurityMetadata().getSecurityClassificationSystem()),
           new SecurityAttributes().getAttributeDescriptor(Security.CLASSIFICATION_SYSTEM));
 
@@ -423,15 +422,8 @@ public class NitfHeaderAttribute extends NitfAttributeImpl<NitfHeader> {
     }
 
     String[] fipsCountryCodes = nitfReleaseInstructions.split(" ");
-
-    Set<String> convertedCountryCodes = new HashSet<>();
-    for (String fipsCode : fipsCountryCodes) {
-      List<String> isoAlpha3Codes = NitfUtilities.fipsToAlpha3CountryCode(fipsCode);
-      convertedCountryCodes.addAll(isoAlpha3Codes);
-    }
-
-    return convertedCountryCodes
-        .stream()
+    return Stream.of(fipsCountryCodes)
+        .map(NitfAttributeConverters::fipsToStandardCountryCode)
         .filter(Objects::nonNull)
         .distinct()
         .collect(Collectors.joining(" "));

@@ -17,15 +17,20 @@ import java.io.Serializable;
 
 /**
  * A {@code RuntimeException} that is used when there are errors parsing a NITF attribute's value.
- * The {@code NitfParsingException} holds a reference to the original NITF attribute's value before
- * any transformation may have occurred.
+ * The {@code NitfAttributeTransformException} holds a reference to the original NITF attribute's
+ * value before any transformation may have occurred.
  */
-public class NitfParsingException extends RuntimeException {
+public class NitfAttributeTransformException extends RuntimeException {
 
   private final Serializable originalValue;
 
-  public NitfParsingException(String s, Serializable originalValue) {
-    super(s);
+  /**
+   * @param message a human friendly message
+   * @param originalValue original {@code NitfAttribute}s value before any transformation may have
+   *     occurred.
+   */
+  public NitfAttributeTransformException(String message, Serializable originalValue) {
+    super(message);
     this.originalValue = originalValue;
   }
 

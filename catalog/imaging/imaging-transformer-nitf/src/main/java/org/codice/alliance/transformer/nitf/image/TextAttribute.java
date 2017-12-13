@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 import org.codice.alliance.transformer.nitf.ExtNitfUtility;
-import org.codice.alliance.transformer.nitf.NitfUtilities;
+import org.codice.alliance.transformer.nitf.NitfAttributeConverters;
 import org.codice.alliance.transformer.nitf.common.NitfAttribute;
 import org.codice.imaging.nitf.core.text.TextSegment;
 
@@ -45,7 +45,7 @@ public enum TextAttribute implements NitfAttribute<TextSegment> {
   TEXT_DATE_AND_TIME(
       "text-date-and-time",
       "TXTDT",
-      segment -> NitfUtilities.convertNitfDate(segment.getTextDateTime()),
+      segment -> NitfAttributeConverters.nitfDate(segment.getTextDateTime()),
       Collections.singletonList(BasicTypes.DATE_TYPE)),
   TEXT_TITLE("text-title", "TXTITL", TextSegment::getTextTitle),
   TEXT_SECURITY_CLASSIFICATION(

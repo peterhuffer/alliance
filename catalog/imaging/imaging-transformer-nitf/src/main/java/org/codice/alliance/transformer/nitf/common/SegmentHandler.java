@@ -26,7 +26,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import org.codice.alliance.transformer.nitf.ExtNitfUtility;
-import org.codice.alliance.transformer.nitf.NitfParsingException;
+import org.codice.alliance.transformer.nitf.NitfAttributeTransformException;
 import org.codice.imaging.nitf.core.common.TaggedRecordExtensionHandler;
 import org.codice.imaging.nitf.core.tre.Tre;
 import org.codice.imaging.nitf.core.tre.TreGroup;
@@ -78,14 +78,14 @@ public class SegmentHandler {
     Serializable value;
     try {
       value = accessor.apply(segment);
-    } catch (NitfParsingException e) {
+    } catch (NitfAttributeTransformException e) {
       LOGGER.debug(
           "Error accessing NITF attribute value. Skipping attribute [{}] on Metacard with ID [{}]",
           attribute.getLongName(),
           metacard.getId(),
           e);
 
-      if (!attribute.getLongName().startsWith(ExtNitfUtility.EXT_NITF_PREFIX)) {
+      if (!ExtNitfUtility.isExtAttribute(attribute)) {
         handleBadAttribute(metacard, attribute, e.getOriginalValue());
       }
 
@@ -130,30 +130,20 @@ public class SegmentHandler {
     attachValidationWarning(metacard, attribute);
   }
 
+  /**
+   * Assume the {@link Validation#VALIDATION_WARNINGS} will always exist so long as the attributes
+   * descriptors are defined in the {@link
+   * org.codice.alliance.transformer.nitf.AbstractNitfMetacardType}
+   */
   private void attachValidationWarning(Metacard metacard, NitfAttribute attribute) {
-    Set<AttributeDescriptor> metacardAttrDescriptors =
-        metacard.getMetacardType().getAttributeDescriptors();
+    String warningMessage =
+        String.format(
+            "Error while processing NITF attribute %s (%s). This NITF attribute was set to its original value and needs to be fixed manually.",
+            attribute.getLongName(), attribute.getShortName());
 
-    boolean hasValidationWarningAttribute =
-        metacardAttrDescriptors
-            .stream()
-            .anyMatch(attr -> attr.getName().equals(Validation.VALIDATION_WARNINGS));
-
-    if (hasValidationWarningAttribute) {
-      String warningMessage =
-          String.format(
-              "Error while processing NITF attribute %s (%s). This NITF attribute was set to its original value and needs to be fixed manually.",
-              attribute.getLongName(), attribute.getShortName());
-
-      Attribute validationAttribute =
-          populateAttribute(metacard, Validation.VALIDATION_WARNINGS, warningMessage);
-      metacard.setAttribute(validationAttribute);
-    } else {
-      LOGGER.debug(
-          "Error while setting attribute [{}], but no validation warnings attribute to set on metacard with id [{}].",
-          attribute.getLongName(),
-          metacard.getId());
-    }
+    Attribute validationAttribute =
+        populateAttribute(metacard, Validation.VALIDATION_WARNINGS, warningMessage);
+    metacard.setAttribute(validationAttribute);
   }
 
   private Attribute populateAttribute(Metacard metacard, String attributeName, Serializable value) {

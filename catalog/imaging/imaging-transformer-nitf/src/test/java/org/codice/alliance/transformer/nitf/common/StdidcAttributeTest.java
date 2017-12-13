@@ -13,6 +13,7 @@
  */
 package org.codice.alliance.transformer.nitf.common;
 
+import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -22,15 +23,19 @@ import static org.mockito.Mockito.when;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
-import org.codice.alliance.transformer.nitf.NitfParsingException;
+import org.codice.alliance.transformer.nitf.NitfAttributeTransformException;
 import org.codice.alliance.transformer.nitf.NitfTestCommons;
 import org.codice.imaging.nitf.core.tre.Tre;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class StdidcAttributeTest {
 
   private Tre tre;
+
+  @Rule public ExpectedException expectedException = ExpectedException.none();
 
   @Before
   public void setup() {
@@ -77,10 +82,14 @@ public class StdidcAttributeTest {
     assertThat(actual, nullValue());
   }
 
-  @Test(expected = NitfParsingException.class)
+  @Test
   public void testMultipleConvertedCountryCodes() throws Exception {
     NitfTestCommons.setupNitfUtilities("US", Arrays.asList("ABC", "XYZ"));
     when(tre.getFieldValue(StdidcAttribute.COUNTRY_SHORT_NAME)).thenReturn("US");
+
+    expectedException.expect(NitfAttributeTransformException.class);
+    expectedException.expect(hasProperty("originalValue", is("US")));
+
     StdidcAttribute.COUNTRY_ALPHA3_ATTRIBUTE.getAccessorFunction().apply(tre);
   }
 }

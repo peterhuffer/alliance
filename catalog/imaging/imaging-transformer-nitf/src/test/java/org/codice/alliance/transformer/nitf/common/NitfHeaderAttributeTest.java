@@ -13,16 +13,20 @@
  */
 package org.codice.alliance.transformer.nitf.common;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
-import org.codice.alliance.transformer.nitf.NitfParsingException;
+import org.codice.alliance.transformer.nitf.NitfAttributeConverters;
+import org.codice.alliance.transformer.nitf.NitfAttributeTransformException;
 import org.codice.alliance.transformer.nitf.NitfTestCommons;
+import org.codice.ddf.internal.country.converter.api.CountryCodeConverter;
 import org.codice.imaging.nitf.core.header.NitfHeader;
 import org.codice.imaging.nitf.core.security.FileSecurityMetadata;
 import org.junit.Before;
@@ -52,7 +56,7 @@ public class NitfHeaderAttributeTest {
     assertThat(value, is("ABC"));
   }
 
-  @Test(expected = NitfParsingException.class)
+  @Test(expected = NitfAttributeTransformException.class)
   public void testMultipleConvertedCountryCodesForFileClassificationSystem() throws Exception {
     NitfTestCommons.setupNitfUtilities("US", Arrays.asList("ABC", "XYZ"));
 
@@ -62,5 +66,27 @@ public class NitfHeaderAttributeTest {
     NitfHeaderAttribute.FILE_CLASSIFICATION_SECURITY_SYSTEM_ATTRIBUTE
         .getAccessorFunction()
         .apply(nitfHeader);
+  }
+
+  @Test
+  public void testNitfFileReleasabilityWithMultipleSpaces() throws Exception {
+    CountryCodeConverter mockCountryCodeConverter = mock(CountryCodeConverter.class);
+    doReturn(Collections.singletonList("USA"))
+        .when(mockCountryCodeConverter)
+        .convertFipsToIso3("US");
+    doReturn(Collections.singletonList("GBR"))
+        .when(mockCountryCodeConverter)
+        .convertFipsToIso3("GB");
+    new NitfAttributeConverters(mockCountryCodeConverter);
+
+    FileSecurityMetadata fsmMock = mock(FileSecurityMetadata.class);
+    when(nitfHeader.getFileSecurityMetadata()).thenReturn(fsmMock);
+    when(nitfHeader.getFileSecurityMetadata().getReleaseInstructions()).thenReturn("US    GB");
+    Serializable value =
+        NitfHeaderAttribute.FILE_RELEASING_INSTRUCTIONS_ATTRIBUTE
+            .getAccessorFunction()
+            .apply(nitfHeader);
+
+    assertThat(value, is(equalTo("USA GBR")));
   }
 }

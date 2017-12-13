@@ -53,8 +53,8 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.codice.alliance.catalog.core.api.types.Isr;
 import org.codice.alliance.transformer.nitf.MetacardFactory;
+import org.codice.alliance.transformer.nitf.NitfAttributeConverters;
 import org.codice.alliance.transformer.nitf.NitfTestCommons;
-import org.codice.alliance.transformer.nitf.NitfUtilities;
 import org.codice.alliance.transformer.nitf.TreTestUtility;
 import org.codice.alliance.transformer.nitf.common.AimidbAttribute;
 import org.codice.alliance.transformer.nitf.common.IndexedPiaprdAttribute;
@@ -758,7 +758,7 @@ public class ImageInputTransformerTest {
       String reason, Attribute attribute, DateTime... expectedDateTimes) {
     List<Date> expectedDates =
         Stream.of(expectedDateTimes)
-            .map(dateTime -> NitfUtilities.convertNitfDate(dateTime))
+            .map(dateTime -> NitfAttributeConverters.nitfDate(dateTime))
             .collect(Collectors.toList());
 
     assertThat(reason, attribute.getValues(), is(expectedDates));

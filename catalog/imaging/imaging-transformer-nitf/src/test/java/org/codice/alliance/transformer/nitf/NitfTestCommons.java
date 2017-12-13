@@ -30,7 +30,7 @@ public class NitfTestCommons {
   public static void setupNitfUtilities(String fromCode, List<String> toCodes) {
     CountryCodeConverter mockCountryCodeConverter = mock(CountryCodeConverter.class);
     doReturn(toCodes).when(mockCountryCodeConverter).convertFipsToIso3(fromCode);
-    new NitfUtilities(mockCountryCodeConverter);
+    new NitfAttributeConverters(mockCountryCodeConverter);
   }
 
   public static DateTime createNitfDateTime(

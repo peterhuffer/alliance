@@ -20,14 +20,15 @@
            http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0
            http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd">
 
-    <bean id="imageMetacardType" class="org.codice.alliance.transformer.nitf.image.ImageMetacardType">
+    <bean id="imageMetacardType"
+          class="org.codice.alliance.transformer.nitf.image.ImageMetacardType">
     </bean>
 
     <bean id="imageMetacardFactory" class="org.codice.alliance.transformer.nitf.MetacardFactory">
         <property name="metacardType" ref="imageMetacardType"/>
     </bean>
 
-    <bean id="nitfUtilies" class="org.codice.alliance.transformer.nitf.NitfUtilities">
+    <bean id="nitfAttributeConverters" class="org.codice.alliance.transformer.nitf.NitfAttributeConverters">
         <argument ref="countryCodeConverter"/>
     </bean>
 
@@ -72,7 +73,8 @@
             <from uri="direct://start"/>
             <to uri="direct-vm://transformNitf"/>
             <setHeader headerName="nitfSegmentsFlow">
-                <method ref="nitfParserService" method="endNitfSegmentsFlow(${header.nitfSegmentsFlow})"/>
+                <method ref="nitfParserService"
+                        method="endNitfSegmentsFlow(${header.nitfSegmentsFlow})"/>
             </setHeader>
             <setHeader headerName="allData">
                 <constant>true</constant>
@@ -110,7 +112,8 @@
                         method="transform(${header.nitfSegmentsFlow}, ${body})"/>
             </setHeader>
             <setBody>
-                <method ref="nitfImageTransformer" method="transform(${header.nitfSegmentsFlow}, ${body})"/>
+                <method ref="nitfImageTransformer"
+                        method="transform(${header.nitfSegmentsFlow}, ${body})"/>
             </setBody>
         </route>
 
@@ -128,7 +131,8 @@
                         method="transform(${header.nitfSegmentsFlow}, ${body})"/>
             </setHeader>
             <setBody>
-                <method ref="nitfGmtiTransformer" method="transform(${header.nitfSegmentsFlow}, ${body})"/>
+                <method ref="nitfGmtiTransformer"
+                        method="transform(${header.nitfSegmentsFlow}, ${body})"/>
             </setBody>
         </route>
     </camelContext>

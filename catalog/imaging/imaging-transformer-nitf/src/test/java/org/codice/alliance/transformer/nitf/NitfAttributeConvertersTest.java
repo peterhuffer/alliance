@@ -13,6 +13,7 @@
  */
 package org.codice.alliance.transformer.nitf;
 
+import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -23,29 +24,53 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import org.codice.imaging.nitf.core.common.DateTime;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
-public class NitfUtilitiesTest {
+public class NitfAttributeConvertersTest {
+
+  @Rule public ExpectedException expectedException = ExpectedException.none();
 
   @Test
-  public void testFipsToSingleIsoOrExceptionValid() {
+  public void testValidFipsToSingleIso() {
     // setup
     NitfTestCommons.setupNitfUtilities("US", Collections.singletonList("USA"));
 
     // when
-    String convertedValue = NitfUtilities.fipsToSingleIsoOrException("US");
+    String convertedValue = NitfAttributeConverters.fipsToStandardCountryCode("US");
 
     // then
     assertThat(convertedValue, is("USA"));
   }
 
-  @Test(expected = NitfParsingException.class)
-  public void testFipsToSingleIsoOrExceptionInvalid() {
+  @Test
+  public void testInvalidFipsToSingleIso() {
     // setup
     NitfTestCommons.setupNitfUtilities("US", Arrays.asList("USA", "CAN"));
+    expectedException.expect(NitfAttributeTransformException.class);
+    expectedException.expect(hasProperty("originalValue", is("US")));
 
     // when
-    NitfUtilities.fipsToSingleIsoOrException("US");
+    NitfAttributeConverters.fipsToStandardCountryCode("US");
+  }
+
+  @Test
+  public void testNoFipsToSingleIsoMapping() {
+    // setup
+    NitfTestCommons.setupNitfUtilities("NOT_A_FIPS", Collections.emptyList());
+
+    // then
+    assertThat(NitfAttributeConverters.fipsToStandardCountryCode("US"), is(nullValue()));
+  }
+
+  @Test
+  public void testNullFipsValue() {
+    // setup
+    NitfTestCommons.setupNitfUtilities("US", Collections.singletonList("USA"));
+
+    // then
+    assertThat(NitfAttributeConverters.fipsToStandardCountryCode(null), is(nullValue()));
   }
 
   @Test
@@ -54,7 +79,7 @@ public class NitfUtilitiesTest {
     DateTime dateTime = NitfTestCommons.createNitfDateTime(1997, 12, 17, 10, 26, 30);
 
     // when
-    Date convertedDate = NitfUtilities.convertNitfDate(dateTime);
+    Date convertedDate = NitfAttributeConverters.nitfDate(dateTime);
 
     // then
     assertThat(dateTime.getZonedDateTime().toInstant(), is(convertedDate.toInstant()));
@@ -63,7 +88,7 @@ public class NitfUtilitiesTest {
   @Test
   public void testConvertNitfDateWithNull() {
     // when
-    Date convertedDate = NitfUtilities.convertNitfDate(null);
+    Date convertedDate = NitfAttributeConverters.nitfDate(null);
 
     // then
     assertThat(convertedDate, is(nullValue()));
@@ -76,7 +101,7 @@ public class NitfUtilitiesTest {
     doReturn(null).when(mockDateTime).getZonedDateTime();
 
     // when
-    Date convertedDate = NitfUtilities.convertNitfDate(mockDateTime);
+    Date convertedDate = NitfAttributeConverters.nitfDate(mockDateTime);
 
     // then
     assertThat(convertedDate, is(nullValue()));
