@@ -25,19 +25,20 @@ import ddf.catalog.data.types.Contact;
 import ddf.catalog.data.types.Core;
 import ddf.catalog.data.types.Media;
 import java.io.Serializable;
-import java.time.Instant;
-import java.time.ZonedDateTime;
 import java.util.Collections;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.apache.commons.lang.StringUtils;
 import org.codice.alliance.catalog.core.api.impl.types.IsrAttributes;
 import org.codice.alliance.catalog.core.api.impl.types.SecurityAttributes;
 import org.codice.alliance.catalog.core.api.types.Isr;
 import org.codice.alliance.catalog.core.api.types.Security;
 import org.codice.alliance.transformer.nitf.ExtNitfUtility;
-import org.codice.imaging.nitf.core.common.DateTime;
+import org.codice.alliance.transformer.nitf.NitfAttributeConverters;
 import org.codice.imaging.nitf.core.common.FileType;
 import org.codice.imaging.nitf.core.header.NitfHeader;
 
@@ -157,7 +158,7 @@ public class NitfHeaderAttribute extends NitfAttributeImpl<NitfHeader> {
       new NitfHeaderAttribute(
           Core.CREATED,
           "FDT",
-          header -> convertNitfDate(header.getFileDateTime()),
+          header -> NitfAttributeConverters.nitfDate(header.getFileDateTime()),
           new CoreAttributes().getAttributeDescriptor(Core.CREATED),
           FILE_DATE_AND_TIME);
 
@@ -165,7 +166,7 @@ public class NitfHeaderAttribute extends NitfAttributeImpl<NitfHeader> {
       new NitfHeaderAttribute(
           Core.MODIFIED,
           "FDT",
-          header -> convertNitfDate(header.getFileDateTime()),
+          header -> NitfAttributeConverters.nitfDate(header.getFileDateTime()),
           new CoreAttributes().getAttributeDescriptor(Core.MODIFIED),
           "");
 
@@ -173,15 +174,14 @@ public class NitfHeaderAttribute extends NitfAttributeImpl<NitfHeader> {
       new NitfHeaderAttribute(
           Metacard.EFFECTIVE,
           "FDT",
-          header -> convertNitfDate(header.getFileDateTime()),
+          header -> NitfAttributeConverters.nitfDate(header.getFileDateTime()),
           new AttributeDescriptorImpl(
               Metacard.EFFECTIVE,
               true, /* indexed */
               true, /* stored */
               false, /* tokenized */
               false, /* multivalued */
-              BasicTypes.DATE_TYPE),
-          "");
+              BasicTypes.DATE_TYPE));
 
   public static final NitfHeaderAttribute FILE_SECURITY_CLASSIFICATION_ATTRIBUTE =
       new NitfHeaderAttribute(
@@ -195,9 +195,10 @@ public class NitfHeaderAttribute extends NitfAttributeImpl<NitfHeader> {
       new NitfHeaderAttribute(
           Security.CLASSIFICATION_SYSTEM,
           "FSCLSY",
-          header -> header.getFileSecurityMetadata().getSecurityClassificationSystem(),
-          new SecurityAttributes().getAttributeDescriptor(Security.CLASSIFICATION_SYSTEM),
-          FILE_CLASSIFICATON_SECURITY_SYSTEM);
+          header ->
+              NitfAttributeConverters.fipsToStandardCountryCode(
+                  header.getFileSecurityMetadata().getSecurityClassificationSystem()),
+          new SecurityAttributes().getAttributeDescriptor(Security.CLASSIFICATION_SYSTEM));
 
   public static final NitfHeaderAttribute FILE_CODE_WORDS_ATTRIBUTE =
       new NitfHeaderAttribute(
@@ -219,9 +220,8 @@ public class NitfHeaderAttribute extends NitfAttributeImpl<NitfHeader> {
       new NitfHeaderAttribute(
           Security.RELEASABILITY,
           "FSREL",
-          header -> header.getFileSecurityMetadata().getReleaseInstructions(),
-          new SecurityAttributes().getAttributeDescriptor(Security.RELEASABILITY),
-          FILE_RELEASING_INSTRUCTIONS);
+          header -> handleReleasability(header.getFileSecurityMetadata().getReleaseInstructions()),
+          new SecurityAttributes().getAttributeDescriptor(Security.RELEASABILITY));
 
   public static final NitfHeaderAttribute ORIGINATORS_NAME_ATTRIBUTE =
       new NitfHeaderAttribute(
@@ -242,6 +242,20 @@ public class NitfHeaderAttribute extends NitfAttributeImpl<NitfHeader> {
   /*
    * Non-normalized attributes
    */
+
+  public static final NitfHeaderAttribute EXT_FILE_CLASSIFICATION_SECURITY_SYSTEM_ATTRIBUTE =
+      new NitfHeaderAttribute(
+          FILE_CLASSIFICATON_SECURITY_SYSTEM,
+          "FSCLSY",
+          header -> header.getFileSecurityMetadata().getSecurityClassificationSystem(),
+          BasicTypes.STRING_TYPE);
+
+  public static final NitfHeaderAttribute EXT_FILE_RELEASING_INSTRUCTIONS_ATTRIBUTE =
+      new NitfHeaderAttribute(
+          FILE_RELEASING_INSTRUCTIONS,
+          "FSREL",
+          header -> header.getFileSecurityMetadata().getReleaseInstructions(),
+          BasicTypes.STRING_TYPE);
 
   public static final NitfHeaderAttribute COMPLEXITY_LEVEL_ATTRIBUTE =
       new NitfHeaderAttribute(
@@ -365,6 +379,15 @@ public class NitfHeaderAttribute extends NitfAttributeImpl<NitfHeader> {
       String longName,
       String shortName,
       Function<NitfHeader, Serializable> accessorFunction,
+      AttributeDescriptor attributeDescriptor) {
+    super(longName, shortName, accessorFunction, attributeDescriptor, "");
+    ATTRIBUTES.add(this);
+  }
+
+  private NitfHeaderAttribute(
+      String longName,
+      String shortName,
+      Function<NitfHeader, Serializable> accessorFunction,
       AttributeDescriptor attributeDescriptor,
       String extNitfName) {
     super(longName, shortName, accessorFunction, attributeDescriptor, extNitfName);
@@ -393,19 +416,17 @@ public class NitfHeaderAttribute extends NitfAttributeImpl<NitfHeader> {
     return "";
   }
 
-  private static Date convertNitfDate(DateTime nitfDateTime) {
-    if (nitfDateTime == null || nitfDateTime.getZonedDateTime() == null) {
-      return null;
+  private static Serializable handleReleasability(final String nitfReleaseInstructions) {
+    if (StringUtils.isEmpty(nitfReleaseInstructions)) {
+      return "";
     }
 
-    ZonedDateTime zonedDateTime = nitfDateTime.getZonedDateTime();
-    Instant instant = zonedDateTime.toInstant();
-
-    if (instant != null) {
-      return Date.from(instant);
-    }
-
-    return null;
+    String[] fipsCountryCodes = nitfReleaseInstructions.split(" ");
+    return Stream.of(fipsCountryCodes)
+        .map(NitfAttributeConverters::fipsToStandardCountryCode)
+        .filter(Objects::nonNull)
+        .distinct()
+        .collect(Collectors.joining(" "));
   }
 
   public static List<NitfAttribute<NitfHeader>> getAttributes() {

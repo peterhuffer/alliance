@@ -17,6 +17,7 @@ import ddf.catalog.data.AttributeDescriptor;
 import java.io.Serializable;
 import java.util.Set;
 import java.util.function.Function;
+import org.codice.alliance.transformer.nitf.NitfAttributeTransformException;
 
 /**
  * An interface to provide access to common properties of NITF metacard segment attributes. The
@@ -36,8 +37,10 @@ public interface NitfAttribute<T> {
    * @return a function that, given the CommonNitfSegment of type T, will return the corresponding
    *     value for the NitfAttribute as a Serializable. The function should return <code>null</code>
    *     if the value cannot be computed.
+   * @throws NitfAttributeTransformException when there is an error parsing the {@code
+   *     NitfAttribute}
    */
-  Function<T, Serializable> getAccessorFunction();
+  Function<T, Serializable> getAccessorFunction() throws NitfAttributeTransformException;
 
   /** @return AttributeDescriptors for this attribute. */
   Set<AttributeDescriptor> getAttributeDescriptors();

@@ -15,6 +15,7 @@ package org.codice.alliance.transformer.nitf;
 
 import ddf.catalog.data.AttributeDescriptor;
 import ddf.catalog.data.impl.AttributeDescriptorImpl;
+import org.codice.alliance.transformer.nitf.common.NitfAttribute;
 
 /**
  * Utility class for holding common elements and creating NITF {@link AttributeDescriptor}s that do
@@ -22,6 +23,8 @@ import ddf.catalog.data.impl.AttributeDescriptorImpl;
  */
 public class ExtNitfUtility {
   public static final String EXT_NITF_PREFIX = "ext.nitf.";
+
+  private ExtNitfUtility() {}
 
   public static AttributeDescriptor createDuplicateDescriptorAndRename(
       String newName, AttributeDescriptor duplicatedDescriptor) {
@@ -32,5 +35,9 @@ public class ExtNitfUtility {
         duplicatedDescriptor.isTokenized(),
         duplicatedDescriptor.isMultiValued(),
         duplicatedDescriptor.getType());
+  }
+
+  public static boolean isExtAttribute(NitfAttribute nitfAttribute) {
+    return nitfAttribute.getLongName().startsWith(EXT_NITF_PREFIX);
   }
 }

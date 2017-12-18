@@ -13,8 +13,6 @@
  */
 package org.codice.alliance.transformer.nitf.image;
 
-import static org.codice.alliance.transformer.nitf.image.ImageAttribute.convertNitfDate;
-
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.LinearRing;
@@ -31,6 +29,7 @@ import java.util.Date;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.codice.alliance.catalog.core.api.types.Isr;
+import org.codice.alliance.transformer.nitf.NitfAttributeConverters;
 import org.codice.alliance.transformer.nitf.common.SegmentHandler;
 import org.codice.imaging.nitf.core.image.ImageCoordinates;
 import org.codice.imaging.nitf.core.image.ImageCoordinatesRepresentation;
@@ -127,7 +126,8 @@ public class NitfImageTransformer extends SegmentHandler {
     handleGeometry(imagesegmentHeader, polygons);
     handleComments(metacard, imagesegmentHeader.getImageComments());
     handleTres(metacard, imagesegmentHeader);
-    imageDateAndTimeList.add(convertNitfDate(imagesegmentHeader.getImageDateTime()));
+    imageDateAndTimeList.add(
+        NitfAttributeConverters.nitfDate(imagesegmentHeader.getImageDateTime()));
   }
 
   protected void handleGeometry(ImageSegment imageSegmentHeader, List<Polygon> polygons) {

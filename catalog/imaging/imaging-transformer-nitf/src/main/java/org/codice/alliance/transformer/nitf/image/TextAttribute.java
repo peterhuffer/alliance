@@ -18,17 +18,14 @@ import ddf.catalog.data.AttributeType;
 import ddf.catalog.data.impl.AttributeDescriptorImpl;
 import ddf.catalog.data.impl.BasicTypes;
 import java.io.Serializable;
-import java.time.Instant;
-import java.time.ZonedDateTime;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 import org.codice.alliance.transformer.nitf.ExtNitfUtility;
+import org.codice.alliance.transformer.nitf.NitfAttributeConverters;
 import org.codice.alliance.transformer.nitf.common.NitfAttribute;
-import org.codice.imaging.nitf.core.common.DateTime;
 import org.codice.imaging.nitf.core.text.TextSegment;
 
 /** NitfAttributes to represent the properties of a TextSegment. */
@@ -48,7 +45,7 @@ public enum TextAttribute implements NitfAttribute<TextSegment> {
   TEXT_DATE_AND_TIME(
       "text-date-and-time",
       "TXTDT",
-      segment -> convertNitfDate(segment.getTextDateTime()),
+      segment -> NitfAttributeConverters.nitfDate(segment.getTextDateTime()),
       Collections.singletonList(BasicTypes.DATE_TYPE)),
   TEXT_TITLE("text-title", "TXTITL", TextSegment::getTextTitle),
   TEXT_SECURITY_CLASSIFICATION(
@@ -173,21 +170,6 @@ public enum TextAttribute implements NitfAttribute<TextSegment> {
   @Override
   public Set<AttributeDescriptor> getAttributeDescriptors() {
     return this.attributeDescriptors;
-  }
-
-  private static Date convertNitfDate(DateTime nitfDateTime) {
-    if (nitfDateTime == null || nitfDateTime.getZonedDateTime() == null) {
-      return null;
-    }
-
-    ZonedDateTime zonedDateTime = nitfDateTime.getZonedDateTime();
-    Instant instant = zonedDateTime.toInstant();
-
-    if (instant != null) {
-      return Date.from(instant);
-    }
-
-    return null;
   }
 
   private Set<AttributeDescriptor> createAttributeDescriptors(List<AttributeType> attributeTypes) {

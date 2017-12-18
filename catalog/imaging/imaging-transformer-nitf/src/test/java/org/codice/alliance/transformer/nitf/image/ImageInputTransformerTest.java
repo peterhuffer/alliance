@@ -20,7 +20,6 @@ import static org.codice.alliance.transformer.nitf.common.NitfHeaderAttribute.FI
 import static org.codice.alliance.transformer.nitf.common.NitfHeaderAttribute.FILE_DATE_AND_TIME_EFFECTIVE_ATTRIBUTE;
 import static org.codice.alliance.transformer.nitf.common.NitfHeaderAttribute.FILE_DATE_AND_TIME_MODIFIED_ATTRIBUTE;
 import static org.codice.alliance.transformer.nitf.image.ImageAttribute.IMAGE_DATE_AND_TIME_ATTRIBUTE;
-import static org.codice.alliance.transformer.nitf.image.ImageAttribute.convertNitfDate;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.closeTo;
@@ -40,10 +39,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -55,6 +53,8 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.codice.alliance.catalog.core.api.types.Isr;
 import org.codice.alliance.transformer.nitf.MetacardFactory;
+import org.codice.alliance.transformer.nitf.NitfAttributeConverters;
+import org.codice.alliance.transformer.nitf.NitfTestCommons;
 import org.codice.alliance.transformer.nitf.TreTestUtility;
 import org.codice.alliance.transformer.nitf.common.AimidbAttribute;
 import org.codice.alliance.transformer.nitf.common.IndexedPiaprdAttribute;
@@ -66,7 +66,6 @@ import org.codice.alliance.transformer.nitf.common.PiatgbAttribute;
 import org.codice.imaging.nitf.core.common.DateTime;
 import org.codice.imaging.nitf.core.common.FileType;
 import org.codice.imaging.nitf.core.common.NitfFormatException;
-import org.codice.imaging.nitf.core.common.impl.DateTimeImpl;
 import org.codice.imaging.nitf.core.header.NitfHeader;
 import org.codice.imaging.nitf.core.header.impl.NitfHeaderFactory;
 import org.codice.imaging.nitf.core.image.ImageSegment;
@@ -86,6 +85,7 @@ import org.junit.Test;
 public class ImageInputTransformerTest {
 
   private static final String GEO_NITF = "i_3001a.ntf";
+  public static final String TEST_CLASSIFICATION_SYSTEM = "US";
 
   private NitfImageTransformer transformer = null;
 
@@ -102,6 +102,9 @@ public class ImageInputTransformerTest {
     metacardFactory.setMetacardType(new ImageMetacardType());
 
     headerTransformer = new NitfHeaderTransformer();
+
+    NitfTestCommons.setupNitfUtilities(
+        TEST_CLASSIFICATION_SYSTEM, Collections.singletonList("USA"));
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -140,8 +143,8 @@ public class ImageInputTransformerTest {
 
     validateDates(
         metacard,
-        createNitfDateTime(1997, 12, 17, 10, 26, 30),
-        createNitfDateTime(1996, 12, 17, 10, 26, 30));
+        NitfTestCommons.createNitfDateTime(1997, 12, 17, 10, 26, 30),
+        NitfTestCommons.createNitfDateTime(1996, 12, 17, 10, 26, 30));
   }
 
   @Test
@@ -599,11 +602,11 @@ public class ImageInputTransformerTest {
   public void testNitfWithDifferentImageDates() throws Exception {
     File nitfFile = File.createTempFile("nitf-", ".ntf");
     try {
-      final DateTime fileDateTime = createNitfDateTime(2016, 1, 1, 0, 0, 0);
+      final DateTime fileDateTime = NitfTestCommons.createNitfDateTime(2016, 1, 1, 0, 0, 0);
       DateTime[] imageDateTimes = {
-        createNitfDateTime(2001, 1, 1, 0, 0, 0),
-        createNitfDateTime(2002, 1, 1, 0, 0, 0),
-        createNitfDateTime(2003, 1, 1, 0, 0, 0)
+        NitfTestCommons.createNitfDateTime(2001, 1, 1, 0, 0, 0),
+        NitfTestCommons.createNitfDateTime(2002, 1, 1, 0, 0, 0),
+        NitfTestCommons.createNitfDateTime(2003, 1, 1, 0, 0, 0)
       };
 
       createNitfWithDifferentImageDateTimes(nitfFile, fileDateTime, imageDateTimes);
@@ -642,10 +645,11 @@ public class ImageInputTransformerTest {
         NitfHeaderAttribute.FILE_TITLE_ATTRIBUTE,
         "Checks an uncompressed 1024x1024 8 bit mono image with GEOcentric data. Airfield");
     map.put(NitfHeaderAttribute.FILE_SECURITY_CLASSIFICATION_ATTRIBUTE, "UNCLASSIFIED");
-    map.put(NitfHeaderAttribute.FILE_CLASSIFICATION_SECURITY_SYSTEM_ATTRIBUTE, null);
+    map.put(
+        NitfHeaderAttribute.FILE_CLASSIFICATION_SECURITY_SYSTEM_ATTRIBUTE,
+        TEST_CLASSIFICATION_SYSTEM);
     map.put(NitfHeaderAttribute.FILE_CODE_WORDS_ATTRIBUTE, null);
     map.put(NitfHeaderAttribute.FILE_CONTROL_AND_HANDLING_ATTRIBUTE, null);
-    map.put(NitfHeaderAttribute.FILE_RELEASING_INSTRUCTIONS_ATTRIBUTE, null);
     map.put(NitfHeaderAttribute.FILE_DECLASSIFICATION_TYPE_ATTRIBUTE, null);
     map.put(NitfHeaderAttribute.FILE_DECLASSIFICATION_DATE_ATTRIBUTE, null);
     map.put(NitfHeaderAttribute.FILE_DECLASSIFICATION_EXEMPTION_ATTRIBUTE, null);
@@ -754,7 +758,7 @@ public class ImageInputTransformerTest {
       String reason, Attribute attribute, DateTime... expectedDateTimes) {
     List<Date> expectedDates =
         Stream.of(expectedDateTimes)
-            .map(dateTime -> convertNitfDate(dateTime))
+            .map(dateTime -> NitfAttributeConverters.nitfDate(dateTime))
             .collect(Collectors.toList());
 
     assertThat(reason, attribute.getValues(), is(expectedDates));
@@ -771,13 +775,5 @@ public class ImageInputTransformerTest {
 
       assertDateAttribute(reason, attribute, expectedDateTimes);
     }
-  }
-
-  private static DateTime createNitfDateTime(
-      int year, int month, int dayOfMonth, int hour, int minute, int second) {
-    DateTimeImpl dateTime = new DateTimeImpl();
-    dateTime.set(
-        ZonedDateTime.of(year, month, dayOfMonth, hour, minute, second, 0, ZoneId.of("UTC")));
-    return dateTime;
   }
 }
