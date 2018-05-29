@@ -61,7 +61,7 @@ public class CatalogInputAdapter {
       }
 
       Map<String, Serializable> props = new HashMap<>();
-      props.put(ContentItem.QUALIFIER, qualifier);
+      props.put(ContentItem.QUALIFIER_KEYWORD, qualifier);
 
       try {
         return new ResourceRequestByProductUri(new URI((String) value), props);

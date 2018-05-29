@@ -90,7 +90,7 @@ public class CatalogInputAdapterTest {
     ResourceRequest request = catalogInputAdapter.buildReadRequest(metacard, OVERVIEW);
     assertThat(request.getAttributeName(), is(Metacard.RESOURCE_URI));
     assertThat(request.getAttributeValue().toString(), is("content:10101#overview"));
-    assertThat(request.getProperties().get(ContentItem.QUALIFIER), is(OVERVIEW));
+    assertThat(request.getProperties().get(ContentItem.QUALIFIER_KEYWORD), is(OVERVIEW));
   }
 
   @Test
